@@ -7,8 +7,7 @@
 
 int main()
 {
-    std::cout << "Welcome to Qwirkle." << std::endl
-              << std::endl;
+    std::cout << "Welcome to Qwirkle." << std::endl << std::endl;
 
     Qwirkle qwirkleGame;
     qwirkleGame.start();

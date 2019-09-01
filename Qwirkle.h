@@ -32,6 +32,15 @@ public:
     Qwirkle();
     ~Qwirkle();
 
+    void newGame();
+    void loadGame();
+    void saveGame(std::string filename, Player player);
+    void showInfo();
+    void helpMenu();
+    void printMenu();
+    
+    void start();
+
     LinkedList* tileBag;
     Player playerOne;
     Player playerTwo;
