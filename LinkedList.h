@@ -21,7 +21,7 @@ public:
     Tile* getTile(Colour c);
     bool find(Colour);
     bool isEmpty();
-    void replace(Tile*, Tile*);
+    void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();
 

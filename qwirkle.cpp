@@ -104,6 +104,7 @@ void Qwirkle::showInfo(){
               << std::endl;
 
 }
+
 void Qwirkle::helpMenu(){
 
 }

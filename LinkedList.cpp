@@ -53,7 +53,7 @@ bool LinkedList::find(Colour color)
 
 }
 
-void LinkedList::replace(Tile* _old, Tile* _new)
+void LinkedList::replace(Tile* oldTile, Tile* newTile)
 {
 
 }
