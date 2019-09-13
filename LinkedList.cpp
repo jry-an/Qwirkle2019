@@ -79,18 +79,52 @@ void LinkedList::removeFirst()
 
 Tile* LinkedList::removeTile(Tile* tile)
 {
+    Tile* tempTile = nullptr;
 
+    if (head->next->tile == tile) {
+        tempTile = head->next->tile;
+        head->next = head->next->next;
+        return tempTile;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != nullptr && temp->next->next != nullptr) {
+        if (temp->next->next->tile == tile) {
+            tempTile = temp->next->next->tile;
+            temp->next->next = temp->next->next->next;
+        }
+        temp = temp->next;
+    }
+    return tempTile;
 }
 
 Tile* LinkedList::getTile(Colour c)
 {
-
+    Node* temp = head;
+    while (temp->next)
+    {
+        if(temp->tile->colour == c){
+            return new Tile(temp->tile->colour,temp->tile->shape);
+        }
+        temp = temp->next;
+    }
+    return nullptr;
 }
 
 
 bool LinkedList::find(Colour color)
 {
-
+    bool found = false;
+    Node* temp = head;
+    while (temp->next)
+    {
+        if(temp->tile->colour == color){
+            return found = true;
+        }
+        temp = temp->next;
+    }
+    return found;
 }
 
 void LinkedList::replace(Tile* oldTile, Tile* newTile)
