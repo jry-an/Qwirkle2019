@@ -10,7 +10,6 @@
 LinkedList::LinkedList()
 {
     head = nullptr;
-    head = new Node;
 }
 
 LinkedList::~LinkedList()
@@ -63,11 +62,18 @@ void LinkedList::addFirst(Tile * tile) {
     }
     else {
         newNode->next = head;
+        //point to new head node
+        head = newNode;
     }
 }
 
-Tile* LinkedList::removeFirst()
+void LinkedList::removeFirst()
 {
+    //TODO - test
+    Node* next = head->next;
+    head = nullptr;
+    delete head;
+    head = next;
 
 }
 
