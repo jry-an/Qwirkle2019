@@ -10,6 +10,7 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <cstdlib>
 
 #include "Board.h"
 #include "Player.h"
