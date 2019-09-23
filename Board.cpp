@@ -25,7 +25,7 @@ void Board::printBoard()
     
     // Check if board size is 0 (no tile placed yet)
     if(boardSize == 0) {
-        size = 17;
+        size = 6;
     }
 
     // Print numbers at top. 0, 2, 4...
@@ -46,14 +46,20 @@ void Board::printBoard()
     cout << endl;
 
     // Print -
-    cout << "   --";
+    cout << "   ";
     for(int i=0; i<=size; i++) {
         //check if even number
         if (i%2 == 0) {
             cout << "-----";
         }
     }
-    cout << "--" << endl;
+    if (size%2 == 0) {
+        cout << "-";
+    }
+    else {
+        cout << "----";
+    }
+    cout << endl;
 
     // Print Board with A, B, C...
     for (int i=0; i<=size; i++) {
@@ -86,7 +92,13 @@ void Board::printBoard()
             cout << "-----";
         }
     }
-    cout << "--" << endl;
+    if (size%2 == 0) {
+        cout << "----";
+    }
+    else {
+        cout << "--";
+    }
+    cout << endl;
 
     // Print numbers at bottom. 1, 3, 5...
     cout << "        ";
