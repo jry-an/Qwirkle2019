@@ -20,7 +20,7 @@ LinkedList::~LinkedList()
 
 int LinkedList::length()
 {
-
+    return 0;
 }
 
 void LinkedList::addLast(Tile* tile)
@@ -34,23 +34,23 @@ void LinkedList::addFirst(Tile * tile) {
 
 Tile* LinkedList::removeFirst()
 {
-
+    return nullptr;
 }
 
 Tile* LinkedList::removeTile(Tile* tile)
 {
-
+    return nullptr;
 }
 
 Tile* LinkedList::getTile(Colour c)
 {
-
+    return nullptr;
 }
 
 
 bool LinkedList::find(Colour color)
 {
-
+ return 0;
 }
 
 void LinkedList::replace(Tile* oldTile, Tile* newTile)

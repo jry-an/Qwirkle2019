@@ -9,8 +9,10 @@ int main()
 {
     std::cout << "Welcome to Qwirkle." << std::endl << std::endl;
 
-    Qwirkle qwirkleGame;
-    qwirkleGame.start();
+    Qwirkle *qwirkleGame = new Qwirkle();
+    qwirkleGame->start();
+
+    delete qwirkleGame;
 
     return EXIT_SUCCESS;
 }

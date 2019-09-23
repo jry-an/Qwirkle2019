@@ -11,6 +11,7 @@ Qwirkle::Qwirkle()
 
 Qwirkle::~Qwirkle()
 {
+   delete tileBag;
 }
 
 void Qwirkle::start()
@@ -22,6 +23,7 @@ void Qwirkle::start()
    while (input != QUIT)
    {
       //print menu
+      printMenu();
 
       //get input from user
       std::cin >> input;
@@ -68,18 +70,22 @@ void Qwirkle::printMenu()
     std::cout << "5. Quit" << std::endl;
 }
 
-void Qwirkle::newGame(){
+void Qwirkle::newGame()
+{
 
 }
 
-void Qwirkle::loadGame(){
+void Qwirkle::loadGame()
+{
 
 }
-void Qwirkle::saveGame(std::string filename, Player player){
+void Qwirkle::saveGame(std::string filename, Player player)
+{
 
 }
 
-void Qwirkle::showInfo(){
+void Qwirkle::showInfo()
+{
       std::cout << "--------------------------------" << std::endl;
     std::cout << "Name: Dylan Gutbier" << std::endl;
     std::cout << "Student ID: s3660481" << std::endl;
@@ -105,6 +111,7 @@ void Qwirkle::showInfo(){
 
 }
 
-void Qwirkle::helpMenu(){
+void Qwirkle::helpMenu()
+{
 
 }
