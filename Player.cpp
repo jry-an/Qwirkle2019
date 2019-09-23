@@ -1,9 +1,16 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(std::string name)
 {
+    this->name = name;
+    this->score = 0;
 }
 
+Player::Player()
+{
+    this->name = nullptr;
+    this->score = 0;
+}
 
 Player::~Player()
 {

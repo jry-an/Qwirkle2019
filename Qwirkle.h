@@ -29,13 +29,17 @@ const int HELP = 4;
 const int QUIT = 5;
 
 class Qwirkle {
-
+private:
+    int maxPlayers;
+    Player *players;
 public:
     //constructor and deconstructor (if needed)
+    Qwirkle(int numPlayers);
     Qwirkle();
     ~Qwirkle();
 
     void shuffleTileBag();
+    Player* getNewPlayer();
     void newGame();
     void loadGame();
     void saveGame(std::string filename, Player player);

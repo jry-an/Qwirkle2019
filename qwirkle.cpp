@@ -1,8 +1,16 @@
 
 #include "Qwirkle.h"
 
+Qwirkle::Qwirkle(int numPlayers)
+{
+   this->maxPlayers = numPlayers;
+   this->players = new Player[numPlayers];
+   tileBag = new LinkedList();
+}
+
 Qwirkle::Qwirkle()
 {
+   this->maxPlayers = 2;
    tileBag = new LinkedList();
 }
 
@@ -94,13 +102,29 @@ void Qwirkle::newGame()
    //TODO Tharvind
    //call tileBag shuffle method, which shuffles the contents of the tileBag 
    shuffleTileBag(); 
+
+   //get new players
+   for (int i=0; i<maxPlayers; i++) {
+      Player* tempPlayer = getNewPlayer();
+   }
    
    // Print the game board
+   // TODO delete this call eventually because board 
+   // will be printing while game is being played
    gameBoard->printBoard();
 
 
 
 
+}
+
+Player* Qwirkle::getNewPlayer() 
+{
+   std::string name;
+   Player* player = new Player(name);
+   //NOTE: Input for player names must be letters only
+   
+   return player;
 }
 
 void Qwirkle::loadGame()
