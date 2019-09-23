@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <map>
 using std::vector;
+using std::endl;
+using std::cout;
 
 const int ROWS = 26;
 const int COLS = 26;
@@ -13,10 +15,12 @@ const int COLS = 26;
 class Board {
     public:
     Board();
+    void printBoard();
 
 private:
     Tile* array[ROWS][COLS];
-    int turnCount;
+    int boardSize;
+    char alphabet[26];
 
 
 };

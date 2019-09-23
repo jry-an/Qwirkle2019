@@ -1,8 +1,5 @@
 
 #include "Qwirkle.h"
-#include <fstream>
-#include <map>
-#include <sstream>
 
 Qwirkle::Qwirkle()
 {
@@ -72,7 +69,8 @@ void Qwirkle::printMenu()
 
 void Qwirkle::newGame()
 {
-
+   Board *gameBoard = new Board();
+   gameBoard->printBoard();
 }
 
 void Qwirkle::loadGame()
