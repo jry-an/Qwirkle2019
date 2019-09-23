@@ -1,18 +1,19 @@
 
 #include "Qwirkle.h"
 
-Qwirkle::Qwirkle(int numPlayers)
-{
-   cout << "AHDGAYDU" << endl;
-   this->maxPlayers = numPlayers;
-   cout << "AHDGAYDU";
-   this->players = new Player[numPlayers];
-   tileBag = new LinkedList();
-}
 
 Qwirkle::Qwirkle()
 {
    this->maxPlayers = 2;
+   tileBag = new LinkedList();
+}
+
+Qwirkle::Qwirkle(int numPlayers)
+{
+   cout << "AHDGAYDU" << endl;
+   this->maxPlayers = numPlayers;
+   cout << "AHDGAYDU" << endl;
+   this->players = new Player[numPlayers];
    tileBag = new LinkedList();
 }
 
