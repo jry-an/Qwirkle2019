@@ -35,6 +35,7 @@ public:
     Qwirkle();
     ~Qwirkle();
 
+    void shuffleTileBag();
     void newGame();
     void loadGame();
     void saveGame(std::string filename, Player player);

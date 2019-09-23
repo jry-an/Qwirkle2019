@@ -67,10 +67,40 @@ void Qwirkle::printMenu()
     std::cout << "5. Quit" << std::endl;
 }
 
+void Qwirkle::shuffleTileBag() 
+{
+   //TODO Tharvind 
+}
+
 void Qwirkle::newGame()
 {
    Board *gameBoard = new Board();
+   Colour colourList[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
+   Shape shapeList[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
+
+   // Clear tilebag incase new game is being started 
+   // without previous game having finished.
+   tileBag->clear();
+   
+   // Initialise tileBag (unshuffled)
+   for (int t=0; t<2; t++) {
+      for (int i=0; i<6; i++) {
+         for (int j=0; j<6; j++) {
+            Tile* tempTile = new Tile();
+            tileBag->addLast(tempTile);
+         }
+      }
+   }
+   //TODO Tharvind
+   //call tileBag shuffle method, which shuffles the contents of the tileBag 
+   shuffleTileBag(); 
+   
+   // Print the game board
    gameBoard->printBoard();
+
+
+
+
 }
 
 void Qwirkle::loadGame()
@@ -111,5 +141,5 @@ void Qwirkle::showInfo()
 
 void Qwirkle::helpMenu()
 {
-
+   
 }
