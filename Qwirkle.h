@@ -19,8 +19,15 @@
 #include "Tile.h"
 #include "TileCodes.h"
 
+struct non_alpha {
+    bool operator()(char c)
+    {
+        return !std::isalpha(c);
+    }
+};
+
 enum Turn { PLAYER1,
-    PLAYER2 };
+PLAYER2 };
 
 const int NEW_GAME = 1;
 const int LOAD_GAME = 2;
@@ -29,13 +36,10 @@ const int HELP = 4;
 const int QUIT = 5;
 
 class Qwirkle {
-private:
-    int maxPlayers;
-    Player *players;
 public:
     //constructor and deconstructor (if needed)
-    Qwirkle(int numPlayers);
     Qwirkle();
+    Qwirkle(int numPlayers);
     ~Qwirkle();
 
     void shuffleTileBag();
@@ -46,14 +50,19 @@ public:
     void showInfo();
     void helpMenu();
     void printMenu();
+    void playGame();
     
     void start();
 
     LinkedList* tileBag;
-    Player playerOne;
-    Player playerTwo;
     Board board;
     Turn turn;
+
+private:
+    Board *gameBoard;
+    std::vector<Player*> players;
+    int maxPlayers;
+    int currentPlayer;
 };
 
 #endif

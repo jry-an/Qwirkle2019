@@ -11,7 +11,6 @@ int main()
 
     int players = 2;
     Qwirkle *qwirkleGame = new Qwirkle(players);
-    cout << "OOPS";
     qwirkleGame->start();
 
     delete qwirkleGame;
