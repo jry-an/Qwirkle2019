@@ -7,9 +7,11 @@
 
 int main()
 {
-    std::cout << "Welcome to Qwirkle." << std::endl << std::endl;
+    cout << "Welcome to Qwirkle." << endl << endl;
 
-    Qwirkle *qwirkleGame = new Qwirkle(2);
+    int players = 2;
+    Qwirkle *qwirkleGame = new Qwirkle(players);
+    cout << "OOPS";
     qwirkleGame->start();
 
     delete qwirkleGame;

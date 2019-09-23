@@ -3,7 +3,9 @@
 
 Qwirkle::Qwirkle(int numPlayers)
 {
+   cout << "AHDGAYDU" << endl;
    this->maxPlayers = numPlayers;
+   cout << "AHDGAYDU";
    this->players = new Player[numPlayers];
    tileBag = new LinkedList();
 }
@@ -94,7 +96,7 @@ void Qwirkle::newGame()
    for (int t=0; t<2; t++) {
       for (int i=0; i<6; i++) {
          for (int j=0; j<6; j++) {
-            Tile* tempTile = new Tile();
+            Tile* tempTile = new Tile(colourList[i], shapeList[j]);
             tileBag->addLast(tempTile);
          }
       }
@@ -106,11 +108,12 @@ void Qwirkle::newGame()
    //get new players
    for (int i=0; i<maxPlayers; i++) {
       Player* tempPlayer = getNewPlayer();
+      players[i] = *tempPlayer;
    }
    
    // Print the game board
    // TODO delete this call eventually because board 
-   // will be printing while game is being played
+   // will be printing from playGame() function
    gameBoard->printBoard();
 
 
