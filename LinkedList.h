@@ -16,7 +16,7 @@ public:
     int length();
     void addLast(Tile* tile);
     void addFirst(Tile* tile);
-    Tile* removeFirst();
+    void removeFirst();
     Tile* removeTile(Tile* tile);
     Tile* getTile(Colour c);
     bool find(Colour);

@@ -10,7 +10,6 @@
 LinkedList::LinkedList()
 {
     head = nullptr;
-    head = new Node;
 }
 
 LinkedList::~LinkedList()
@@ -20,46 +19,134 @@ LinkedList::~LinkedList()
 
 int LinkedList::length()
 {
-    return 0;
+    int length = 0;
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        length++;
+        temp = temp->next;
+    }
+    return length;
+    
 }
 
 void LinkedList::addLast(Tile* tile)
 {
+    Node* newNode = new Node(tile, nullptr);
+
+    //check if head exists
+    if (head == nullptr)
+    {
+        head = newNode;
+        return;
+    }
+    Node* temp = head;
+
+    //check if head is only node
+    if(length() == 1){
+        head->next = newNode;
+    }
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+
 
 }
 
 void LinkedList::addFirst(Tile * tile) {
-
+    Node *newNode = new Node(tile, nullptr);
+    if(head == nullptr) {
+        head = newNode;
+    }
+    else {
+        newNode->next = head;
+        //point to new head node
+        head = newNode;
+    }
 }
 
-Tile* LinkedList::removeFirst()
+void LinkedList::removeFirst()
 {
-    return nullptr;
+    Node* temp = head;
+    head = head->next;
+    delete temp;
 }
 
 Tile* LinkedList::removeTile(Tile* tile)
 {
-    return nullptr;
+    Tile* tempTile = nullptr;
+
+    if (head->next->tile == tile) {
+        tempTile = head->next->tile;
+        head->next = head->next->next;
+        return tempTile;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != nullptr && temp->next->next != nullptr) {
+        if (temp->next->next->tile == tile) {
+            tempTile = temp->next->next->tile;
+            temp->next->next = temp->next->next->next;
+        }
+        temp = temp->next;
+    }
+    return tempTile;
 }
 
 Tile* LinkedList::getTile(Colour c)
 {
+    Node* temp = head;
+    while (temp->next)
+    {
+        if(temp->tile->colour == c){
+            return new Tile(temp->tile->colour,temp->tile->shape);
+        }
+        temp = temp->next;
+    }
     return nullptr;
 }
 
 
 bool LinkedList::find(Colour color)
 {
- return 0;
+    bool found = false;
+    Node* temp = head;
+    while (temp->next)
+    {
+        if(temp->tile->colour == color){
+            return found = true;
+        }
+        temp = temp->next;
+    }
+    return found;
 }
 
 void LinkedList::replace(Tile* oldTile, Tile* newTile)
 {
-
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        if(temp->next->tile == oldTile){
+            temp->next->tile->colour = newTile->colour;
+            temp->next->tile->shape = newTile->shape;
+            return;
+        }
+        temp = temp->next;
+    }
 }
 
 
 void LinkedList::clear()
 {
-
+    Node * temp = head->next;
+    while(temp != nullptr){
+        Node* next = temp->next;
+        temp = nullptr;
+        delete temp;
+        temp = next;
+    }
+    head = nullptr;
 }
