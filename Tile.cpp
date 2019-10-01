@@ -19,7 +19,7 @@ Tile::Tile(Colour colour, Shape shape)
 
 bool Tile::isEmpty()
 {
-    return (this->colour == 'W' && this->shape == -1);
+    return (this->colour == ' ' && this->shape == -1);
 }
 
 bool Tile::isEqual(Tile* t)
@@ -27,7 +27,22 @@ bool Tile::isEqual(Tile* t)
     return (t->colour == this->colour && t->shape == this->shape);
 }
 
-std::string Tile::getTileCode() 
-{
-    return tileCode;
+Colour Tile::getColour(){
+    return colour;
 }
+
+void Tile::setColour(Colour colour){
+
+}
+
+Shape Tile::getShape(){
+    return shape;
+}
+
+void Tile::setShape(Shape s){
+    shape = s;
+}
+
+ std::string Tile::getTileCode(){
+     return tileCode;
+ }
