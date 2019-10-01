@@ -101,8 +101,8 @@ Tile* LinkedList::getTile(Colour c)
     Node* temp = head;
     while (temp->next)
     {
-        if(temp->tile->colour == c){
-            return new Tile(temp->tile->colour,temp->tile->shape);
+        if(temp->tile->getColour == c){
+            return new Tile(temp->tile->getColour(),temp->tile->getShape());
         }
         temp = temp->next;
     }
@@ -116,7 +116,7 @@ bool LinkedList::find(Colour color)
     Node* temp = head;
     while (temp->next)
     {
-        if(temp->tile->colour == color){
+        if(temp->tile->getColour() == color){
             return found = true;
         }
         temp = temp->next;
@@ -130,8 +130,8 @@ void LinkedList::replace(Tile* oldTile, Tile* newTile)
     while (temp->next != nullptr)
     {
         if(temp->next->tile == oldTile){
-            temp->next->tile->colour = newTile->colour;
-            temp->next->tile->shape = newTile->shape;
+            temp->next->tile->setColour(newTile->getColour());
+            temp->next->tile->setShape(newTile->getShape());
             return;
         }
         temp = temp->next;
