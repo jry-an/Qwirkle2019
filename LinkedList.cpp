@@ -67,7 +67,7 @@ void LinkedList::addFirst(Tile * tile) {
     }
 }
 
-void LinkedList::removeFirst()
+Tile* LinkedList::removeFirst()
 {
     Node* temp = head;
     head = head->next;

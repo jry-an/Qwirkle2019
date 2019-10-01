@@ -4,6 +4,7 @@
 
 Qwirkle::Qwirkle()
 {
+       tileBag = new LinkedList;
 }
 
 Qwirkle::Qwirkle(int numPlayers)
@@ -83,6 +84,16 @@ void Qwirkle::shuffleTileBag()
 {
    //TODO Tharvind 
 }
+
+LinkedList* Qwirkle::getNewDeck()
+{
+    LinkedList* list = new LinkedList;
+    for (int i = 0; i < 6; i++) {
+        list->addLast(tileBag->removeFirst());
+    }
+    return list;
+}
+
 
 void Qwirkle::newGame()
 {

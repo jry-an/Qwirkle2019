@@ -51,6 +51,7 @@ public:
     void helpMenu();
     void printMenu();
     void playGame();
+    LinkedList* Qwirkle::getNewDeck();
     
     void start();
 
