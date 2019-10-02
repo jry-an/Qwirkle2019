@@ -110,6 +110,20 @@ Tile* LinkedList::getTile(Colour c)
     return nullptr;
 }
 
+Tile* LinkedList::getTileByIndex(int i){
+    Node* temp = head;  
+      
+    int count = 0;  
+    while (temp != nullptr)  
+    {  
+        if (count == i)  
+            return(temp->tile);  
+        count++;  
+        temp = temp->next;  
+    }  
+    return temp->tile;
+}  
+
 
 bool LinkedList::find(Colour color)
 {
@@ -157,4 +171,13 @@ void LinkedList::clear()
         std::cout << "hello?" << std::endl;
     }
     
+}
+
+void LinkedList::print(){
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        std::cout << temp->tile->getColour() << temp->tile->getShape() << "->";
+        temp = temp->next;
+    }
 }

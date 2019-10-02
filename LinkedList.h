@@ -19,11 +19,13 @@ public:
     Tile* removeFirst();
     Tile* removeTile(Tile* tile);
     Tile* getTile(Colour c);
+    Tile* getTileByIndex(int i);
     bool find(Colour);
     bool isEmpty();
     void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();
+    void print();
 
 private:
     Node* head;

@@ -111,6 +111,7 @@ void Qwirkle::newGame()
       for (int i=0; i<6; i++) {
          for (int j=0; j<6; j++) {
             Tile* tempTile = new Tile(colourList[i], shapeList[j]);
+            cout << tempTile->getColour() <<" " << tempTile->getShape()  << endl;
             tileBag->addLast(tempTile);
          }
       }
@@ -154,10 +155,13 @@ void Qwirkle::playGame() {
 
       // Print the game board
       gameBoard->printBoard();
+      cout << "tileBag: ";
+      tileBag->print();
+      cout << endl;
 
       //TODO: (When linked list is ready)
       //Print current players hand
-      cout << "Your hand is" << endl << "NULL\n" << endl;
+      cout << "Your hand is" << endl << objCurPlayer->getDeck() << endl;
       //LinkedList* deck = objCurPlayer->getDeck();
       
       //temporary call to end while
