@@ -31,6 +31,7 @@ void Qwirkle::start()
       printMenu();
 
       //get input from user
+      cout << "> ";
       std::cin >> input;
       std::cout << std::endl;
 
@@ -71,13 +72,13 @@ void Qwirkle::start()
 
 void Qwirkle::printMenu()
 {
-    std::cout << "Menu" << std::endl;
-    std::cout << "----" << std::endl;
-    std::cout << "1. New Game" << std::endl;
-    std::cout << "2. Load Game" << std::endl;
-    std::cout << "3. Show student information" << std::endl;
-    std::cout << "4. Help!" << std::endl;
-    std::cout << "5. Quit" << std::endl;
+    cout << "Menu" << endl;
+    cout << "----" << endl;
+    cout << "1. New Game" << endl;
+    cout << "2. Load Game" << endl;
+    cout << "3. Show student information" << endl;
+    cout << "4. Help!" << endl;
+    cout << "5. Quit" << endl << endl;
 }
 
 void Qwirkle::shuffleTileBag() 
@@ -100,7 +101,7 @@ void Qwirkle::newGame()
    gameBoard = new Board();
    Colour colourList[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
    Shape shapeList[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
-
+   
    // Clear tilebag incase new game is being started 
    // without previous game having finished.
    tileBag->clear();
@@ -115,14 +116,18 @@ void Qwirkle::newGame()
       }
    }
    //call tileBag shuffle method, which shuffles the contents of the tileBag 
-   shuffleTileBag(); 
+   shuffleTileBag();
 
    //get new players
+   players.clear();
    for (int i=0; i<maxPlayers; i++) {
       cout << "Enter a name for Player" << i+1 << ":" << endl;
       Player* tempPlayer = getNewPlayer();
       players.push_back(tempPlayer);
    }
+
+   //give each player a new hand
+   //TODO
 
    //set whos turn it is. (Player1 for new games)
    currentPlayer = 0;
@@ -138,10 +143,12 @@ void Qwirkle::playGame() {
    while (!gameOver) {
       Player* objCurPlayer = players.at(currentPlayer);
       // Print current player and scores
-      cout << objCurPlayer->getName() << ", it's your turn" << endl;
+
+      cout << endl << endl
+            << objCurPlayer->getName() << ", it's your turn." << endl << endl;
       
       for (int i=0; i<maxPlayers; i++) {
-         cout << "Score for " << players.at(i)->getName() << ": " << players.at(i)->getScore() << endl;
+         cout << "Score for " << players.at(i)->getName() << ": \t" << players.at(i)->getScore() << endl;
       }
       cout << endl;
 
@@ -150,7 +157,7 @@ void Qwirkle::playGame() {
 
       //TODO: (When linked list is ready)
       //Print current players hand
-      cout << "Your hand is" << endl << "NULL" << endl;
+      cout << "Your hand is" << endl << "NULL\n" << endl;
       //LinkedList* deck = objCurPlayer->getDeck();
       
       //temporary call to end while
@@ -166,7 +173,7 @@ Player* Qwirkle::getNewPlayer()
    while (badInput) {
       //get input for name
 
-      std::cout << "> ";
+      cout << "> ";
       std::cin >> name;
       if(std::cin.eof()) {
          cout << endl << "Goodbye." << endl;
@@ -231,5 +238,5 @@ void Qwirkle::showInfo()
 
 void Qwirkle::helpMenu()
 {
-   
+   //TODO Milestone 3
 }

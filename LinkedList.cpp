@@ -41,10 +41,10 @@ void LinkedList::addLast(Tile* tile)
         return;
     }
     Node* temp = head;
-
     //check if head is only node
     if(length() == 1){
         head->next = newNode;
+        return;
     }
     while (temp->next != nullptr)
     {
@@ -71,7 +71,8 @@ Tile* LinkedList::removeFirst()
 {
     Node* temp = head;
     head = head->next;
-    delete temp;
+
+    return temp->tile;
 }
 
 Tile* LinkedList::removeTile(Tile* tile)
@@ -101,7 +102,7 @@ Tile* LinkedList::getTile(Colour c)
     Node* temp = head;
     while (temp->next)
     {
-        if(temp->tile->getColour == c){
+        if(temp->tile->getColour() == c){
             return new Tile(temp->tile->getColour(),temp->tile->getShape());
         }
         temp = temp->next;
@@ -141,12 +142,19 @@ void LinkedList::replace(Tile* oldTile, Tile* newTile)
 
 void LinkedList::clear()
 {
-    Node * temp = head->next;
-    while(temp != nullptr){
-        Node* next = temp->next;
-        temp = nullptr;
-        delete temp;
-        temp = next;
+    if (head != nullptr) {
+        Node * temp = head->next;
+
+        while(temp != nullptr){
+            Node* next = temp->next;
+            temp = nullptr;
+            delete temp;
+            temp = next;
+        }
+        head = nullptr;
     }
-    head = nullptr;
+    else {
+        std::cout << "hello?" << std::endl;
+    }
+    
 }
