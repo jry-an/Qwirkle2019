@@ -34,6 +34,7 @@ const int LOAD_GAME = 2;
 const int STUDENT_INFO = 3;
 const int HELP = 4;
 const int QUIT = 5;
+const int HAND_SIZE = 6;
 
 class Qwirkle {
 public:

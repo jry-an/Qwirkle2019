@@ -125,9 +125,16 @@ void Qwirkle::newGame()
       Player* tempPlayer = getNewPlayer();
       players.push_back(tempPlayer);
    }
-
-   //give each player a new hand
-   //TODO
+   //get new hands for players
+   for (int i=0; i<maxPlayers; i++) {
+      Player* tempPlayer = players.at(i);
+      //create a new hand for player
+      LinkedList* newHand = new LinkedList();
+      for (int i=0; i<HAND_SIZE; i++) {
+         newHand->addLast(tileBag->removeFirst());
+      }
+      tempPlayer->setDeck(newHand);
+   }
 
    //set whos turn it is. (Player1 for new games)
    currentPlayer = 0;
@@ -157,8 +164,12 @@ void Qwirkle::playGame() {
 
       //TODO: (When linked list is ready)
       //Print current players hand
-      cout << "Your hand is" << endl << "NULL\n" << endl;
-      //LinkedList* deck = objCurPlayer->getDeck();
+      cout << "Your hand is:" << endl;
+      //TODO PRINT HAND
+      LinkedList* deck = objCurPlayer->getDeck();
+      for (int i=0; i<deck->size(); i++) {
+         //cout << deck->find()->getTileCode();
+      }
       
       //temporary call to end while
       gameOver = true;
