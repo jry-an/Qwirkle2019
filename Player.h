@@ -21,6 +21,8 @@ public:
     LinkedList* getDeck();
     void setDeck(LinkedList* d);
     void setName(std::string name);
+    void replaceTile(Tile* oldTile, Tile* newTile);
+    void placeTile(Tile* newTile, Tile* oldTile);
 
 private:
     int score;

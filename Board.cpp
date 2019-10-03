@@ -117,3 +117,10 @@ void Board::printBoard()
     }
     cout << endl;
 }
+
+bool Board::makeMove(Player* player, int row, int col, Tile* tile) {
+    //check if valid move (able to place tile there)
+    //
+    //TODO
+    return false;
+}

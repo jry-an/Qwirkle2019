@@ -53,8 +53,8 @@ public:
     void printMenu();
     void playGame();
     LinkedList* getNewDeck();
-    
     void start();
+    void takeTurn();
 
     LinkedList* tileBag;
     Board board;

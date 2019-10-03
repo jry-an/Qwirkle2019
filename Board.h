@@ -16,6 +16,8 @@ class Board {
     public:
     Board();
     void printBoard();
+    bool makeMove(Player* player, int row, int col, Tile* tile);
+    
 
 private:
     Tile* array[ROWS][COLS];
