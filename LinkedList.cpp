@@ -1,15 +1,10 @@
 #include "LinkedList.h"
 #include "TileCodes.h"
-#include <algorithm>
-#include <iostream>
-#include <sstream>
-#include <random>
-#include <vector>
-#include <map>
 
 LinkedList::LinkedList()
 {
     head = nullptr;
+    length = 0;
 }
 
 LinkedList::~LinkedList()
@@ -17,17 +12,9 @@ LinkedList::~LinkedList()
     this->clear();
 }
 
-int LinkedList::length()
+int LinkedList::size()
 {
-    int length = 0;
-    Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        length++;
-        temp = temp->next;
-    }
     return length;
-    
 }
 
 void LinkedList::addLast(Tile* tile)
@@ -38,21 +25,42 @@ void LinkedList::addLast(Tile* tile)
     if (head == nullptr)
     {
         head = newNode;
-        return;
-    }
-    Node* temp = head;
-    //check if head is only node
-    if(length() == 1){
-        head->next = newNode;
-        return;
-    }
-    while (temp->next != nullptr)
-    {
-        temp = temp->next;
-    }
-    temp->next = newNode;
+    } else {
+        Node* temp = head;
+    
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
 
+    }
 
+    length++;
+}
+
+Tile* LinkedList::get(int i) {
+    int counter = 0;
+    Node* node = head;
+
+    //check if linked list empty
+    if (head == nullptr) {
+        return nullptr;
+    }
+    //check if bigger than linked list size
+    if (i>=length) {
+        return nullptr;
+    }
+    //base case
+    if (i==0) {
+        return head->tile;
+    }
+    //return Tile at position i    
+    while (counter!=i) {
+        node = node->next;
+        counter++;
+    }
+    Tile* tile = node->tile;
+    return tile;
 }
 
 void LinkedList::addFirst(Tile * tile) {
@@ -65,13 +73,18 @@ void LinkedList::addFirst(Tile * tile) {
         //point to new head node
         head = newNode;
     }
+    length++;
 }
 
 Tile* LinkedList::removeFirst()
 {
-    Node* temp = head;
+    if (head == nullptr) {
+        return nullptr;
+    }
+    Node* temp = head; 
     head = head->next;
-
+  
+    length--;
     return temp->tile;
 }
 
@@ -110,24 +123,27 @@ Tile* LinkedList::getTile(Colour c)
     return nullptr;
 }
 
-Tile* LinkedList::getTileByIndex(int i){
-    Node* temp = head;  
-      
-    int count = 0;  
-    while (temp != nullptr)  
-    {  
-        if (count == i)  
-            return(temp->tile);  
-        count++;  
-        temp = temp->next;  
-    }  
-    return temp->tile;
-}  
-
+bool LinkedList::find(Tile* t) {
+    Node* tmp = head;
+    //base case if head is the desired tile
+    if (head->tile->isEqual(t)) {
+        return true;
+    }
+    while (tmp->next != nullptr) {
+        if (tmp->next->tile->isEqual(t)) {
+            return true;
+        }
+        tmp = tmp->next;
+    }
+    return false;
+}
 
 bool LinkedList::find(Colour color)
 {
     bool found = false;
+    if (head == nullptr) {
+        return found;
+    }
     Node* temp = head;
     while (temp->next)
     {
@@ -153,6 +169,21 @@ void LinkedList::replace(Tile* oldTile, Tile* newTile)
     }
 }
 
+// void LinkedList::replace(Tile* _old, Tile* _new)
+// {
+//     Node* tmp = head;
+//     if (tmp->next!=nullptr){
+//         while (tmp->next) {
+//             if (tmp->next->tile->is_equal(_old)) {
+//                 tmp->next->tile->colour = _new->colour;
+//                 tmp->next->tile->shape = _new->shape;
+//                 return;
+//             }
+//             tmp = tmp->next;
+//         }
+//     }
+// }
+
 
 void LinkedList::clear()
 {
@@ -166,18 +197,9 @@ void LinkedList::clear()
             temp = next;
         }
         head = nullptr;
-    }
-    else {
-        std::cout << "hello?" << std::endl;
-    }
-    
+    }    
 }
 
-void LinkedList::print(){
-    Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        std::cout << temp->tile->getColour() << temp->tile->getShape() << "->";
-        temp = temp->next;
-    }
+bool LinkedList::isEmpty() {
+    return (head == nullptr);
 }

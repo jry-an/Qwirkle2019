@@ -2,6 +2,7 @@
 #define ASSIGN2_TILE_H
 
 #include <string>
+#include <iostream>
 
 // Define a Colour type
 typedef char Colour;

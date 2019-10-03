@@ -1,4 +1,3 @@
-#include <iostream>
 
 #include "Tile.h"
 
@@ -6,7 +5,7 @@ Tile::Tile()
 {
     this->colour = ' ';
     this->shape = -1;
-    this->tileCode += colour;
+    this->tileCode = colour;
     this->tileCode += " ";
 }
 
@@ -14,7 +13,8 @@ Tile::Tile(Colour colour, Shape shape)
 {
     this->colour = colour;
     this->shape = shape;
-    this->tileCode = colour + shape;
+    this->tileCode += colour;
+    this->tileCode += std::to_string(shape);
 }
 
 bool Tile::isEmpty()
@@ -24,7 +24,7 @@ bool Tile::isEmpty()
 
 bool Tile::isEqual(Tile* t)
 {
-    return (t->colour == this->colour && t->shape == this->shape);
+    return (t->getColour() == this->colour && t->getShape() == this->shape);
 }
 
 Colour Tile::getColour(){
