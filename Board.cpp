@@ -135,9 +135,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
                 std::cout << "left true" << std::endl;
             }
         }
-        if(success != true){
-            success = false;
-        }
+
 
         //right
         else if(row<=ROWS && !array[row+1][col] -> isEmpty()){
@@ -148,9 +146,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
             }
         }
-        if(success != true){
-            success = false;
-        }
+
 
         //up
         else if(col>=1 && !array[row][col-1] -> isEmpty()){
@@ -158,12 +154,9 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
                 std::cout << "up true" << std::endl;
-
             }
         }
-        if(success != true){
-            success = false;
-        }
+
 
         //down
         else if(row<=ROWS && !array[row][col+1] -> isEmpty()){
@@ -173,9 +166,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
                 std::cout << "down true" << std::endl;
 
             }
-        }
-        if(success != true){
-            success = false;
         }
     }
         int score = getMovePoints();
