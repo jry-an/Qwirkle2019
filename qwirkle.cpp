@@ -154,9 +154,6 @@ void Qwirkle::playGame() {
 
       // Print the game board
       gameBoard->printBoard();
-      cout << "tileBag: ";
-      tileBag->print();
-      cout << endl;
 
       //Print current players hand
       cout << endl << "Your hand is:" << endl;
@@ -317,7 +314,7 @@ Player* Qwirkle::getNewPlayer()
       std::cin >> name;
       if(std::cin.eof()) {
          cout << endl << "Goodbye." << endl;
-         exit(0); 
+         exit(EXIT_SUCCESS); 
       }
       //check that input contains only letters
       badInput = std::find_if(name.begin(), name.end(), non_alpha()) != name.end();

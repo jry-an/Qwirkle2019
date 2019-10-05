@@ -32,7 +32,6 @@ public:
     void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();
-    void print();
 
 private:
     Node* head;
