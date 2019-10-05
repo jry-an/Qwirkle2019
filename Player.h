@@ -22,7 +22,7 @@ public:
     void setDeck(LinkedList* d);
     void setName(std::string name);
     void replaceTile(Tile* oldTile, Tile* newTile);
-    void placeTile(Tile* newTile, Tile* oldTile);
+    void placeTile(Tile* tileToPlace, Tile* getNewTile);
 
 private:
     int score;

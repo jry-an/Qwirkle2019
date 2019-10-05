@@ -50,14 +50,14 @@ void Player::replaceTile(Tile* oldTile, Tile* newTile) {
     this->deck->replace(oldTile, newTile);
 }
 
-void Player::placeTile(Tile* oldTile, Tile* newTile) {
-    if (oldTile != nullptr)
+void Player::placeTile(Tile* tileToPlace, Tile* getNewTile) {
+    if (tileToPlace != nullptr)
     {
-        this->deck->removeTile(oldTile);
+        this->deck->removeTile(tileToPlace);
     }
     
-    if (newTile != nullptr) {
-        this->deck->addLast(newTile);
+    if (getNewTile != nullptr) {
+        this->deck->addLast(getNewTile);
     }
 
 }
