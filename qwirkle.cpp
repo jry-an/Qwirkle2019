@@ -154,9 +154,6 @@ void Qwirkle::playGame() {
 
       // Print the game board
       gameBoard->printBoard();
-      cout << "tileBag: ";
-      tileBag->print();
-      cout << endl;
 
       //Print current players hand
       cout << endl << "Your hand is:" << endl;
