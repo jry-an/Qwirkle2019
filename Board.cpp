@@ -21,6 +21,17 @@ Board::Board()
 
 void Board::printBoard() 
 {
+
+    std::map<Colour, std::string> color_map;
+    color_map[RED] = "\033[31m";
+    color_map[ORANGE] = "\033[33m";
+    color_map[GREEN] = "\033[32m";
+    color_map[BLUE] = "\033[34m";
+    color_map[YELLOW] = "\033[33m";
+    color_map[PURPLE] = "\033[35m";
+    color_map['W'] = "\033[37m";
+
+    
     int size = boardSize;
     
     // Check if board size is 0 (no tile placed yet)
@@ -138,7 +149,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
 
         //right
-        else if(row<=ROWS && !array[row+1][col] -> isEmpty()){
+        else if(row<= ROWS && !array[row+1][col] -> isEmpty()){
             if(array[row+1][col]->getColour() == tile->getColour() || array[row+1][col]->getShape() == tile->getShape()){
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
