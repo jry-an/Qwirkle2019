@@ -29,9 +29,9 @@ void Board::printBoard()
     color_map[BLUE] = "\033[34m";
     color_map[YELLOW] = "\033[33m";
     color_map[PURPLE] = "\033[35m";
-    color_map['W'] = "\033[37m";
+    color_map[' '] = "\033[37m";
 
-    
+
     int size = boardSize;
     
     // Check if board size is 0 (no tile placed yet)
