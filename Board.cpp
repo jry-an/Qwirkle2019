@@ -178,9 +178,11 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
             }
         }
+        //if there are no tiles on the board, place the tile at [row][col]
         else if(firstTurn()){
             array[row][col] = new Tile(tile->getColour(), tile->getShape());
             success = true;
+            std::cout << "first turn placed" << std::endl;
         }
     }
         int score = getMovePoints();
