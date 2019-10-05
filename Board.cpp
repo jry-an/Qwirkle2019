@@ -128,10 +128,11 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
     if (array[row][col]->isEmpty()){
         //left
-        if(row>=1 && array[row-1][col] -> isEmpty()){
+        if(row>=1 && !array[row-1][col]->isEmpty()){
             if(array[row-1][col]->getColour() == tile->getColour() || array[row-1][col]->getShape() == tile->getShape()){
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
+                std::cout << "left true" << std::endl;
             }
         }
         if(success != true){
@@ -139,10 +140,12 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
 
         //right
-        else if(row<=ROWS && array[row+1][col] -> isEmpty()){
+        else if(row<=ROWS && !array[row+1][col] -> isEmpty()){
             if(array[row+1][col]->getColour() == tile->getColour() || array[row+1][col]->getShape() == tile->getShape()){
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
+                std::cout << "right true" << std::endl;
+
             }
         }
         if(success != true){
@@ -150,10 +153,12 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
 
         //up
-        else if(col>=1 && array[row][col-1] -> isEmpty()){
+        else if(col>=1 && !array[row][col-1] -> isEmpty()){
              if(array[row][col-1]->getColour() == tile->getColour() || array[row][col-1]->getShape() == tile->getShape()){
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
+                std::cout << "up true" << std::endl;
+
             }
         }
         if(success != true){
@@ -161,10 +166,12 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
 
         //down
-        else if(row<=ROWS && array[row][col+1] -> isEmpty()){
+        else if(row<=ROWS && !array[row][col+1] -> isEmpty()){
              if(array[row][col+1]->getColour() == tile->getColour() || array[row][col+1]->getShape() == tile->getShape()){
                 array[row][col] = new Tile(tile->getColour(), tile->getShape());
                 success = true;
+                std::cout << "down true" << std::endl;
+
             }
         }
         if(success != true){
@@ -184,6 +191,14 @@ int Board::getMovePoints()
 {
     //TODO
     return 0;
+}
+
+Tile* Board::getTile(int row, int col) {
+    return array[row][col];
+}
+
+void Board::setTile(int row, int col, Colour colour, Shape shape) {
+    array[row][col] = new Tile(colour, shape);
 }
 
 bool Board::isEmpty()

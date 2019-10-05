@@ -180,7 +180,7 @@ void Qwirkle::playGame() {
 }
 
 void Qwirkle::takeTurn() {
-   Player* player = players.at(currentPlayer);
+   Player& player = *players.at(currentPlayer);
    std::string line;
    bool is_end = true; // whether the stream is end
    bool flag = false; // whether the input is end
@@ -232,7 +232,7 @@ void Qwirkle::takeTurn() {
             Tile* oldTile = new Tile(tile[0], (tile[1] - '0'));
             cout << oldTile->getColour() << oldTile->getShape() << endl;
             // check if the tile exists
-            if (!player->getDeck()->find(oldTile)) {
+            if (!player.getDeck()->find(oldTile)) {
                cout << "This tile is not in you hand!\n> ";
                continue;
             }
@@ -244,9 +244,9 @@ void Qwirkle::takeTurn() {
             }
             if (!tileBag->isEmpty()) {
                Tile* newTile = tileBag->removeFirst();
-               player->placeTile(oldTile, newTile);
+               player.placeTile(oldTile, newTile);
             } else {
-               player->placeTile(oldTile, nullptr);
+               player.placeTile(oldTile, nullptr);
             }
             is_end = false;
             flag = true;
@@ -259,7 +259,7 @@ void Qwirkle::takeTurn() {
             std::string tile;
             input_stream >> tile;
             Tile* oldTile = new Tile(tile[0], tile[1] - '0');
-            if (!player->getDeck()->find(oldTile)) {
+            if (!player.getDeck()->find(oldTile)) {
                cout << "This tile is not in your hand!\n\n> ";
                continue;
             }
@@ -267,7 +267,7 @@ void Qwirkle::takeTurn() {
                cout << "Bag is empty and you can't replace\n\n> ";
                continue;
             }
-            player->replaceTile(oldTile, tileBag->removeFirst());
+            player.replaceTile(oldTile, tileBag->removeFirst());
             tileBag->addLast(oldTile);
             is_end = false;
             flag = true;
