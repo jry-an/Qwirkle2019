@@ -89,7 +89,6 @@ LinkedList* Qwirkle::getNewDeck()
 
 void Qwirkle::newGame()
 {
-   gameBoard = new Board();
    Colour colourList[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
    Shape shapeList[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
    
@@ -153,7 +152,7 @@ void Qwirkle::playGame() {
       cout << endl;
 
       // Print the game board
-      gameBoard->printBoard();
+      board.printBoard();
 
       //Print current players hand
       cout << endl << "Your hand is:" << endl;

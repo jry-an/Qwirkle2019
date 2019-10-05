@@ -61,7 +61,6 @@ public:
     Turn turn;
 
 private:
-    Board *gameBoard;
     std::vector<Player*> players;
     int maxPlayers;
     int currentPlayer;
