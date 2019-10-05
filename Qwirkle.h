@@ -43,7 +43,6 @@ public:
     Qwirkle(int numPlayers);
     ~Qwirkle();
 
-    void shuffleTileBag();
     Player* getNewPlayer();
     void newGame();
     void loadGame();

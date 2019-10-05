@@ -72,11 +72,6 @@ void Qwirkle::printMenu()
     cout << "5. Quit" << endl << endl;
 }
 
-void Qwirkle::shuffleTileBag() 
-{
-   //TODO Tharvind 
-}
-
 LinkedList* Qwirkle::getNewDeck()
 {
     LinkedList* list = new LinkedList;
@@ -108,7 +103,7 @@ void Qwirkle::newGame()
       }
    }
    //call tileBag shuffle method, which shuffles the contents of the tileBag 
-   shuffleTileBag();
+   tileBag->shuffle();
 
    //get new players
    players.clear();

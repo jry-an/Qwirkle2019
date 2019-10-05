@@ -216,7 +216,7 @@ void LinkedList::shuffle()
     std::shuffle(std::begin(nodes), std::end(nodes), rng);
     node = head->next;
     for (size_t i = 0; i < nodes.size(); i++) {
-        node->tile = new Tile(nodes[i]->colour, nodes[i]->shape);
+        node->tile = new Tile(nodes[i]->getColour(), nodes[i]->getShape());
         node = node->next;
     }
 }
