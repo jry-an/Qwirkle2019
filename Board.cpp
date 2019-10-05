@@ -141,7 +141,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         //left
         if(row>=1 && !array[row-1][col]->isEmpty()){
             if(array[row-1][col]->getColour() == tile->getColour() || array[row-1][col]->getShape() == tile->getShape()){
-                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
                 std::cout << "left true" << std::endl;
             }
@@ -151,7 +151,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         //right
         else if(row<= ROWS && !array[row+1][col] -> isEmpty()){
             if(array[row+1][col]->getColour() == tile->getColour() || array[row+1][col]->getShape() == tile->getShape()){
-                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
                 std::cout << "right true" << std::endl;
 
@@ -162,7 +162,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         //up
         else if(col>=1 && !array[row][col-1] -> isEmpty()){
              if(array[row][col-1]->getColour() == tile->getColour() || array[row][col-1]->getShape() == tile->getShape()){
-                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
                 std::cout << "up true" << std::endl;
             }
@@ -172,7 +172,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         //down
         else if(row<=ROWS && !array[row][col+1] -> isEmpty()){
              if(array[row][col+1]->getColour() == tile->getColour() || array[row][col+1]->getShape() == tile->getShape()){
-                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
                 std::cout << "down true" << std::endl;
 
@@ -180,7 +180,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
         //if there are no tiles on the board, place the tile at [row][col]
         else if(firstTurn()){
-            array[row][col] = new Tile(tile->getColour(), tile->getShape());
+            this->setTile(row,col,tile->getColour(),tile->getShape());
             success = true;
             std::cout << "first turn placed" << std::endl;
         }
