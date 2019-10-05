@@ -80,7 +80,7 @@ void Board::printBoard()
             cout << "|";
             for (int j=0; j<=size; j++) {
                 if (j%2 == 0) {
-                    cout << " " << array[i][j]->getTileCode() << " |";
+                 cout << " " << array[i][j]->getTileCode() << " |";
                 }
             }
         }
@@ -178,6 +178,10 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
             }
         }
+        else if(firstTurn()){
+            array[row][col] = new Tile(tile->getColour(), tile->getShape());
+            success = true;
+        }
     }
         int score = getMovePoints();
         player.setScore(score);
@@ -210,4 +214,15 @@ bool Board::isEmpty()
                 return true;
         }
     return false;
+}
+
+bool Board::firstTurn(){
+    for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS; col++) {
+            if(!array[row][col]->isEmpty()){
+                return false;
+            }
+        }
+    }
+    return true;
 }

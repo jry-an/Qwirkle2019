@@ -21,7 +21,7 @@ class Board {
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
     int getMovePoints();
-    
+    bool firstTurn();
 
 private:
     Tile* array[ROWS][COLS];
