@@ -16,7 +16,10 @@ class Board {
     public:
     Board();
     void printBoard();
-    bool makeMove(Player* player, int row, int col, Tile* tile);
+    bool makeMove(Player& player, int row, int col, Tile* tile);
+    bool isEmpty();
+
+    int getMovePoints();
     
 
 private:

@@ -3,8 +3,8 @@
 Board::Board()
 {
     for (int row = 0; row < ROWS; row++) {
-        for (int column = 0; column < COLS; column++) {
-            array[row][column] = new Tile;
+        for (int col = 0; col < COLS; col++) {
+            array[row][col] = new Tile;
         }
     }
     // Used to check if anyone has placed a tile on 
@@ -118,9 +118,80 @@ void Board::printBoard()
     cout << endl;
 }
 
-bool Board::makeMove(Player* player, int row, int col, Tile* tile) {
+bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //check if valid move (able to place tile there)
-    //
+    //if location is empty
+    //if surrounding have tile
+    //get tile shape and color
+    //if shape or color is equal, return true
+    bool success = false;
+
+    if (array[row][col]->isEmpty()){
+        //left
+        if(row>=1 && array[row-1][col] -> isEmpty()){
+            if(array[row-1][col]->getColour() == tile->getColour() || array[row-1][col]->getShape() == tile->getShape()){
+                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                success = true;
+            }
+        }
+        if(success != true){
+            success = false;
+        }
+
+        //right
+        else if(row<=ROWS && array[row+1][col] -> isEmpty()){
+            if(array[row+1][col]->getColour() == tile->getColour() || array[row+1][col]->getShape() == tile->getShape()){
+                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                success = true;
+            }
+        }
+        if(success != true){
+            success = false;
+        }
+
+        //up
+        else if(col>=1 && array[row][col-1] -> isEmpty()){
+             if(array[row][col-1]->getColour() == tile->getColour() || array[row][col-1]->getShape() == tile->getShape()){
+                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                success = true;
+            }
+        }
+        if(success != true){
+            success = false;
+        }
+
+        //down
+        else if(row<=ROWS && array[row][col+1] -> isEmpty()){
+             if(array[row][col+1]->getColour() == tile->getColour() || array[row][col+1]->getShape() == tile->getShape()){
+                array[row][col] = new Tile(tile->getColour(), tile->getShape());
+                success = true;
+            }
+        }
+        if(success != true){
+            success = false;
+        }
+    }
+        int score = getMovePoints();
+        player.setScore(score);
+        if (score == 6) {
+            std::cout << "\nQwirkle!!!\n";
+            player.setScore(score);
+        }
+        return success;
+    }
+
+int Board::getMovePoints()
+{
     //TODO
+    return 0;
+}
+
+bool Board::isEmpty()
+{
+    for (int i = 0; i < ROWS; i++)
+        for (int j = 0; j < COLS; j++) {
+            if (array[i][j]->isEmpty())
+                return true;
+        }
     return false;
 }
