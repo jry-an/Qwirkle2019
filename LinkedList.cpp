@@ -203,3 +203,20 @@ void LinkedList::clear()
 bool LinkedList::isEmpty() {
     return (head == nullptr);
 }
+
+void LinkedList::shuffle()
+{
+    std::vector<Tile*> nodes;
+    Node* node = head;
+    while (node->next != nullptr) {
+        nodes.push_back(node->next->tile);
+        node = node->next;
+    }
+    auto rng = std::default_random_engine{};
+    std::shuffle(std::begin(nodes), std::end(nodes), rng);
+    node = head->next;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        node->tile = new Tile(nodes[i]->colour, nodes[i]->shape);
+        node = node->next;
+    }
+}
