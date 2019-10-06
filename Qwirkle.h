@@ -26,9 +26,6 @@ struct non_alpha {
     }
 };
 
-enum Turn { PLAYER1,
-PLAYER2 };
-
 const int NEW_GAME = 1;
 const int LOAD_GAME = 2;
 const int STUDENT_INFO = 3;
@@ -58,8 +55,6 @@ public:
 
     LinkedList* tileBag;
     Board board;
-    Turn turn;
-
 private:
     std::vector<Player*> players;
     int maxPlayers;
