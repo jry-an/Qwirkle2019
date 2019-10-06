@@ -30,6 +30,7 @@ void Board::printBoard()
     color_map[YELLOW] = "\033[33m";
     color_map[PURPLE] = "\033[35m";
     color_map[' '] = "\033[37m";
+    //TODO - implement colors
 
 
     int size = boardSize;
