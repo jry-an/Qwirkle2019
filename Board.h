@@ -17,7 +17,6 @@ class Board {
     Board();
     void printBoard();
     bool makeMove(Player& player, int row, int col, Tile* tile);
-    bool isEmpty();
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
     int getMovePoints(int placedRow, int placedCol);

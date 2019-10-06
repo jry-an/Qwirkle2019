@@ -137,7 +137,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //get tile shape and color
     //if shape or color is equal, return true
     bool success = false;
-
     if (array[row][col]->isEmpty()){
 
         //up-left
@@ -245,16 +244,6 @@ Tile* Board::getTile(int row, int col) {
 
 void Board::setTile(int row, int col, Colour colour, Shape shape) {
     array[row][col] = new Tile(colour, shape);
-}
-
-bool Board::isEmpty()
-{
-    for (int i = 0; i < ROWS; i++)
-        for (int j = 0; j < COLS; j++) {
-            if (array[i][j]->isEmpty())
-                return true;
-        }
-    return false;
 }
 
 bool Board::firstTurn(){
