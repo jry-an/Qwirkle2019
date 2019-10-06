@@ -137,8 +137,9 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //if shape or color is equal, return true
     bool success = false;
 
-    //up-left
     if (array[row][col]->isEmpty()){
+
+        //up-left
         if(row>=1 && !array[row-1][col-1]->isEmpty()){
             if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
