@@ -12,9 +12,6 @@ typedef int Shape;
 class Tile {
 
 public:
-
-
-public:
    Tile();
    Tile(Colour c, Shape s);
    bool isEmpty();
