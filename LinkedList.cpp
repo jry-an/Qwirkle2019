@@ -169,21 +169,6 @@ void LinkedList::replace(Tile* oldTile, Tile* newTile)
     }
 }
 
-// void LinkedList::replace(Tile* _old, Tile* _new)
-// {
-//     Node* tmp = head;
-//     if (tmp->next!=nullptr){
-//         while (tmp->next) {
-//             if (tmp->next->tile->is_equal(_old)) {
-//                 tmp->next->tile->colour = _new->colour;
-//                 tmp->next->tile->shape = _new->shape;
-//                 return;
-//             }
-//             tmp = tmp->next;
-//         }
-//     }
-// }
-
 
 void LinkedList::clear()
 {

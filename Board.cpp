@@ -137,8 +137,8 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //if shape or color is equal, return true
     bool success = false;
 
+    //up-left
     if (array[row][col]->isEmpty()){
-        //up-left
         if(row>=1 && !array[row-1][col-1]->isEmpty()){
             if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
@@ -164,7 +164,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
              if(array[row+1][col-1]->getColour() == tile->getColour() || array[row+1][col-1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
-                std::cout << "up true" << std::endl;
             }
         }
 
@@ -174,15 +173,12 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
              if(array[row+1][col+1]->getColour() == tile->getColour() || array[row+1][col+1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
-                std::cout << "down true" << std::endl;
-
             }
         }
         //if there are no tiles on the board, place the tile at [row][col]
         else if(firstTurn()){
             this->setTile(row,col,tile->getColour(),tile->getShape());
             success = true;
-            std::cout << "first turn placed" << std::endl;
         }
     }
         int score = getMovePoints();

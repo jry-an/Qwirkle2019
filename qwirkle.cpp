@@ -4,7 +4,7 @@
 
 Qwirkle::Qwirkle()
 {
-       tileBag = new LinkedList;
+   tileBag = new LinkedList;
 }
 
 Qwirkle::Qwirkle(int numPlayers)
