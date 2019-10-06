@@ -101,7 +101,6 @@ void Qwirkle::newGame()
       for (int i=0; i<6; i++) {
          for (int j=0; j<6; j++) {
             Tile* tempTile = new Tile(colourList[i], shapeList[j]);
-            cout << tempTile->getColour() << " " << tempTile->getShape()  << endl;
             tileBag->addLast(tempTile);
          }
       }
