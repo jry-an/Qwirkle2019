@@ -144,7 +144,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
-                std::cout << "left true" << std::endl;
             }
         }
 
@@ -154,8 +153,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             if(array[row-1][col+1]->getColour() == tile->getColour() || array[row-1][col+1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
-                std::cout << "right true" << std::endl;
-
             }
         }
 
