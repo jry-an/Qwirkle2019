@@ -179,6 +179,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             this->setTile(row,col,tile->getColour(),tile->getShape());
             success = true;
         }
+    }
         int score = getMovePoints(row,col);
         player.setScore(score);
         if (score == 6) {
@@ -186,8 +187,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             player.setScore(score);
         }
         return success;
-    }
-    return success;  
     }
 
 int Board::getMovePoints(int placedRow, int placedCol)
