@@ -20,7 +20,7 @@ class Board {
     bool isEmpty();
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
-    int getMovePoints();
+    int getMovePoints(int placedRow, int placedCol);
     bool firstTurn();
 
 private:

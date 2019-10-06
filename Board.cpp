@@ -179,7 +179,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             success = true;
         }
     }
-        int score = getMovePoints();
+        int score = getMovePoints(row,col);
         player.setScore(score);
         if (score == 6) {
             std::cout << "\nQwirkle!!!\n";
@@ -188,10 +188,53 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         return success;
     }
 
-int Board::getMovePoints()
+int Board::getMovePoints(int placedRow, int placedCol)
 {
-    //TODO
-    return 0;
+    int movePoints = 1;
+    int tempRow = placedRow;
+    int tempCol = placedCol;
+
+    //up left
+    while (!array[tempRow-1][tempCol-1]->isEmpty())
+    {
+        movePoints++;
+        tempRow = tempRow - 1;
+        tempCol = tempCol - 1;
+    }
+
+    tempRow = placedRow;
+    tempCol = placedCol;
+    
+
+    //up right
+    while (!array[tempRow+1][tempCol-1]->isEmpty())
+    {
+        movePoints++;
+        tempRow = tempRow + 1;
+        tempCol = tempCol - 1;
+    }
+    tempRow = placedRow;
+    tempCol = placedCol;
+
+    //down left
+    while (!array[tempRow-1][tempCol+1]->isEmpty())
+    {
+        movePoints++;
+        tempRow = tempRow - 1;
+        tempCol = tempCol + 1;
+    }
+    tempRow = placedRow;
+    tempCol = placedCol;
+
+    //down right
+    while (!array[tempRow+1][tempCol+1]->isEmpty())
+    {
+        movePoints++;
+        tempRow = tempRow + 1;
+        tempCol = tempCol + 1;
+    }
+
+    return movePoints;
 }
 
 Tile* Board::getTile(int row, int col) {
