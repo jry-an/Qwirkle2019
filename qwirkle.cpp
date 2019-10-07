@@ -27,17 +27,26 @@ void Qwirkle::start()
    // and get the input for
    while (input != QUIT)
    {
+      std::string line;
       //print menu
       printMenu();
 
-      //get input from user
-      cout << "> ";
-      std::cin >> input;
-      cout << endl;
+      while (input == 0) {
+         //get input from user
+         cout << "> ";
+         
+         std::getline(std::cin, line);
 
-      if(std::cin.eof()) {
-         cout << endl << "Goodbye." << endl;
-         exit(0); 
+         if (std::cin.eof()) {
+            cout << "Goodbye." << endl;
+            exit(EXIT_SUCCESS);
+         }
+         try {
+            input = stoi(line);
+         }
+         catch(...){
+            cout << "Invalid input. Please enter a number. (1-5)" << endl << endl;
+         }
       }
 
       if (input == NEW_GAME) { //1
@@ -63,7 +72,7 @@ void Qwirkle::start()
 
 void Qwirkle::printMenu()
 {
-    cout << "Menu" << endl;
+    cout << endl << "Menu" << endl;
     cout << "----" << endl;
     cout << "1. New Game" << endl;
     cout << "2. Load Game" << endl;
@@ -227,7 +236,7 @@ void Qwirkle::takeTurn() {
             int row = location[0] - 'A';
             int col = std::stoi(std::string(location.begin() + 1, location.end()));
             if (!board.makeMove(player, row, col, oldTile)) {
-               cout << "The location is occupied\n\n> ";
+               cout << "Invalid move, try again.\n\n> ";
                continue;
             }
             if (!tileBag->isEmpty()) {
