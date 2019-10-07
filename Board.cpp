@@ -186,7 +186,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
         }
         //if there are no tiles on the board, place the tile at [row][col]
-        else if(firstTurn()){
+        if(firstTurn()){
             this->setTile(row,col,tile->getColour(),tile->getShape());
             success = true;
         }
@@ -215,6 +215,10 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow - 1;
         tempCol = tempCol - 1;
+        if(tempRow >= 0 && tempCol >= 0){
+            break;
+        }
+
     }
 
     tempRow = placedRow;
@@ -229,6 +233,9 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow + 1;
         tempCol = tempCol - 1;
+        if(tempRow <= ROWS && tempCol >= 0){
+            break;
+        }
     }
     tempRow = placedRow;
     tempCol = placedCol;
@@ -241,6 +248,9 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow - 1;
         tempCol = tempCol + 1;
+        if(tempRow >= 0 && tempCol < COLS){
+            break;
+        }
     }
     tempRow = placedRow;
     tempCol = placedCol;
@@ -253,6 +263,9 @@ int Board::getMovePoints(int placedRow, int placedCol)
             movePoints++;
         tempRow = tempRow + 1;
         tempCol = tempCol + 1;
+        if(tempRow < ROWS && tempCol < COLS){
+            break;
+        }
     }
                 }
 
@@ -267,10 +280,21 @@ void Board::setTile(int row, int col, Colour colour, Shape shape) {
     array[row][col] = new Tile(colour, shape);
 }
 
+bool Board::isEmpty()
+{
+    for (int i = 0; i < ROWS; i++)
+        for (int j = 0; j < COLS; j++) {
+            if (array[i][j]->isEmpty())
+                return true;
+        }
+    return false;
+}
+
 bool Board::firstTurn(){
     for (int row = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS; col++) {
             if(!array[row][col]->isEmpty()){
+                std::cout << "first turn false" << std::endl;
                 return false;
             }
         }
