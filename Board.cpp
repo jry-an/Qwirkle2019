@@ -7,18 +7,18 @@ Board::Board()
             array[row][col] = new Tile;
         }
     }
-    // Used to check if anyone has placed a tile on 
+    // Used to check if anyone has placed a tile on
     // the board already for the first tile placement.
     this->boardSize = 0;
 
     //Initialise alphabet
-    char letters[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    for (int i=0; i<26; i++) {
+    char letters[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+    for (int i = 0; i < 26; i++) {
         alphabet[i] = letters[i];
     }
 }
 
-void Board::printBoard() 
+void Board::printBoard()
 {
     std::map<Colour, std::string> color_map;
     color_map[RED] = "\033[31m";
@@ -30,19 +30,19 @@ void Board::printBoard()
     color_map[' '] = "\033[37m";
 
     int size = boardSize;
-    
+
     // Check if board size is 0 (no tile placed yet)
-    if(boardSize == 0) {
+    if (boardSize == 0) {
         size = 6;
     }
 
     // Print numbers at top. 0, 2, 4...
     cout << "     ";
-    for(int i=0; i<=size; i++) {
+    for (int i = 0; i <= size; i++) {
         //check if even number
-        if (i%2 == 0) {
+        if (i % 2 == 0) {
             cout << i;
-            if (i>=10) {
+            if (i >= 10) {
                 //one less space
                 cout << "   ";
             }
@@ -55,13 +55,13 @@ void Board::printBoard()
 
     // Print -
     cout << "   ";
-    for(int i=0; i<=size; i++) {
+    for (int i = 0; i <= size; i++) {
         //check if even number
-        if (i%2 == 0) {
+        if (i % 2 == 0) {
             cout << "-----";
         }
     }
-    if (size%2 == 0) {
+    if (size % 2 == 0) {
         cout << "-";
     }
     else {
@@ -70,38 +70,37 @@ void Board::printBoard()
     cout << endl;
 
     // Print Board with A, B, C...
-    for (int i=0; i<=size; i++) {
-        cout << alphabet[i] << "  "; 
+    for (int i = 0; i <= size; i++) {
+        cout << alphabet[i] << "  ";
         // Iterate through tiles in current row
-        if (i%2 == 0) {
+        if (i % 2 == 0) {
             cout << "|";
-            for (int j=0; j<=size; j++) {
-                if (j%2 == 0) {
-                    if (!array[i][j]->isEmpty())
-                    {
+            for (int j = 0; j <= size; j++) {
+                if (j % 2 == 0) {
+                    if (!array[i][j]->isEmpty()) {
                         std::cout << color_map[array[i][j]->getColour()];
                         std::cout << array[i][j]->getColour() << array[i][j]->getShape();
                         std::cout << color_map[' '] << "|";
                     }
-                    else{
-                       std::cout << " " << "  |";
+                    else {
+                        std::cout << " "
+                                  << "  |";
                     }
-                    
                 }
             }
         }
-        else if (i%2 == 1) {
+        else if (i % 2 == 1) {
             cout << "   |";
-            for (int j=0; j<=size; j++) {
-                if (j%2 == 1) {
-                    if (!array[i][j]->isEmpty())
-                    {
+            for (int j = 0; j <= size; j++) {
+                if (j % 2 == 1) {
+                    if (!array[i][j]->isEmpty()) {
                         std::cout << color_map[array[i][j]->getColour()];
                         std::cout << array[i][j]->getColour() << array[i][j]->getShape();
                         std::cout << color_map[' '] << " |";
                     }
-                    else{
-                        std::cout << " " << "|";
+                    else {
+                        std::cout << " "
+                                  << "|";
 
                     } // could be j before i, not sure until we implement
                 }
@@ -112,13 +111,13 @@ void Board::printBoard()
 
     // Print -
     cout << "   --";
-    for(int i=0; i<=size; i++) {
+    for (int i = 0; i <= size; i++) {
         //check if odd number
-        if (i%2 == 1) {
+        if (i % 2 == 1) {
             cout << "-----";
         }
     }
-    if (size%2 == 0) {
+    if (size % 2 == 0) {
         cout << "----";
     }
     else {
@@ -128,11 +127,11 @@ void Board::printBoard()
 
     // Print numbers at bottom. 1, 3, 5...
     cout << "        ";
-    for(int i=0; i<=size; i++) {
+    for (int i = 0; i <= size; i++) {
         //check if odd number
-        if (i%2 == 1) {
+        if (i % 2 == 1) {
             cout << i;
-            if (i>=10) {
+            if (i >= 10) {
                 //one less space
                 cout << "   ";
             }
@@ -144,7 +143,8 @@ void Board::printBoard()
     cout << endl;
 }
 
-bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
+bool Board::makeMove(Player& player, int row, int col, Tile* tile)
+{
     //check if valid move (able to place tile there)
     //if location is empty
     //if surrounding have tile
@@ -153,85 +153,77 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     std::cout << "start of make move" << std::endl;
     bool success = false;
     int score = 0;
-    
+
     //board size check
-    if (row > boardSize)
-    {
+    if (row > boardSize) {
         boardSize = boardSize + (row - boardSize);
     }
-    if (col > boardSize)
-    {
+    if (col > boardSize) {
         boardSize = boardSize + (col - boardSize);
     }
-    
-    
 
     //check if tile place is in bounds
-    if(row>=0 && col>=0 && row < ROWS && col<COLS){
+    if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
-    if (array[row][col]->isEmpty()){
+        if (array[row][col]->isEmpty()) {
 
-        //up-left
-        if (row>=1 && col>=1){
-            if(!array[row-1][col-1]->isEmpty()){
-                if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
-                 this->setTile(row,col,tile->getColour(),tile->getShape());
-                 success = true;
+            //up-left
+            if (row >= 1 && col >= 1) {
+                if (!array[row - 1][col - 1]->isEmpty()) {
+                    if (array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) {
+                        this->setTile(row, col, tile->getColour(), tile->getShape());
+                        success = true;
+                    }
+                }
             }
-        }
-    }
 
+            //up-right
+            if (row >= 1 && col < COLS) {
+                if (!array[row - 1][col + 1]->isEmpty()) {
+                    if (array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) {
+                        this->setTile(row, col, tile->getColour(), tile->getShape());
+                        success = true;
+                    }
+                }
+            }
 
-        //up-right
-        if(row>= 1 && col<COLS){
-         if(!array[row-1][col+1] -> isEmpty()){
-            if(array[row-1][col+1]->getColour() == tile->getColour() || array[row-1][col+1]->getShape() == tile->getShape()){
-                this->setTile(row,col,tile->getColour(),tile->getShape());
+            //down left
+            if (row < ROWS && col >= 1) {
+                if (!array[row + 1][col - 1]->isEmpty()) {
+                    if (array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) {
+                        this->setTile(row, col, tile->getColour(), tile->getShape());
+                        success = true;
+                    }
+                }
+            }
+
+            //down right
+            if (row < ROWS && col < COLS) {
+                if (!array[row + 1][col + 1]->isEmpty()) {
+                    if (array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) {
+                        this->setTile(row, col, tile->getColour(), tile->getShape());
+                        success = true;
+                    }
+                }
+            }
+            //if there are no tiles on the board, place
+            if (firstTurn()) {
+                this->setTile(row, col, tile->getColour(), tile->getShape());
                 success = true;
             }
-        }
-    }
-
-
-        //down left
-        if(row< ROWS && col>=1){
-         if(!array[row+1][col-1] -> isEmpty()){
-             if(array[row+1][col-1]->getColour() == tile->getColour() || array[row+1][col-1]->getShape() == tile->getShape()){
-                this->setTile(row,col,tile->getColour(),tile->getShape());
-                success = true;
+            if (success) {
+                score = getMovePoints(row, col);
+                if (score >= 6) {
+                    std::cout << "\nQwirkle!!!\n";
+                    score = score + 6;
+                }
+                player.setScore(score);
             }
+            return success;
         }
-        }
-
-
-        //down right
-        if(row<ROWS && col<COLS){
-         if(!array[row+1][col+1] -> isEmpty()){
-             if(array[row+1][col+1]->getColour() == tile->getColour() || array[row+1][col+1]->getShape() == tile->getShape()){
-                this->setTile(row,col,tile->getColour(),tile->getShape());
-                success = true;
-            }
-        }
-        }
-        //if there are no tiles on the board, place the tile at [row][col]
-        if(firstTurn()){
-            this->setTile(row,col,tile->getColour(),tile->getShape());
-            success = true;
-        }
-        if (success)
-        {
-            score = getMovePoints(row,col);
-         if (score >= 6) {
-            std::cout << "\nQwirkle!!!\n";
-            score = score + 6;
-        }
-        player.setScore(score);
-        }
-        return success;
     }
-    }
-    return success;  
-    }
+    return success;
+}
 
 int Board::getMovePoints(int placedRow, int placedCol)
 {
@@ -239,74 +231,71 @@ int Board::getMovePoints(int placedRow, int placedCol)
     int tempRow = placedRow;
     int tempCol = placedCol;
     //up left
-    if(placedRow >= 1 && placedCol >= 1){
-    while (!array[tempRow-1][tempCol-1]->isEmpty())
-    {
-        movePoints++;
-        tempRow = tempRow - 1;
-        tempCol = tempCol - 1;
-        if(tempRow < 1 || tempCol < 1){
-            break;
+    if (placedRow >= 1 && placedCol >= 1) {
+        while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
+            movePoints++;
+            tempRow = tempRow - 1;
+            tempCol = tempCol - 1;
+            if (tempRow < 1 || tempCol < 1) {
+                break;
+            }
         }
-    }
 
-    tempRow = placedRow;
-    tempCol = placedCol;
+        tempRow = placedRow;
+        tempCol = placedCol;
     }
-    
 
     //up right
-        if(placedRow <= ROWS && placedCol >= 1){
-    while (!array[tempRow+1][tempCol-1]->isEmpty())
-    {
-        movePoints++;
-        tempRow = tempRow + 1;
-        tempCol = tempCol - 1;
-        if(tempRow >= ROWS-1 || tempCol < 1){
-            break;
+    if (placedRow <= ROWS && placedCol >= 1) {
+        while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
+            movePoints++;
+            tempRow = tempRow + 1;
+            tempCol = tempCol - 1;
+            if (tempRow >= ROWS - 1 || tempCol < 1) {
+                break;
+            }
         }
+        tempRow = placedRow;
+        tempCol = placedCol;
     }
-    tempRow = placedRow;
-    tempCol = placedCol;
-        }
 
     //down left
-            if(placedRow >= 1 && placedCol <= COLS){
-    while (!array[tempRow-1][tempCol+1]->isEmpty())
-    {
-        movePoints++;
-        tempRow = tempRow - 1;
-        tempCol = tempCol + 1;
-        if(tempRow < 1 || tempCol >= COLS-1){
-            break;
-        }
-    }
-    tempRow = placedRow;
-    tempCol = placedCol;
+    if (placedRow >= 1 && placedCol <= COLS) {
+        while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
+            movePoints++;
+            tempRow = tempRow - 1;
+            tempCol = tempCol + 1;
+            if (tempRow < 1 || tempCol >= COLS - 1) {
+                break;
             }
+        }
+        tempRow = placedRow;
+        tempCol = placedCol;
+    }
 
     //down right
-    if(placedRow <= ROWS && placedCol <= COLS){
-        while (!array[tempRow+1][tempCol+1]->isEmpty())
-        {
+    if (placedRow <= ROWS && placedCol <= COLS) {
+        while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
             movePoints++;
-        tempRow = tempRow + 1;
-        tempCol = tempCol + 1;
-        if(tempRow >= ROWS -1 || tempCol >= COLS -1){
-            break;
+            tempRow = tempRow + 1;
+            tempCol = tempCol + 1;
+            if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
+                break;
+            }
         }
     }
-}
 
-std::cout << movePoints << std::endl;
+    std::cout << movePoints << std::endl;
     return movePoints;
 }
 
-Tile* Board::getTile(int row, int col) {
+Tile* Board::getTile(int row, int col)
+{
     return array[row][col];
 }
 
-void Board::setTile(int row, int col, Colour colour, Shape shape) {
+void Board::setTile(int row, int col, Colour colour, Shape shape)
+{
     array[row][col] = new Tile(colour, shape);
 }
 
@@ -320,10 +309,11 @@ bool Board::isEmpty()
     return false;
 }
 
-bool Board::firstTurn(){
+bool Board::firstTurn()
+{
     for (int row = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS; col++) {
-            if(!array[row][col]->isEmpty()){
+            if (!array[row][col]->isEmpty()) {
                 return false;
             }
         }
