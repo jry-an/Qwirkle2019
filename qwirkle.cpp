@@ -72,11 +72,6 @@ void Qwirkle::printMenu()
     cout << "5. Quit" << endl << endl;
 }
 
-void Qwirkle::shuffleTileBag() 
-{
-   //TODO Tharvind 
-}
-
 LinkedList* Qwirkle::getNewDeck()
 {
     LinkedList* list = new LinkedList;
@@ -101,13 +96,12 @@ void Qwirkle::newGame()
       for (int i=0; i<6; i++) {
          for (int j=0; j<6; j++) {
             Tile* tempTile = new Tile(colourList[i], shapeList[j]);
-            cout << tempTile->getColour() << " " << tempTile->getShape()  << endl;
             tileBag->addLast(tempTile);
          }
       }
    }
    //call tileBag shuffle method, which shuffles the contents of the tileBag 
-   shuffleTileBag();
+   tileBag->shuffle();
 
    //get new players
    players.clear();
@@ -127,6 +121,8 @@ void Qwirkle::newGame()
       }
       tempPlayer->setDeck(newHand);
    }
+   //clear cin buffer (ready for gameplay)
+   std::cin.ignore(INT_MAX,'\n');
 
    //set whos turn it is. (Player1 for new games)
    currentPlayer = 0;
@@ -185,7 +181,6 @@ void Qwirkle::takeTurn() {
    bool flag = false; // whether the input is end
 
    std::cin.clear();
-   std::cin.ignore(INT_MAX,'\n');
    cout << "> ";
    while (!flag && std::getline(std::cin, line)) {
       try {
@@ -196,7 +191,7 @@ void Qwirkle::takeTurn() {
          // place ** at **/***
          if (prompt == "place") {
             if (line.length() != 14 && line.length() != 15) {
-               cout << "Wrong format! Type 'help' for the list of commands.\n> ";
+               cout << "Wrong format! Type 'help' for the list of commands.\n\n> ";
                continue;
             }
             std::string tile = line.substr(6, 2);
@@ -209,36 +204,35 @@ void Qwirkle::takeTurn() {
             }
             // check tile illegal
             if (tile[0] != 'R' && tile[0] != 'O' && tile[0] != 'Y' && tile[0] != 'G' && tile[0] != 'B' && tile[0] != 'P') {
-               cout << "The color of the tile is invalid!\n> ";
+               cout << "The color of the tile is invalid!\n\n> ";
                continue;
             }
             if (!(tile[1] - '0' >= 1 && tile[1] - '0' <= 6)) {
-               cout << "The shape of the tile is invalid!\n> ";
+               cout << "The shape of the tile is invalid!\n\n> ";
                continue;
             }
             // check location illegal
             if (location.length() == 2) {
                if (!(location[0] - 'A' >= 0 && location[0] - 'A' <= 25 && location[1] - '0' >= 0 && location[1] - '0' <= 9)) {
-                  cout << "The location is illegal!\n> ";
+                  cout << "The location is illegal!\n\n> ";
                   continue;
                }
             } else {
                if (!(location[0] - 'A' >= 0 && location[0] - 'A' <= 25 && ((location[1] - '0') * 10 + (location[2] - '0')) >= 10 && ((location[1] - '0') * 10 + (location[2] - '0')) <= 25)) {
-                  cout << "The location is illegal!\n> ";
+                  cout << "The location is illegal!\n\n> ";
                   continue;
                }
             }
             Tile* oldTile = new Tile(tile[0], (tile[1] - '0'));
-            cout << oldTile->getColour() << oldTile->getShape() << endl;
             // check if the tile exists
             if (!player.getDeck()->find(oldTile)) {
-               cout << "This tile is not in you hand!\n> ";
+               cout << "This tile is not in you hand!\n\n> ";
                continue;
             }
             int row = location[0] - 'A';
             int col = std::stoi(std::string(location.begin() + 1, location.end()));
             if (!board.makeMove(player, row, col, oldTile)) {
-               cout << "The location is occupied\n> ";
+               cout << "The location is occupied\n\n> ";
                continue;
             }
             if (!tileBag->isEmpty()) {
@@ -252,7 +246,7 @@ void Qwirkle::takeTurn() {
          } else if (prompt == "replace") {
             // replace **
             if (line.length() != 10) {
-               cout << "Wrong format! Type 'help' for the list of commands.\n> ";
+               cout << "Wrong format! Type 'help' for the list of commands.\n\n> ";
                continue;
             }
             std::string tile;
@@ -286,7 +280,7 @@ void Qwirkle::takeTurn() {
                continue;
          } else {
                cout << "This command is not found! \n";
-               cout << "You can use 'help' to ask for help.\n> ";
+               cout << "You can use 'help' to ask for help.\n\n> ";
                continue;
          }
       } catch (std::invalid_argument ex) {
@@ -313,7 +307,7 @@ Player* Qwirkle::getNewPlayer()
       std::cin >> name;
       if(std::cin.eof()) {
          cout << endl << "Goodbye." << endl;
-         exit(0); 
+         exit(EXIT_SUCCESS); 
       }
       //check that input contains only letters
       badInput = std::find_if(name.begin(), name.end(), non_alpha()) != name.end();

@@ -9,3 +9,6 @@ Link to GitHub:
 
 Link to Trello: 
     https://trello.com/b/rCQ5Aa6i/aptassignment2-tasks
+
+Link to Report:
+    https://docs.google.com/document/d/1-Kf7WfYmCYoCjM5YmsQqGhVV6KneK55dbKuP50MeP58/edit?usp=sharing 

@@ -90,6 +90,7 @@ Tile* LinkedList::removeFirst()
 
 Tile* LinkedList::removeTile(Tile* tile)
 {
+    //TODO to fix replace tile. does not remove tile from linked list
     Tile* tempTile = nullptr;
 
     if (head->next->tile == tile) {
@@ -155,17 +156,19 @@ bool LinkedList::find(Colour color)
     return found;
 }
 
-void LinkedList::replace(Tile* oldTile, Tile* newTile)
+void LinkedList::replace(Tile* _old, Tile* _new)
 {
     Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        if(temp->next->tile == oldTile){
-            temp->next->tile->setColour(newTile->getColour());
-            temp->next->tile->setShape(newTile->getShape());
-            return;
+    if (temp->tile!=nullptr){
+        while (temp->next) {
+            if (temp->tile->isEqual(_old)) {
+                std::cout << "FOUND A REPLACEMENT TILE" << std::endl;
+                removeTile(_old);
+                addLast(_new);
+                return;
+            }
+            temp = temp->next;
         }
-        temp = temp->next;
     }
 }
 
@@ -187,4 +190,21 @@ void LinkedList::clear()
 
 bool LinkedList::isEmpty() {
     return (head == nullptr);
+}
+
+void LinkedList::shuffle()
+{
+    std::vector<Tile*> nodes;
+    Node* node = head;
+    while (node->next != nullptr) {
+        nodes.push_back(node->next->tile);
+        node = node->next;
+    }
+    auto rng = std::default_random_engine{};
+    std::shuffle(std::begin(nodes), std::end(nodes), rng);
+    node = head->next;
+    for (size_t i = 0; i < nodes.size(); i++) {
+        node->tile = new Tile(nodes[i]->getColour(), nodes[i]->getShape());
+        node = node->next;
+    }
 }
