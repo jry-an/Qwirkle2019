@@ -16,7 +16,6 @@ Board::Board()
     for (int i=0; i<26; i++) {
         alphabet[i] = letters[i];
     }
-
 }
 
 void Board::printBoard() 
@@ -223,7 +222,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 int Board::getMovePoints(int placedRow, int placedCol)
 {
     std::cout << "got to move points" << std::endl;
-    int movePoints = 1;
+    int movePoints = 0;
     int tempRow = placedRow;
     int tempCol = placedCol;
     //up left

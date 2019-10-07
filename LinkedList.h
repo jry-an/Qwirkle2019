@@ -18,7 +18,6 @@ public:
     ~LinkedList();
 
     int size();
-    std::string toString(bool);
     void addLast(Tile* tile);
     void addFirst(Tile* tile);
     Tile* removeFirst();
@@ -32,6 +31,7 @@ public:
     void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();
+    std::string toString(bool is_console);
 
 private:
     Node* head;
