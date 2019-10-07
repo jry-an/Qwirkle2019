@@ -43,7 +43,7 @@ public:
     Player* getNewPlayer();
     void newGame();
     void loadGame();
-    void saveGame(std::string filename, Player player);
+    void saveGame();
     void showInfo();
     void helpMenu();
     void printMenu();
@@ -58,6 +58,7 @@ private:
     std::vector<Player*> players;
     int maxPlayers;
     int currentPlayer;
+    int boardSize;
 };
 
 #endif
