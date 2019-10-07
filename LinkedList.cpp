@@ -220,15 +220,14 @@ std::string LinkedList::toString(bool is_console)
     color_map[PURPLE] = "\033[35m";
     color_map[' '] = "\033[37m";
     std::stringstream stream;
-    Node* temp = head;
-    while (temp->next != nullptr) {
+
+    for (int i=0; i<length; i++) {
         if (!is_console)
-            stream << temp->next->tile->getColour() << temp->next->tile->getColour();
+            stream << this->get(i)->getColour() << this->get(i)->getColour();
         else
-            stream << color_map[temp->next->tile->getColour()] << temp->next->tile->getColour() << temp->next->tile->getShape() << color_map[' '];
-        if (temp->next->next != nullptr)
+            stream << color_map[this->get(i)->getColour()] << this->get(i)->getColour() << this->get(i)->getShape() << color_map[' '];
+        if (i+1!=length)
             stream << ",";
-        temp = temp->next;
     }
     stream << "\n";
     return stream.str();

@@ -33,7 +33,7 @@ void Board::printBoard()
 
     // Check if board size is 0 (no tile placed yet)
     if (boardSize == 0) {
-        size = 6;
+        size = 7;
     }
 
     // Print numbers at top. 0, 2, 4...
@@ -80,27 +80,28 @@ void Board::printBoard()
                     if (!array[i][j]->isEmpty()) {
                         std::cout << " ";
                         std::cout << color_map[array[i][j]->getColour()];
-                        std::cout << array[i][j]->getColour() << array[i][j]->getShape();
+                        std::cout << array[i][j]->getTileCode();
                         std::cout << color_map[' '] << " |";
                     }
                     else {
-                        std::cout << " "
+                        std::cout << "  "
                                   << "  |";
                     }
                 }
             }
         }
         else if (i % 2 == 1) {
-            cout << "  |";
+            cout << "   |";
             for (int j = 0; j <= size; j++) {
                 if (j % 2 == 1) {
                     if (!array[i][j]->isEmpty()) {
+                        std::cout << " ";
                         std::cout << color_map[array[i][j]->getColour()];
-                        std::cout << array[i][j]->getColour() << array[i][j]->getShape();
+                        std::cout << array[i][j]->getTileCode();
                         std::cout << color_map[' '] << " |";
                     }
                     else {
-                        std::cout << " "
+                        std::cout << "  "
                                   << "  |";
 
                     } // could be j before i, not sure until we implement
@@ -151,21 +152,26 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     //if surrounding have tile
     //get tile shape and color
     //if shape or color is equal, return true
-    std::cout << "start of make move" << std::endl;
     bool success = false;
     int score = 0;
-
-    //board size check
-    if (row > boardSize) {
-        std::cout << "board size row" << "board size is: " << boardSize << std::endl;
-        boardSize = boardSize + (row - boardSize);
-        std::cout << "board size row" << "board size is: " << boardSize << std::endl;
-
+    if (row < 7 && col < 7) {
+        boardSize = 7;
     }
-    if (col > boardSize) {
-        std::cout << "board size col" << std::endl;
-        boardSize = boardSize + (col - boardSize);
+    else if (row==25 || col==25) {
+        //dont expand
+        boardSize = 25;
+
+    } else {
+        //board size check
+        if (row > boardSize) {
+            boardSize = row+1;
+
+        }
+        if (col > boardSize) {
+            boardSize = col+1;
+        }
     }
+    
 
     //check if tile place is in bounds
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
