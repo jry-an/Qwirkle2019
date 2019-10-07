@@ -395,15 +395,6 @@ void Qwirkle::saveGame()
         size = 7;
     }
 
-    std::map<Colour, std::string> color_map;
-    color_map[RED] = "\033[31m";
-    color_map[ORANGE] = "\033[33m";
-    color_map[GREEN] = "\033[32m";
-    color_map[BLUE] = "\033[34m";
-    color_map[YELLOW] = "\033[33m";
-    color_map[PURPLE] = "\033[35m";
-    color_map[' '] = "\033[37m";
-
    //open file for saving
    std::string filename;
    std::cout << "Enter the name of the file to save:" << std::endl;
