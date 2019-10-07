@@ -171,6 +171,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
+            if (!notMatchingTile(row,col, tile)){
 
             //up-left
             if (row >= 1 && col >= 1) {
@@ -227,6 +228,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
             return success;
         }
     }
+}
     return success;
 }
 
@@ -325,3 +327,47 @@ bool Board::firstTurn()
     }
     return true;
 }
+
+bool Board::notMatchingTile(int row, int col, Tile* tile){
+    bool notMatchingTile = false;
+
+    if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
+        //upleft
+        if (row >= 1 && col >= 1) {
+            if (!array[row - 1][col - 1]->isEmpty()) {
+                    if (array[row - 1][col - 1]->getColour() != tile->getColour() && array[row - 1][col - 1]->getShape() != tile->getShape()) {
+                        notMatchingTile = true;
+                    }
+                }
+            }
+
+        //up-right
+        if (row >= 1 && col < COLS) {
+            if (!array[row - 1][col + 1]->isEmpty()) {
+                    if (array[row - 1][col + 1]->getColour() != tile->getColour() && array[row - 1][col + 1]->getShape() != tile->getShape()) {
+                        notMatchingTile = true;
+                    }
+                }
+            }
+        
+        //down left
+        if (row < ROWS && col >= 1) {
+                if (!array[row + 1][col - 1]->isEmpty()) {
+                    if (array[row + 1][col - 1]->getColour() != tile->getColour() && array[row + 1][col - 1]->getShape() != tile->getShape()) {
+                        notMatchingTile = true;
+                    }
+                }
+            }
+        //down right
+        if (row < ROWS && col < COLS) {
+                if (!array[row + 1][col + 1]->isEmpty()) {
+                    if (array[row + 1][col + 1]->getColour() != tile->getColour() && array[row + 1][col + 1]->getShape() != tile->getShape()) {
+                        notMatchingTile = true;
+                    }
+                }
+            }
+        }
+        std::cout << notMatchingTile << std::endl;
+        return notMatchingTile;
+}
+ 

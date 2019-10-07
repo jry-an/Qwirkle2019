@@ -22,6 +22,7 @@ class Board {
     Tile* getTile(int row, int col);
     int getMovePoints(int placedRow, int placedCol);
     bool firstTurn();
+    bool notMatchingTile(int row, int col, Tile* tile);
 
 private:
     Tile* array[ROWS][COLS];
