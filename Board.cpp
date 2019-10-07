@@ -78,9 +78,10 @@ void Board::printBoard()
             for (int j = 0; j <= size; j++) {
                 if (j % 2 == 0) {
                     if (!array[i][j]->isEmpty()) {
+                        std::cout << " ";
                         std::cout << color_map[array[i][j]->getColour()];
                         std::cout << array[i][j]->getColour() << array[i][j]->getShape();
-                        std::cout << color_map[' '] << "|";
+                        std::cout << color_map[' '] << " |";
                     }
                     else {
                         std::cout << " "
@@ -90,7 +91,7 @@ void Board::printBoard()
             }
         }
         else if (i % 2 == 1) {
-            cout << "   |";
+            cout << "  |";
             for (int j = 0; j <= size; j++) {
                 if (j % 2 == 1) {
                     if (!array[i][j]->isEmpty()) {
@@ -100,7 +101,7 @@ void Board::printBoard()
                     }
                     else {
                         std::cout << " "
-                                  << "|";
+                                  << "  |";
 
                     } // could be j before i, not sure until we implement
                 }
@@ -156,9 +157,13 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
 
     //board size check
     if (row > boardSize) {
+        std::cout << "board size row" << "board size is: " << boardSize << std::endl;
         boardSize = boardSize + (row - boardSize);
+        std::cout << "board size row" << "board size is: " << boardSize << std::endl;
+
     }
     if (col > boardSize) {
+        std::cout << "board size col" << std::endl;
         boardSize = boardSize + (col - boardSize);
     }
 
