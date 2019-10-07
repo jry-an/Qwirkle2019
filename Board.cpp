@@ -20,7 +20,6 @@ Board::Board()
 
 void Board::printBoard() 
 {
-
     std::map<Colour, std::string> color_map;
     color_map[RED] = "\033[31m";
     color_map[ORANGE] = "\033[33m";
@@ -29,8 +28,6 @@ void Board::printBoard()
     color_map[YELLOW] = "\033[33m";
     color_map[PURPLE] = "\033[35m";
     color_map[' '] = "\033[37m";
-    //TODO - implement colors
-
 
     int size = boardSize;
     
@@ -156,6 +153,19 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     std::cout << "start of make move" << std::endl;
     bool success = false;
     int score = 0;
+    
+    //board size check
+    if (row > boardSize)
+    {
+        boardSize = boardSize + (row - boardSize);
+    }
+    if (col > boardSize)
+    {
+        boardSize = boardSize + (col - boardSize);
+    }
+    
+    
+
     //check if tile place is in bounds
     if(row>=0 && col>=0 && row < ROWS && col<COLS){
         //check if tile spot if empty
