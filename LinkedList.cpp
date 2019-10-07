@@ -210,3 +210,27 @@ void LinkedList::shuffle()
         node = node->next;
     }
 }
+
+std::string LinkedList::toString(bool is_console)
+{
+    std::map<Colour, std::string> color_map;
+    color_map[RED] = "\033[31m";
+    color_map[ORANGE] = "\033[33m";
+    color_map[GREEN] = "\033[32m";
+    color_map[BLUE] = "\033[34m";
+    color_map[YELLOW] = "\033[33m";
+    color_map[PURPLE] = "\033[35m";
+    color_map[' '] = "\033[37m";
+    std::stringstream stream;
+
+    for (int i=0; i<length; i++) {
+        if (!is_console)
+            stream << this->get(i)->getColour() << this->get(i)->getColour();
+        else
+            stream << color_map[this->get(i)->getColour()] << this->get(i)->getColour() << this->get(i)->getShape() << color_map[' '];
+        if (i+1!=length)
+            stream << ",";
+    }
+    stream << "\n";
+    return stream.str();
+}

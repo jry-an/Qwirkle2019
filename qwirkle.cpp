@@ -151,14 +151,9 @@ void Qwirkle::playGame() {
       board.printBoard();
 
       //Print current players hand
-      cout << endl << "Your hand is:" << endl;
-      LinkedList* hand = objCurPlayer->getDeck();
-      for (int i=0; i<hand->size(); i++) {
-         cout << hand->get(i)->getTileCode();
-         if (i!=hand->size()-1) {
-            cout << ", ";
-         }
-      }
+      std::cout << "\nYour hand is\n";
+      std::cout << objCurPlayer->getDeck()->toString(true);
+;
       cout << endl << endl;
       
       takeTurn();
