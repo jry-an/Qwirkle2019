@@ -155,6 +155,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //if shape or color is equal, return true
     std::cout << "start of make move" << std::endl;
     bool success = false;
+    int score = 0;
     //check if tile place is in bounds
     if(row>=0 && col>=0 && row < ROWS && col<COLS){
         //check if tile spot if empty
@@ -207,11 +208,14 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
             this->setTile(row,col,tile->getColour(),tile->getShape());
             success = true;
         }
-        int score = getMovePoints(row,col);
-        player.setScore(score);
-        if (score >= 6) {
+        if (success)
+        {
+            score = getMovePoints(row,col);
+         if (score >= 6) {
             std::cout << "\nQwirkle!!!\n";
-            player.setScore(score+6);
+            score = score + 6;
+        }
+        player.setScore(score);
         }
         return success;
     }
@@ -221,8 +225,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
 
 int Board::getMovePoints(int placedRow, int placedCol)
 {
-    std::cout << "got to move points" << std::endl;
-    int movePoints = 0;
+    int movePoints = 1;
     int tempRow = placedRow;
     int tempCol = placedCol;
     //up left
@@ -283,7 +286,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
             break;
         }
     }
-                }
+}
 
 std::cout << movePoints << std::endl;
     return movePoints;
@@ -311,7 +314,6 @@ bool Board::firstTurn(){
     for (int row = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS; col++) {
             if(!array[row][col]->isEmpty()){
-                std::cout << "first turn false" << std::endl;
                 return false;
             }
         }
