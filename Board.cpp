@@ -136,42 +136,54 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
     //if surrounding have tile
     //get tile shape and color
     //if shape or color is equal, return true
+    std::cout << "start of make move" << std::endl;
     bool success = false;
+    //check if tile place is in bounds
+    if(row>=0 && col>=0 && row < ROWS && col<COLS){
+        //check if tile spot if empty
     if (array[row][col]->isEmpty()){
 
         //up-left
-        if(row>=1 && !array[row-1][col-1]->isEmpty()){
-            if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
-                this->setTile(row,col,tile->getColour(),tile->getShape());
-                success = true;
+        if (row>=1 && col>=1){
+            if(!array[row-1][col-1]->isEmpty()){
+                if(array[row-1][col-1]->getColour() == tile->getColour() || array[row-1][col-1]->getShape() == tile->getShape()){
+                 this->setTile(row,col,tile->getColour(),tile->getShape());
+                 success = true;
             }
         }
+    }
 
 
         //up-right
-        else if(row<= ROWS && !array[row-1][col+1] -> isEmpty()){
+        if(row>= 1 && col<COLS){
+         if(!array[row-1][col+1] -> isEmpty()){
             if(array[row-1][col+1]->getColour() == tile->getColour() || array[row-1][col+1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
             }
         }
+    }
 
 
         //down left
-        else if(col>=1 && !array[row+1][col-1] -> isEmpty()){
+        if(row< ROWS && col>=1){
+         if(!array[row+1][col-1] -> isEmpty()){
              if(array[row+1][col-1]->getColour() == tile->getColour() || array[row+1][col-1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
             }
         }
+        }
 
 
         //down right
-        else if(row<=ROWS && !array[row+1][col+1] -> isEmpty()){
+        if(row<ROWS && col<COLS){
+         if(!array[row+1][col+1] -> isEmpty()){
              if(array[row+1][col+1]->getColour() == tile->getColour() || array[row+1][col+1]->getShape() == tile->getShape()){
                 this->setTile(row,col,tile->getColour(),tile->getShape());
                 success = true;
             }
+        }
         }
         //if there are no tiles on the board, place the tile at [row][col]
         else if(firstTurn()){
@@ -186,16 +198,18 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
         return success;
     }
+    }
     return success;  
     }
 
 int Board::getMovePoints(int placedRow, int placedCol)
 {
+    std::cout << "got to move points" << std::endl;
     int movePoints = 1;
     int tempRow = placedRow;
     int tempCol = placedCol;
-
     //up left
+    if(placedRow >= 1 && placedCol >= 1){
     while (!array[tempRow-1][tempCol-1]->isEmpty())
     {
         movePoints++;
@@ -205,9 +219,11 @@ int Board::getMovePoints(int placedRow, int placedCol)
 
     tempRow = placedRow;
     tempCol = placedCol;
+    }
     
 
     //up right
+        if(placedRow <= ROWS && placedCol >= 1){
     while (!array[tempRow+1][tempCol-1]->isEmpty())
     {
         movePoints++;
@@ -216,8 +232,10 @@ int Board::getMovePoints(int placedRow, int placedCol)
     }
     tempRow = placedRow;
     tempCol = placedCol;
+        }
 
     //down left
+            if(placedRow >= 1 && placedCol <= COLS){
     while (!array[tempRow-1][tempCol+1]->isEmpty())
     {
         movePoints++;
@@ -226,14 +244,17 @@ int Board::getMovePoints(int placedRow, int placedCol)
     }
     tempRow = placedRow;
     tempCol = placedCol;
+            }
 
     //down right
-    while (!array[tempRow+1][tempCol+1]->isEmpty())
-    {
-        movePoints++;
+    if(placedRow <= ROWS && placedCol <= COLS){
+        while (!array[tempRow+1][tempCol+1]->isEmpty())
+        {
+            movePoints++;
         tempRow = tempRow + 1;
         tempCol = tempCol + 1;
     }
+                }
 
     return movePoints;
 }
