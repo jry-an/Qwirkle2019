@@ -81,7 +81,16 @@ void Board::printBoard()
             cout << "|";
             for (int j=0; j<=size; j++) {
                 if (j%2 == 0) {
-                 cout << " " << array[i][j]->getTileCode() << " |";
+                    if (!array[i][j]->isEmpty())
+                    {
+                        std::cout << color_map[array[i][j]->getColour()];
+                        std::cout << array[i][j]->getColour() << array[i][j]->getShape();
+                        std::cout << color_map[' '] << "|";
+                    }
+                    else{
+                       std::cout << " " << "  |";
+                    }
+                    
                 }
             }
         }
@@ -89,7 +98,16 @@ void Board::printBoard()
             cout << "   |";
             for (int j=0; j<=size; j++) {
                 if (j%2 == 1) {
-                    cout << " " << array[i][j]->getTileCode() << " |"; // could be j before i, not sure until we implement
+                    if (!array[i][j]->isEmpty())
+                    {
+                        std::cout << color_map[array[i][j]->getColour()];
+                        std::cout << array[i][j]->getColour() << array[i][j]->getShape();
+                        std::cout << color_map[' '] << " |";
+                    }
+                    else{
+                        std::cout << " " << "|";
+
+                    } // could be j before i, not sure until we implement
                 }
             }
         }
@@ -181,9 +199,9 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile) {
         }
         int score = getMovePoints(row,col);
         player.setScore(score);
-        if (score == 6) {
+        if (score >= 6) {
             std::cout << "\nQwirkle!!!\n";
-            player.setScore(score);
+            player.setScore(score+6);
         }
         return success;
     }
@@ -236,6 +254,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
         tempCol = tempCol + 1;
     }
 
+std::cout << movePoints << std::endl;
     return movePoints;
 }
 
