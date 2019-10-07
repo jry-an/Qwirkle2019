@@ -154,87 +154,85 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     //if shape or color is equal, return true
     bool success = false;
     int score = 0;
-    if ((row < 7 && col < 7) && boardSize==7) {
+    if ((row < 7 && col < 7) && boardSize == 7) {
         boardSize = 7;
     }
-    else if (row==25 || col==25) {
+    else if (row == 25 || col == 25) {
         //dont expand
         boardSize = 25;
-
-    } else {
+    }
+    else {
         //board size check
         if (row >= boardSize) {
-            boardSize = row+1;
-
+            boardSize = row + 1;
         }
         if (col >= boardSize) {
-            boardSize = col+1;
+            boardSize = col + 1;
         }
     }
-    
 
     //check if tile place is in bounds
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row,col, tile)){
+            if (!notMatchingTile(row, col, tile)) {
 
-            //up-left
-            if (row >= 1 && col >= 1) {
-                if (!array[row - 1][col - 1]->isEmpty()) {
-                    if (array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) {
-                        this->setTile(row, col, tile->getColour(), tile->getShape());
-                        success = true;
+                //up-left
+                if (row >= 1 && col >= 1) {
+                    if (!array[row - 1][col - 1]->isEmpty()) {
+                        if (array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) {
+                            this->setTile(row, col, tile->getColour(), tile->getShape());
+                            success = true;
+                        }
                     }
                 }
-            }
 
-            //up-right
-            if (row >= 1 && col < COLS) {
-                if (!array[row - 1][col + 1]->isEmpty()) {
-                    if (array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) {
-                        this->setTile(row, col, tile->getColour(), tile->getShape());
-                        success = true;
+                //up-right
+                if (row >= 1 && col < COLS) {
+                    if (!array[row - 1][col + 1]->isEmpty()) {
+                        if (array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) {
+                            this->setTile(row, col, tile->getColour(), tile->getShape());
+                            success = true;
+                        }
                     }
                 }
-            }
 
-            //down left
-            if (row < ROWS && col >= 1) {
-                if (!array[row + 1][col - 1]->isEmpty()) {
-                    if (array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) {
-                        this->setTile(row, col, tile->getColour(), tile->getShape());
-                        success = true;
+                //down left
+                if (row < ROWS && col >= 1) {
+                    if (!array[row + 1][col - 1]->isEmpty()) {
+                        if (array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) {
+                            this->setTile(row, col, tile->getColour(), tile->getShape());
+                            success = true;
+                        }
                     }
                 }
-            }
 
-            //down right
-            if (row < ROWS && col < COLS) {
-                if (!array[row + 1][col + 1]->isEmpty()) {
-                    if (array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) {
-                        this->setTile(row, col, tile->getColour(), tile->getShape());
-                        success = true;
+                //down right
+                if (row < ROWS && col < COLS) {
+                    if (!array[row + 1][col + 1]->isEmpty()) {
+                        if (array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) {
+                            this->setTile(row, col, tile->getColour(), tile->getShape());
+                            success = true;
+                        }
                     }
                 }
-            }
-            //if there are no tiles on the board, place
-            if (firstTurn()) {
-                this->setTile(row, col, tile->getColour(), tile->getShape());
-                success = true;
-            }
-            if (success) {
-                score = getMovePoints(row, col);
-                if (score >= 6) {
-                    std::cout << "\nQwirkle!!!\n";
-                    score = score + 6;
+                //if there are no tiles on the board, place
+                if (firstTurn()) {
+                    this->setTile(row, col, tile->getColour(), tile->getShape());
+                    success = true;
                 }
-                player.setScore(score);
+                if (success) {
+                    score = getMovePoints(row, col);
+                    if (score >= 6) {
+                        std::cout << "\nQwirkle!!!\n";
+                        score = score + 6;
+                    }
+                    player.setScore(score);
+                }
+                return success;
             }
-            return success;
         }
     }
-}
     return success;
 }
 
@@ -334,46 +332,46 @@ bool Board::firstTurn()
     return true;
 }
 
-bool Board::notMatchingTile(int row, int col, Tile* tile){
+bool Board::notMatchingTile(int row, int col, Tile* tile)
+{
     bool notMatchingTile = false;
 
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //upleft
         if (row >= 1 && col >= 1) {
             if (!array[row - 1][col - 1]->isEmpty()) {
-                    if (array[row - 1][col - 1]->getColour() != tile->getColour() && array[row - 1][col - 1]->getShape() != tile->getShape()) {
-                        notMatchingTile = true;
-                    }
+                if (array[row - 1][col - 1]->getColour() != tile->getColour() && array[row - 1][col - 1]->getShape() != tile->getShape()) {
+                    notMatchingTile = true;
                 }
             }
+        }
 
         //up-right
         if (row >= 1 && col < COLS) {
             if (!array[row - 1][col + 1]->isEmpty()) {
-                    if (array[row - 1][col + 1]->getColour() != tile->getColour() && array[row - 1][col + 1]->getShape() != tile->getShape()) {
-                        notMatchingTile = true;
-                    }
-                }
-            }
-        
-        //down left
-        if (row < ROWS && col >= 1) {
-                if (!array[row + 1][col - 1]->isEmpty()) {
-                    if (array[row + 1][col - 1]->getColour() != tile->getColour() && array[row + 1][col - 1]->getShape() != tile->getShape()) {
-                        notMatchingTile = true;
-                    }
-                }
-            }
-        //down right
-        if (row < ROWS && col < COLS) {
-                if (!array[row + 1][col + 1]->isEmpty()) {
-                    if (array[row + 1][col + 1]->getColour() != tile->getColour() && array[row + 1][col + 1]->getShape() != tile->getShape()) {
-                        notMatchingTile = true;
-                    }
+                if (array[row - 1][col + 1]->getColour() != tile->getColour() && array[row - 1][col + 1]->getShape() != tile->getShape()) {
+                    notMatchingTile = true;
                 }
             }
         }
-        std::cout << notMatchingTile << std::endl;
-        return notMatchingTile;
+
+        //down left
+        if (row < ROWS && col >= 1) {
+            if (!array[row + 1][col - 1]->isEmpty()) {
+                if (array[row + 1][col - 1]->getColour() != tile->getColour() && array[row + 1][col - 1]->getShape() != tile->getShape()) {
+                    notMatchingTile = true;
+                }
+            }
+        }
+        //down right
+        if (row < ROWS && col < COLS) {
+            if (!array[row + 1][col + 1]->isEmpty()) {
+                if (array[row + 1][col + 1]->getColour() != tile->getColour() && array[row + 1][col + 1]->getShape() != tile->getShape()) {
+                    notMatchingTile = true;
+                }
+            }
+        }
+    }
+    std::cout << notMatchingTile << std::endl;
+    return notMatchingTile;
 }
- 
