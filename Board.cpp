@@ -154,7 +154,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     //if shape or color is equal, return true
     bool success = false;
     int score = 0;
-    if (row < 7 && col < 7) {
+    if ((row < 7 && col < 7) && boardSize==7) {
         boardSize = 7;
     }
     else if (row==25 || col==25) {
@@ -163,11 +163,11 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
 
     } else {
         //board size check
-        if (row > boardSize) {
+        if (row >= boardSize) {
             boardSize = row+1;
 
         }
-        if (col > boardSize) {
+        if (col >= boardSize) {
             boardSize = col+1;
         }
     }

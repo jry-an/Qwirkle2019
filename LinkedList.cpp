@@ -88,27 +88,26 @@ Tile* LinkedList::removeFirst()
     return temp->tile;
 }
 
-Tile* LinkedList::removeTile(Tile* tile)
+void LinkedList::removeTile(Tile* tile)
 {
-    //TODO to fix replace tile. does not remove tile from linked list
-    Tile* tempTile = nullptr;
-
-    if (head->next->tile == tile) {
-        tempTile = head->next->tile;
-        head->next = head->next->next;
-        return tempTile;
-    }
-
     Node* temp = head;
 
-    while (temp->next != nullptr && temp->next->next != nullptr) {
-        if (temp->next->next->tile == tile) {
-            tempTile = temp->next->next->tile;
-            temp->next->next = temp->next->next->next;
+    // base case (check if head is tile to be removed)
+    if (head->tile->isEqual(tile)) {
+        head = head->next;
+        length--;
+        return;
+    }
+
+    // check for all other
+    while (temp->next != nullptr) {
+        if (temp->next->tile->isEqual(tile)) {
+            temp->next = temp->next->next;
+            length--;
+            return;
         }
         temp = temp->next;
     }
-    return tempTile;
 }
 
 Tile* LinkedList::getTile(Colour c)
@@ -162,12 +161,15 @@ void LinkedList::replace(Tile* _old, Tile* _new)
     if (temp->tile!=nullptr){
         while (temp->next) {
             if (temp->tile->isEqual(_old)) {
-                std::cout << "FOUND A REPLACEMENT TILE" << std::endl;
                 removeTile(_old);
                 addLast(_new);
                 return;
             }
             temp = temp->next;
+        }
+        if (temp->tile->isEqual(_old)) {
+            removeTile(_old);
+            addLast(_new);
         }
     }
 }

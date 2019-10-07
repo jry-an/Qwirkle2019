@@ -21,7 +21,7 @@ public:
     void addLast(Tile* tile);
     void addFirst(Tile* tile);
     Tile* removeFirst();
-    Tile* removeTile(Tile* tile);
+    void removeTile(Tile* tile);
     Tile* getTile(Colour c);
     Tile* get(int i);
     bool find(Colour);
