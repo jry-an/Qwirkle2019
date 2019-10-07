@@ -233,10 +233,9 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow - 1;
         tempCol = tempCol - 1;
-        if(tempRow < 0 && tempCol < 0){
+        if(tempRow < 1 || tempCol < 1){
             break;
         }
-
     }
 
     tempRow = placedRow;
@@ -251,7 +250,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow + 1;
         tempCol = tempCol - 1;
-        if(tempRow >= ROWS || tempCol < 0){
+        if(tempRow >= ROWS-1 || tempCol < 1){
             break;
         }
     }
@@ -266,7 +265,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
         movePoints++;
         tempRow = tempRow - 1;
         tempCol = tempCol + 1;
-        if(tempRow < 0 || tempCol >= COLS){
+        if(tempRow < 1 || tempCol >= COLS-1){
             break;
         }
     }
@@ -281,7 +280,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
             movePoints++;
         tempRow = tempRow + 1;
         tempCol = tempCol + 1;
-        if(tempRow >= ROWS || tempCol >= COLS){
+        if(tempRow >= ROWS -1 || tempCol >= COLS -1){
             break;
         }
     }
