@@ -312,14 +312,6 @@ void Qwirkle::takeTurn()
          else if (prompt == "save")
          {
             saveGame();
-            // TODO
-            // std::string file;
-            // if (line.length() < 6) {
-            //    throw std::string(
-            //       "Filename not specified. Game save failed.");
-            // }
-            // file = line.substr(5);
-            // //saveGame(file, player); //TODO
             continue;
          }
          else if (prompt == "help")
@@ -385,19 +377,22 @@ Player *Qwirkle::getNewPlayer()
 
 void Qwirkle::loadGame()
 {
+   std::ifstream loadFile;
+   std::string line;
 }
 void Qwirkle::saveGame()
 {
    int size = boardSize;
 
-    // Check if board size is 0 (no tile placed yet)
-    if (boardSize == 0) {
-        size = 7;
-    }
+   // Check if board size is 0 (no tile placed yet)
+   if (boardSize == 0)
+   {
+      size = 7;
+   }
 
    //open file for saving
    std::string filename;
-   std::cout << "Enter the name of the file to save:" << std::endl;
+   std::cout << "Enter the name of the file to save as:" << std::endl;
    std::cout << "> ";
    std::cin >> filename;
    if (!std::cin.eof())
@@ -418,7 +413,7 @@ void Qwirkle::saveGame()
       outFile << currentPlayer << std::endl;
 
       // save board
-      // Print numbers at top. 0, 2, 4...
+      // Print numbers at top
       outFile << "     ";
       for (int i = 0; i <= size; i++)
       {
@@ -460,9 +455,11 @@ void Qwirkle::saveGame()
 
       for (int i = 0; i < size; i++)
       {
+         // print Alphabets
          outFile << (char)('A' + i) << "  ";
          if (i % 2 == 0)
          {
+            // Measure line
             outFile << "|";
             for (int j = 0; j < size; j++)
             {
@@ -471,6 +468,8 @@ void Qwirkle::saveGame()
                   if (board.getTile(i, j)->getShape() != -1)
                   {
                      outFile << " ";
+
+                     // Obtain tile colour and shape
                      outFile << board.getTile(i, j)->getColour() << board.getTile(i, j)->getShape() << " |";
                   }
                   else
@@ -491,6 +490,8 @@ void Qwirkle::saveGame()
                   if (board.getTile(i, j)->getShape() != -1)
                   {
                      outFile << " ";
+
+                     // Obtain colour and shapes
                      outFile << board.getTile(i, j)->getColour() << board.getTile(i, j)->getShape() << " |";
                   }
                   else
