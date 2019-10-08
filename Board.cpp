@@ -422,7 +422,6 @@ bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 
 bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
 {
-
     int tempRow = startRow;
     int tempCol = startCol;
     rowTilesMatching = true;
@@ -433,15 +432,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             if (array[tempRow - 1][tempCol - 1]->getColour() == tile->getColour()) {
                 while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
                     {
+                         if (array[tempRow - 1][tempCol - 1]->getColour() != tile->getColour()) {
+                            rowTilesMatching = false;
+                            break;
+                        }
+                        std::cout << "upleft colour" << std::endl;
                         tempRow = tempRow - 1;
                         tempCol = tempCol - 1;
                         if (tempRow < 1 || tempCol < 1) {
                             break;
                         }
-                        if (array[tempRow - 1][tempCol - 1]->getColour() != tile->getColour()) {
-                            rowTilesMatching = false;
-                            break;
-                        }
+                       
                     }
                 }
                 //upleft shape
@@ -451,15 +452,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 if (array[tempRow - 1][tempCol - 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
                         {
+                            if (array[tempRow - 1][tempCol - 1]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                                break;
+                            }
+                            std::cout << "upleft shapre" << std::endl;
                             tempRow = tempRow - 1;
                             tempCol = tempCol - 1;
                             if (tempRow < 1 || tempCol < 1) {
                                 break;
                             }
-                            if (array[tempRow - 1][tempCol - 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
+                            
                         }
                     }
                 }
@@ -476,15 +479,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             if (array[tempRow - 1][tempCol + 1]->getColour() == tile->getColour()) {
                 while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
                     {
+                         if (array[tempRow - 1][tempCol + 1]->getColour() != tile->getColour()) {
+                            rowTilesMatching = false;
+                            break;
+                        }
+                        std::cout << "upright colour" << std::endl;
                         tempRow = tempRow - 1;
                         tempCol = tempCol + 1;
                         if (tempRow < 1 || tempCol >= COLS - 1) {
                             break;
                         }
-                        if (array[tempRow - 1][tempCol + 1]->getColour() != tile->getColour()) {
-                            rowTilesMatching = false;
-                            break;
-                        }
+                       
                     }
                 }
                 //upright shape
@@ -493,15 +498,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 if (array[tempRow - 1][tempCol + 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
                         {
+                             if (array[tempRow - 1][tempCol + 1]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                                break;
+                            }
+                            std::cout << "upright shape" << std::endl;
                             tempRow = tempRow - 1;
                             tempCol = tempCol + 1;
                             if (tempRow < 1 || tempCol >= COLS - 1) {
                                 break;
                             }
-                            if (array[tempRow - 1][tempCol + 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
+                           
                         }
                     }
                 }
@@ -518,15 +525,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             if (array[tempRow + 1][tempCol - 1]->getColour() == tile->getColour()) {
                 while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
                     {
+                        if (array[tempRow + 1][tempCol - 1]->getColour() != tile->getColour()) {
+                            rowTilesMatching = false;
+                            break;
+                        }
+                        std::cout << "downleft colour" << std::endl;
                         tempRow = tempRow + 1;
                         tempCol = tempCol - 1;
                         if (tempRow >= ROWS - 1 || tempCol < 1) {
                             break;
                         }
-                        if (array[tempRow + 1][tempCol - 1]->getColour() != tile->getColour()) {
-                            rowTilesMatching = false;
-                            break;
-                        }
+                        
                     }
                 }
                 //down-left shape
@@ -535,15 +544,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
                         {
+                             if (array[tempRow + 1][tempCol - 1]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                                break;
+                            }
+                        std::cout << "downleft shape" << std::endl;
                             tempRow = tempRow + 1;
                             tempCol = tempCol - 1;
                             if (tempRow >= ROWS - 1 || tempCol < 1) {
                                 break;
                             }
-                            if (array[tempRow + 1][tempCol - 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
+                           
                         }
                     }
                 }
@@ -560,15 +571,17 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             if (array[tempRow + 1][tempCol + 1]->getColour() == tile->getColour()) {
                 while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
                     {
+                        if (array[tempRow + 1][tempCol + 1]->getColour() != tile->getColour()) {
+                            rowTilesMatching = false;
+                            break;
+                        }
+                        std::cout << "downright colour" << std::endl;
                         tempRow = tempRow + 1;
                         tempCol = tempCol + 1;
                         if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
                             break;
                         }
-                        if (array[tempRow + 1][tempCol + 1]->getColour() != tile->getColour()) {
-                            rowTilesMatching = false;
-                            break;
-                        }
+                        
                     }
                 }
                 //down-right shape
@@ -577,21 +590,24 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 if (array[tempRow + 1][tempCol + 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
                         {
+                             if (array[tempRow + 1][tempCol + 1]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                                break;
+                            }
+                        std::cout << "downright shape" << std::endl;
                             tempRow = tempRow + 1;
                             tempCol = tempCol - 1;
                             if (tempRow >= ROWS - 1 || tempCol < 1) {
                                 break;
                             }
-                            if (array[tempRow + 1][tempCol + 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
+                           
                         }
                     }
                 }
             }
         }
     }
+    std::cout << "rowTilesMatching: " << rowTilesMatching << std::endl;
     return rowTilesMatching;
 }
 
