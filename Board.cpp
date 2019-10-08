@@ -497,14 +497,13 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
         }
 
     }
-            tempRow = startRow;
+        tempRow = startRow;
         tempCol = startCol;
 
     //up right colour 
     if (startRow >= 1 && startCol < COLS) {
         while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-                                std::cout << "up right colour loop" << std::endl;
-
+                std::cout << "up right colour loop" << std::endl;
             if (array[tempRow - 1][tempCol + 1]->getColour() == tile->getColour()) {
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
@@ -515,6 +514,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
             else if (array[tempRow - 1][tempCol + 1]->getColour() != tile->getColour() && !array[tempRow - 1][tempCol + 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
 
@@ -536,8 +536,9 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                     break;
                 }
             }
-            else if (array[tempRow - 1][tempCol + 1]->getShape() != tile->getShape() && !array[tempRow - 1][tempCol + 1]->isEmpty()){
+             if (array[tempRow - 1][tempCol + 1]->getShape() != tile->getShape() && !array[tempRow - 1][tempCol + 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
 
@@ -559,8 +560,9 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                     break;
                 }
             }
-            else if (array[tempRow + 1][tempCol - 1]->getColour() != tile->getColour() && !array[tempRow + 1][tempCol - 1]->isEmpty()){
+             if (array[tempRow + 1][tempCol - 1]->getColour() != tile->getColour() && !array[tempRow + 1][tempCol - 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
 
@@ -584,6 +586,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
             else if (array[tempRow + 1][tempCol - 1]->getShape() != tile->getShape() && !array[tempRow + 1][tempCol - 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
 
@@ -606,6 +609,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
             else if (array[tempRow + 1][tempCol + 1]->getColour() != tile->getColour() && !array[tempRow + 1][tempCol + 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
     }
@@ -626,6 +630,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
             else if (array[tempRow + 1][tempCol + 1]->getShape() != tile->getShape() && !array[tempRow + 1][tempCol + 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
     }
