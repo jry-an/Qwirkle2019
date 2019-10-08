@@ -24,6 +24,8 @@ class Board {
     bool firstTurn();
     bool notMatchingTile(int row, int col, Tile* tile);
     bool notTileInLine(int placedRow,int placedCol, Tile* tile);
+    bool rowTilesMatch(int startRow, int startCol,Tile* tile);
+
 
 private:
     Tile* array[ROWS][COLS];
