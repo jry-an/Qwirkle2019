@@ -359,8 +359,8 @@ void Qwirkle::showInfo()
              << endl;
 
    cout << "Name: Tharvind Kalaiarasan" << endl;
-   cout << "Student ID: sXXXXXXX" << endl;
-   cout << "Email: sXXXXXXX@student.rmit.edu.au \n"
+   cout << "Student ID: s3654959" << endl;
+   cout << "Email: s3654959@student.rmit.edu.au \n"
              << endl;
 
    cout << "Name: Thien Nguyen" << endl;
