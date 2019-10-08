@@ -409,7 +409,7 @@ void Qwirkle::saveGame()
       {
          outFile << players[p]->getName() << std::endl;
          outFile << players[p]->getScore() << std::endl;
-         outFile << players[p]->getDeck()->toString(true) << std::endl;
+         outFile << players[p]->getDeck()->toString(false) << std::endl;
       }
       //save whos turn it is
       outFile << currentPlayer << std::endl;
