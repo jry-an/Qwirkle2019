@@ -298,6 +298,8 @@ void Qwirkle::takeTurn()
                cout << "This tile is not in your hand!\n\n> ";
                continue;
             }
+
+            //GameOver
             if (tileBag->isEmpty())
             {
                cout << "Bag is empty and you can't replace\n\n> ";
@@ -308,6 +310,22 @@ void Qwirkle::takeTurn()
             tileBag->shuffle();
             is_end = false;
             flag = true;
+         }
+         else if (prompt == "done" )
+         {
+            std::cout << "Game Over"<< std::endl;
+            displayPlayersScore();
+            std::cout << "Player "<< getWinningPlayer()->getName() + " won! " << std::endl;
+            std::cout << "\nGoodbye " << std::endl;
+            continue;
+         }
+         else if (tileBag->isEmpty() && playersHandEmpty() )
+         {
+            std::cout << "Game Over"<< std::endl;
+            displayPlayersScore();
+            std::cout << "Player "<< getWinningPlayer()->getName() + " won! " << std::endl;
+            std::cout << "\nGoodbye " << std::endl;
+            continue;
          }
          else if (prompt == "save")
          {
@@ -377,8 +395,7 @@ Player *Qwirkle::getNewPlayer()
 
 void Qwirkle::loadGame()
 {
-   std::ifstream loadFile;
-   std::string line;
+
 }
 void Qwirkle::saveGame()
 {
@@ -562,7 +579,7 @@ void Qwirkle::showInfo()
 
    cout << "Name: Aaron Chan" << endl;
    cout << "Student ID: sXXXXXXX" << endl;
-   cout << "Email: sXXXXXXX@student.rmit.edu.au \n"
+   cout << "Email: s3666603@student.rmit.edu.au \n"
         << endl;
 
    cout << "Name: Tharvind Kalaiarasan" << endl;
@@ -585,6 +602,48 @@ void Qwirkle::helpMenu()
    cout << "'replace' eg: replace O6\n";
    cout << "'place' eg: place O6 at A0\n";
    cout << "'save' eg: save filename\n";
+   cout << "'done' Finish Game\n";
    cout << "'Ctrl+D' Exit Immediately\n";
    cout << endl;
+
+}
+
+
+//player score is displayed
+void Qwirkle::displayPlayersScore()
+{
+    for (int playerNum = 0; playerNum < maxPlayers; ++playerNum)
+    {
+        std::cout << "Score for " << players[playerNum]->getName() << ": " << players[playerNum]->getScore() << std::endl;
+    }
+}
+
+//checks to see if the playersHand is empty to end the game (helper method to endGame())
+bool Qwirkle::playersHandEmpty()
+{
+    bool isEmpty = false;
+    for (int i = 0; i < maxPlayers; i++)
+    {
+        if (players[i]->getDeck()->size() == 0)
+        {
+            isEmpty = true;
+        }
+    }
+    return isEmpty;
+}
+
+//returns the winning player after the game is over
+Player *Qwirkle::getWinningPlayer()
+{
+    int highestScore = 0;
+    Player *winningPlayer = nullptr;
+    for (int i = 0; i < 2; i++)
+    {
+        if (players[i]->getScore() > highestScore)
+        {
+            highestScore = players[i]->getScore();
+            winningPlayer = players[i];
+        }
+    }
+    return winningPlayer;
 }

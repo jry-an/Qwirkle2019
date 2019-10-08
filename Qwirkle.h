@@ -51,6 +51,8 @@ public:
     LinkedList* getNewDeck();
     void start();
     void takeTurn();
+    void displayPlayersScore();
+    Player* getWinningPlayer();
 
     LinkedList* tileBag;
     Board board;
@@ -59,6 +61,7 @@ private:
     int maxPlayers;
     int currentPlayer;
     int boardSize;
+    bool playersHandEmpty();
 };
 
 #endif
