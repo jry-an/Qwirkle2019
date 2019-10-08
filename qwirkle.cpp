@@ -796,7 +796,7 @@ void Qwirkle::showInfo()
         << endl;
 
    cout << "Name: Aaron Chan" << endl;
-   cout << "Student ID: sXXXXXXX" << endl;
+   cout << "Student ID: s3666603" << endl;
    cout << "Email: s3666603@student.rmit.edu.au \n"
         << endl;
 
