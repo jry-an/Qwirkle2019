@@ -18,6 +18,10 @@ Board::Board()
     }
 }
 
+int Board::getBoardSize() {
+    return this->boardSize;
+}
+
 void Board::printBoard()
 {
     std::map<Colour, std::string> color_map;

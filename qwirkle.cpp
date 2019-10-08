@@ -267,7 +267,7 @@ void Qwirkle::takeTurn()
             int col = std::stoi(std::string(location.begin() + 1, location.end()));
             if (!board.makeMove(player, row, col, oldTile))
             {
-               cout << "The location is occupied\n\n> ";
+               cout << "Invalid move. Try again.\n\n> ";
                continue;
             }
             if (!tileBag->isEmpty())
@@ -382,24 +382,22 @@ void Qwirkle::loadGame()
 }
 void Qwirkle::saveGame()
 {
-   int size = boardSize;
-
-   // Check if board size is 0 (no tile placed yet)
-   if (boardSize == 0)
-   {
-      size = 7;
-   }
+   int size = board.getBoardSize();
 
    //open file for saving
    std::string filename;
+   std::string line;
    std::cout << "Enter the name of the file to save as:" << std::endl;
    std::cout << "> ";
-   std::cin >> filename;
+   std::getline(std::cin, line);
+   std::stringstream input_stream(line);
+   input_stream >> filename;
+
    if (!std::cin.eof())
    {
       filename += ".save";
       std::ofstream outFile;
-      outFile.open(filename);
+      outFile.open("saves/"+filename);
 
       //save player info
       outFile << maxPlayers << std::endl;
@@ -407,10 +405,9 @@ void Qwirkle::saveGame()
       {
          outFile << players[p]->getName() << std::endl;
          outFile << players[p]->getScore() << std::endl;
-         outFile << players[p]->getDeck()->toString(false) << std::endl;
+         std::string hand = players[p]->getDeck()->toString(false);
+         outFile << hand;
       }
-      //save whos turn it is
-      outFile << currentPlayer << std::endl;
 
       // save board
       // Print numbers at top
@@ -453,7 +450,7 @@ void Qwirkle::saveGame()
       }
       outFile << endl;
 
-      for (int i = 0; i < size; i++)
+      for (int i = 0; i <= size; i++)
       {
          // print Alphabets
          outFile << (char)('A' + i) << "  ";
@@ -461,7 +458,7 @@ void Qwirkle::saveGame()
          {
             // Measure line
             outFile << "|";
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j <= size; j++)
             {
                if (j % 2 == 0)
                {
@@ -544,6 +541,19 @@ void Qwirkle::saveGame()
          }
       }
       outFile << endl;
+
+      //save tilebag
+      outFile << tileBag->toString(false);
+
+      //save currentplayers name
+      outFile << players.at(currentPlayer)->getName() << endl;
+
+      cout << "Succesfully saved game. '" << filename << "'\n\n> ";
+   }
+   else {
+      cout << endl
+         << "Goodbye." << endl;
+      exit(0);
    }
 }
 

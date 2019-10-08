@@ -16,6 +16,7 @@ class Board {
     public:
     Board();
     void printBoard();
+    int getBoardSize();
     bool makeMove(Player& player, int row, int col, Tile* tile);
     bool isEmpty();
     void setTile(int row, int col, Colour colour, Shape shape);
