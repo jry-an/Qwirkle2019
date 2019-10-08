@@ -37,13 +37,13 @@ class Qwirkle {
 public:
     //constructor and deconstructor (if needed)
     Qwirkle();
-    Qwirkle(int numPlayers);
     ~Qwirkle();
 
+    int inputNumPlayers();
     Player* getNewPlayer();
     void newGame();
     void loadGame();
-    void saveGame(std::string filename, Player player);
+    void saveGame();
     void showInfo();
     void helpMenu();
     void printMenu();
@@ -51,6 +51,8 @@ public:
     LinkedList* getNewDeck();
     void start();
     void takeTurn();
+    void displayPlayersScore();
+    Player* getWinningPlayer();
 
     LinkedList* tileBag;
     Board board;
@@ -58,6 +60,7 @@ private:
     std::vector<Player*> players;
     int maxPlayers;
     int currentPlayer;
+    bool playersHandEmpty();
 };
 
 #endif
