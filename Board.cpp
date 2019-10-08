@@ -444,7 +444,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                             rowTilesMatching = false;
                             break;
                         }
-                        std::cout << "upleft colour" << std::endl;
                         tempRow = tempRow - 1;
                         tempCol = tempCol - 1;
                         if (tempRow < 1 || tempCol < 1) {
@@ -464,7 +463,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                                 rowTilesMatching = false;
                                 break;
                             }
-                            std::cout << "upleft shapre" << std::endl;
                             tempRow = tempRow - 1;
                             tempCol = tempCol - 1;
                             if (tempRow < 1 || tempCol < 1) {
@@ -491,7 +489,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                             rowTilesMatching = false;
                             break;
                         }
-                        std::cout << "upright colour" << std::endl;
                         tempRow = tempRow - 1;
                         tempCol = tempCol + 1;
                         if (tempRow < 1 || tempCol >= COLS - 1) {
@@ -510,7 +507,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                                 rowTilesMatching = false;
                                 break;
                             }
-                            std::cout << "upright shape" << std::endl;
                             tempRow = tempRow - 1;
                             tempCol = tempCol + 1;
                             if (tempRow < 1 || tempCol >= COLS - 1) {
@@ -537,7 +533,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                             rowTilesMatching = false;
                             break;
                         }
-                        std::cout << "downleft colour" << std::endl;
                         tempRow = tempRow + 1;
                         tempCol = tempCol - 1;
                         if (tempRow >= ROWS - 1 || tempCol < 1) {
@@ -556,7 +551,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                                 rowTilesMatching = false;
                                 break;
                             }
-                        std::cout << "downleft shape" << std::endl;
                             tempRow = tempRow + 1;
                             tempCol = tempCol - 1;
                             if (tempRow >= ROWS - 1 || tempCol < 1) {
@@ -583,7 +577,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                             rowTilesMatching = false;
                             break;
                         }
-                        std::cout << "downright colour" << std::endl;
                         tempRow = tempRow + 1;
                         tempCol = tempCol + 1;
                         if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
@@ -602,7 +595,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                                 rowTilesMatching = false;
                                 break;
                             }
-                        std::cout << "downright shape" << std::endl;
                             tempRow = tempRow + 1;
                             tempCol = tempCol + 1;
                             if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
@@ -615,7 +607,6 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             }
         }
     }
-    std::cout << "rowTilesMatching: " << rowTilesMatching << std::endl;
     return rowTilesMatching;
 }
 
