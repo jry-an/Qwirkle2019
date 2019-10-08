@@ -175,12 +175,12 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile)) {
+            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile) && rowTilesMatch(row, col, tile)) {
 
                 //up-left
                 if (row >= 1 && col >= 1) {
                     if (!array[row - 1][col - 1]->isEmpty()) {
-                        if ((array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) && rowTilesMatch(row, col, tile)) {
+                        if (array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -190,7 +190,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //up-right
                 if (row >= 1 && col < COLS) {
                     if (!array[row - 1][col + 1]->isEmpty()) {
-                        if ((array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) && rowTilesMatch(row, col, tile)) {
+                        if (array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -200,7 +200,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //down left
                 if (row < ROWS && col >= 1) {
                     if (!array[row + 1][col - 1]->isEmpty()) {
-                        if ((array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) && rowTilesMatch(row, col, tile)) {
+                        if (array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -210,7 +210,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //down right
                 if (row < ROWS && col < COLS) {
                     if (!array[row + 1][col + 1]->isEmpty()) {
-                        if ((array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) && rowTilesMatch(row, col, tile)) {
+                        if (array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
