@@ -13,10 +13,11 @@ const int ROWS = 27;
 const int COLS = 27;
 
 class Board {
-    public:
+public:
     Board();
     void printBoard();
     int getBoardSize();
+    void setBoardSize(int size);
     bool makeMove(Player& player, int row, int col, Tile* tile);
     bool isEmpty();
     void setTile(int row, int col, Colour colour, Shape shape);

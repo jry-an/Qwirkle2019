@@ -22,6 +22,10 @@ int Board::getBoardSize() {
     return this->boardSize;
 }
 
+void Board::setBoardSize(int size) {
+    this->boardSize = size;
+}
+
 void Board::printBoard()
 {
     std::map<Colour, std::string> color_map;
