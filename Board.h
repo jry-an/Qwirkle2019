@@ -17,13 +17,15 @@ class Board {
     Board();
     void printBoard();
     bool makeMove(Player& player, int row, int col, Tile* tile);
-    bool isEmpty();
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
     int getMovePoints(int placedRow, int placedCol);
     bool firstTurn();
     bool notMatchingTile(int row, int col, Tile* tile);
     bool notTileInLine(int placedRow,int placedCol, Tile* tile);
+    bool rowTilesMatch(int startRow, int startCol,Tile* tile);
+    bool rowTilesMatching;
+
 
 private:
     Tile* array[ROWS][COLS];
