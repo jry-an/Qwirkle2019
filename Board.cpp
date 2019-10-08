@@ -456,7 +456,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
 
     int tempRow = startRow;
     int tempCol = startCol;
-    bool rowTilesMatching = false;
+    rowTilesMatching = false;
 
     //up left colour
     if (startRow >= 1 && startCol >= 1) {
@@ -474,16 +474,17 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
+      std::cout << "up left col is " << rowTilesMatching << std::endl;
     }
         tempRow = startRow;
         tempCol = startCol;
 
     //up left shape
-    if (startRow >= 1 && startCol >= 1) {
+    if (tempRow >= 1 && tempRow >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-                        std::cout << "up left shape loop" << std::endl;
-
+            std::cout << "up left shape loop" << std::endl;
             if (array[tempRow - 1][tempCol - 1]->getShape() == tile->getShape()){
+                std::cout << "here" << std::endl;
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
                 tempCol = tempCol - 1;
@@ -495,6 +496,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
+      std::cout << "up left shape is " << rowTilesMatching << std::endl;
 
     }
         tempRow = startRow;
@@ -517,6 +519,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+      std::cout << "up right col is " << rowTilesMatching << std::endl;
 
     }
 
@@ -541,6 +544,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+      std::cout << "up right shape is " << rowTilesMatching << std::endl;
 
     }
 
@@ -550,8 +554,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
     //down left colour
     if (startRow < ROWS && startCol >= 1) {
         while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-                                std::cout << "down left colour loop" << std::endl;
-
+              std::cout << "down left colour loop" << std::endl;
             if (array[tempRow + 1][tempCol - 1]->getColour() == tile->getColour()) {
               rowTilesMatching = true;
                 tempRow = tempRow + 1;
@@ -565,6 +568,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+      std::cout << "down left col is " << rowTilesMatching << std::endl;
 
     }
 
@@ -589,6 +593,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+      std::cout << "down left shape is " << rowTilesMatching << std::endl;
 
     }
             tempRow = startRow;
@@ -612,6 +617,8 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+              std::cout << "down right col is " << rowTilesMatching << std::endl;
+
     }
             tempRow = startRow;
         tempCol = startCol;
@@ -633,7 +640,9 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 break;
             }
         }
+              std::cout << "down right shape is " << rowTilesMatching << std::endl;
     }
+    //WHY IS THIS RETURNING FALSE???? the last change is true
     std::cout << "rowTilesMatching is " << rowTilesMatching << std::endl;
     return rowTilesMatching;
 }
