@@ -225,7 +225,7 @@ std::string LinkedList::toString(bool is_console)
 
     for (int i=0; i<length; i++) {
         if (!is_console)
-            stream << this->get(i)->getColour() << this->get(i)->getColour();
+            stream << this->get(i)->getColour() << this->get(i)->getShape();
         else
             stream << color_map[this->get(i)->getColour()] << this->get(i)->getColour() << this->get(i)->getShape() << color_map[' '];
         if (i+1!=length)

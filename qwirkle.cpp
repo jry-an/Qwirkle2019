@@ -6,21 +6,44 @@ Qwirkle::Qwirkle()
    tileBag = new LinkedList;
 }
 
-Qwirkle::Qwirkle(int numPlayers)
-{
-   maxPlayers = numPlayers;
-   tileBag = new LinkedList();
-}
-
 Qwirkle::~Qwirkle()
 {
    delete tileBag;
 }
 
+int Qwirkle::inputNumPlayers() {
+   //todo
+   std::string line;
+   int players = 0;
+
+   while (players<2 || players>4) {
+      cout << "How many players? (2-4)" << endl;
+      cout << "> ";
+      
+      std::getline(std::cin, line);
+
+      if (std::cin.eof()) {
+         cout << "Goodbye." << endl;
+         exit(EXIT_SUCCESS);
+      }
+      try {
+         players = stoi(line);
+
+         if (players<2 || players>4) {
+               cout << "Invalid input. There may only be 2-4 players." << endl << endl;
+         }
+      }
+      catch(...){
+         cout << "Invalid input. There may only be 2-4 players." << endl << endl;
+      }
+   }
+   return players;
+}
+
 void Qwirkle::start()
 {
-   //Player* players = new Player[2];
    int input = 0;
+   std::string line;
 
    // While the user is playing the game - print the menu
    // and get the input for
@@ -31,7 +54,14 @@ void Qwirkle::start()
 
       //get input from user
       cout << "> ";
-      std::cin >> input;
+      std::getline(std::cin, line);
+      std::stringstream input_stream(line);
+      try {
+         input = stoi(line);
+      }
+      catch(...){
+         input = 0;
+      }
       cout << endl;
 
       if (std::cin.eof())
@@ -43,6 +73,7 @@ void Qwirkle::start()
 
       if (input == NEW_GAME)
       { //1
+         maxPlayers = inputNumPlayers();
          newGame();
       }
       else if (input == LOAD_GAME)
@@ -267,7 +298,7 @@ void Qwirkle::takeTurn()
             int col = std::stoi(std::string(location.begin() + 1, location.end()));
             if (!board.makeMove(player, row, col, oldTile))
             {
-               cout << "The location is occupied\n\n> ";
+               cout << "Invalid move. Try again.\n\n> ";
                continue;
             }
             if (!tileBag->isEmpty())
@@ -396,30 +427,199 @@ Player *Qwirkle::getNewPlayer()
    return player;
 }
 
-void Qwirkle::loadGame()
-{
+void Qwirkle::loadGame() {
+   std::string line = "";
+   std::ifstream loadFile;
+   std::string filename;
+   bool validFileName = false;
 
+   cout << "Enter the name of the save game to load: " << 
+      endl << "'exit' to return to menu." << endl;
+
+   while (!validFileName) {
+      std::cin.clear();
+      std::getline(std::cin, line);
+      std::stringstream input_stream(line);
+      input_stream >> filename;
+
+      
+      if (filename == "exit") {
+         return;
+      }
+      loadFile.open("saves/"+filename+".save");
+      if (!loadFile) {
+         cout << "Could not find this saved game. 'exit to return to menu." << endl;
+      }
+      else {
+         validFileName = true;
+      }
+      
+   }
+   //get maxPlayers
+   std::getline(loadFile, line);
+   std::istringstream iss(line);
+   if (!(iss >> maxPlayers)) {
+      cout << "Error loading game, file corrupt." << endl << endl;
+      return; 
+   }
+
+   // delete old players
+   if (players.size()!=0) {
+      for (int i=0; i<players.size(); i++) {
+         delete players.at(i);
+      }
+   }
+   players.clear();
+
+   //for all the players get 3 related lines from load file and create player object for each 
+   for (int i=0; i!=maxPlayers; i++){
+      std::string name;
+      int points;
+      LinkedList* hand;
+
+      //create player object
+      std::getline(loadFile, line);
+      std::stringstream input_stream(line);
+      input_stream >> name;
+      Player* player = new Player(name);
+      players.push_back(player);
+
+      //add points
+      std::getline(loadFile, line);
+      std::istringstream iss(line);
+      if (!(iss >> points)) {
+         cout << "Error loading game, file corrupt." << endl << endl;
+         return; 
+      }
+      player->setScore(points);
+
+      //read in hand
+      std::getline(loadFile, line);
+      char colour;
+      int shape;
+      hand = new LinkedList();
+      for (unsigned int j = 0; j != 6; j++)
+      {
+         int numTiles = (line.length() + 1) / 3;
+         if (j<numTiles)
+         {
+            colour = line[3 * j];
+            shape = line[3 * j + 1] - '0';
+            hand->addLast(new Tile(colour, shape));
+         }
+      }
+      player->setDeck(hand);
+   }
+
+   //load board
+   std::getline(loadFile, line);
+   std::getline(loadFile, line);
+
+   std::vector<Tile*> tiles;
+   std::vector<char> locationX;
+   std::vector<char> locationY;
+
+   board = Board();
+   std::getline(loadFile, line);
+   if (line[3] != '-') { //check to see if reached start of board
+      int rows = 0;
+
+      while (line[3]!='-') {
+         for (unsigned int i = 4; i != line.length(); i++) {
+            if (line[i] > 'A' && line[i] < 'Z')
+            {
+               char colour = line[i];
+               int shape = line[i + 1] - '0';
+               Tile *tile = new Tile(colour, shape);
+               tiles.push_back(tile); //list of tiles found
+
+               // find tiles corresponding row and col and add to board
+               int tileRow = line[0] - 'A';
+               int tileCol = 0;
+               for (int j=1; j<i; j++) {
+                  if (line[j]== '|') {
+                     tileCol++;
+                  }
+               }
+               tileCol*=2;
+               if(tileRow%2==0){
+                  tileCol=tileCol-2;
+               }
+               else {
+                  tileCol--;
+               }
+               cout << "adding tile " << colour << shape << " to pos " << tileRow << "," << tileCol << endl;
+               board.setTile(tileRow, tileCol, colour, shape);
+
+            }
+         }
+         ++rows;
+         getline(loadFile, line);
+      }
+      getline(loadFile, line);
+
+      //set boardsize
+      if (rows>=24 ) {
+         rows=26;
+      }
+      board.setBoardSize(rows-1);
+   }
+   else {
+      cout << "Error loading game, file corrupt." << endl << endl;
+      return; 
+   }
+
+   //read in tilebag
+   std::getline(loadFile, line);
+   char colour;
+   int shape;
+   this->tileBag = new LinkedList();
+   int numTiles = (line.length() + 1) / 3;
+
+   for (unsigned int j = 0; j != numTiles; j++)
+   {
+      colour = line[3 * j];
+      shape = line[3 * j + 1] - '0';
+      tileBag->addLast(new Tile(colour, shape));
+   }
+
+   //check whos turn
+   std::getline(loadFile, line);
+   for (int i=0; i<players.size(); i++) {
+      std::string name;
+      std::stringstream input_stream(line);
+      input_stream >> name;   
+      if (players.at(i)->getName() == name) {
+         currentPlayer = i;
+      }
+   }
+
+
+   //successfully loaded file
+   cout << "Successfully loaded game. Starting game..." << endl << endl;
+   loadFile.close();
+
+   //call playGame
+   playGame();
 }
 void Qwirkle::saveGame()
 {
-   int size = boardSize;
-
-   // Check if board size is 0 (no tile placed yet)
-   if (boardSize == 0)
-   {
-      size = 7;
-   }
+   int size = board.getBoardSize();
 
    //open file for saving
    std::string filename;
+   std::string line;
    std::cout << "Enter the name of the file to save as:" << std::endl;
    std::cout << "> ";
-   std::cin >> filename;
+   std::getline(std::cin, line);
+   std::stringstream input_stream(line);
+   input_stream >> filename;
+
    if (!std::cin.eof())
    {
       filename += ".save";
       std::ofstream outFile;
-      outFile.open(filename);
+      outFile.open("saves/"+filename);
 
       //save player info
       outFile << maxPlayers << std::endl;
@@ -427,10 +627,9 @@ void Qwirkle::saveGame()
       {
          outFile << players[p]->getName() << std::endl;
          outFile << players[p]->getScore() << std::endl;
-         outFile << players[p]->getDeck()->toString(false) << std::endl;
+         std::string hand = players[p]->getDeck()->toString(false);
+         outFile << hand;
       }
-      //save whos turn it is
-      outFile << currentPlayer << std::endl;
 
       // save board
       // Print numbers at top
@@ -473,7 +672,7 @@ void Qwirkle::saveGame()
       }
       outFile << endl;
 
-      for (int i = 0; i < size; i++)
+      for (int i = 0; i <= size; i++)
       {
          // print Alphabets
          outFile << (char)('A' + i) << "  ";
@@ -481,7 +680,7 @@ void Qwirkle::saveGame()
          {
             // Measure line
             outFile << "|";
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j <= size; j++)
             {
                if (j % 2 == 0)
                {
@@ -564,6 +763,19 @@ void Qwirkle::saveGame()
          }
       }
       outFile << endl;
+
+      //save tilebag
+      outFile << tileBag->toString(false);
+
+      //save currentplayers name
+      outFile << players.at(currentPlayer)->getName() << endl;
+
+      cout << "Succesfully saved game. '" << filename << "'\n\n> ";
+   }
+   else {
+      cout << endl
+         << "Goodbye." << endl;
+      exit(0);
    }
 }
 
@@ -604,7 +816,8 @@ void Qwirkle::helpMenu()
    cout << "--------------------------\n";
    cout << "'replace' eg: replace O6\n";
    cout << "'place' eg: place O6 at A0\n";
-   cout << "'save' eg: save filename\n";
+   cout << "'save' eg: save" << endl
+   << "          'filename'\n";
    cout << "'done' Finish Game\n";
    cout << "'Ctrl+D' Exit Immediately\n";
    cout << endl;
