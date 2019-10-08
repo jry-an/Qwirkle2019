@@ -311,6 +311,7 @@ void Qwirkle::takeTurn()
             is_end = false;
             flag = true;
          }
+
          else if (prompt == "done" )
          {
             std::cout << "Game Over"<< std::endl;
@@ -319,6 +320,8 @@ void Qwirkle::takeTurn()
             std::cout << "\nGoodbye " << std::endl;
             continue;
          }
+
+         // Executes when Tilebag has no more tiles AND the players hand is empty
          else if (tileBag->isEmpty() && playersHandEmpty() )
          {
             std::cout << "Game Over"<< std::endl;
@@ -609,7 +612,7 @@ void Qwirkle::helpMenu()
 }
 
 
-//player score is displayed
+// Displaying all players score
 void Qwirkle::displayPlayersScore()
 {
     for (int playerNum = 0; playerNum < maxPlayers; ++playerNum)
@@ -618,7 +621,7 @@ void Qwirkle::displayPlayersScore()
     }
 }
 
-//checks to see if the playersHand is empty to end the game (helper method to endGame())
+//checks to see if the playersHand is empty to end the game
 bool Qwirkle::playersHandEmpty()
 {
     bool isEmpty = false;
