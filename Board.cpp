@@ -175,7 +175,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row, col, tile) && notTileInRow(row, col, tile)) {
+            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile)) {
 
                 //up-left
                 if (row >= 1 && col >= 1) {
@@ -223,7 +223,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 }
                 if (success) {
                     score = getMovePoints(row, col);
-                    if (score >= 6) {
+                    if (score == 6) {
                         std::cout << "\nQwirkle!!!\n";
                         score = score + 6;
                     }
@@ -376,7 +376,7 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
     return notMatchingTile;
 }
 
-bool Board::notTileInRow(int placedRow, int placedCol, Tile* tile)
+bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 {
     int tempRow = placedRow;
     int tempCol = placedCol;
