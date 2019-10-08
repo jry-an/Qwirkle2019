@@ -175,7 +175,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row, col, tile)) {
+            if (!notMatchingTile(row, col, tile) && notTileInRow(row, col, tile)) {
 
                 //up-left
                 if (row >= 1 && col >= 1) {
@@ -374,4 +374,81 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
     }
     std::cout << notMatchingTile << std::endl;
     return notMatchingTile;
+}
+
+bool Board::notTileInRow(int placedRow, int placedCol, Tile* tile)
+{
+    int tempRow = placedRow;
+    int tempCol = placedCol;
+    //up left
+    if (placedRow >= 1 && placedCol >= 1) {
+        while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
+            if (array[tempRow - 1][tempCol - 1]->isEqual(tile)) {
+                return false;
+            }
+            else {
+                tempRow = tempRow - 1;
+                tempCol = tempCol - 1;
+                if (tempRow < 1 || tempCol < 1) {
+                    break;
+                }
+            }
+        }
+
+        tempRow = placedRow;
+        tempCol = placedCol;
+    }
+
+    //up right
+    if (placedRow <= ROWS && placedCol >= 1) {
+        while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
+            if (array[tempRow + 1][tempCol - 1]->isEqual(tile)) {
+                return false;
+            }
+            else {
+                tempRow = tempRow + 1;
+                tempCol = tempCol - 1;
+                if (tempRow >= ROWS - 1 || tempCol < 1) {
+                    break;
+                }
+            }
+        }
+        tempRow = placedRow;
+        tempCol = placedCol;
+    }
+
+    //down left
+    if (placedRow >= 1 && placedCol <= COLS) {
+        while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
+            if (array[tempRow - 1][tempCol + 1]->isEqual(tile)) {
+                return false;
+            }
+            else {
+                tempRow = tempRow - 1;
+                tempCol = tempCol + 1;
+                if (tempRow < 1 || tempCol >= COLS - 1) {
+                    break;
+                }
+            }
+        }
+        tempRow = placedRow;
+        tempCol = placedCol;
+    }
+
+    //down right
+    if (placedRow <= ROWS && placedCol <= COLS) {
+        while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
+            if (array[tempRow + 1][tempCol + 1]->isEqual(tile)) {
+                return false;
+            }
+            else {
+                tempRow = tempRow + 1;
+                tempCol = tempCol + 1;
+                if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
+                    break;
+                }
+            }
+        }
+    }
+    return true;
 }
