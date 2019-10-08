@@ -19,6 +19,8 @@ public:
     int getBoardSize();
     void setBoardSize(int size);
     bool makeMove(Player& player, int row, int col, Tile* tile);
+    bool tileOnALocation(int row, int col);
+
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
     int getMovePoints(int placedRow, int placedCol);

@@ -153,6 +153,19 @@ void Board::printBoard()
     cout << endl;
 }
 
+bool Board::tileOnALocation(int row, int col){
+    bool placeableLocation = false;
+    if(row % 2 == 0 && col % 2 == 0){
+            placeableLocation = true;
+    }
+    else {
+    if (row % 2 != 0 && col % 2 != 0){
+        placeableLocation = true;
+    }
+}
+return placeableLocation;
+}
+
 bool Board::makeMove(Player& player, int row, int col, Tile* tile)
 {
     //check if valid move (able to place tile there)
@@ -183,7 +196,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile) && rowTilesMatch(row, col, tile)) {
+            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile) && rowTilesMatch(row, col, tile) && tileOnALocation(row,col)) {
 
                 //up-left
                 if (row >= 1 && col >= 1) {
