@@ -9,8 +9,8 @@ using std::vector;
 using std::endl;
 using std::cout;
 
-const int ROWS = 26;
-const int COLS = 26;
+const int ROWS = 27;
+const int COLS = 27;
 
 class Board {
     public:
