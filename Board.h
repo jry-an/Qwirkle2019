@@ -9,8 +9,8 @@ using std::vector;
 using std::endl;
 using std::cout;
 
-const int ROWS = 26;
-const int COLS = 26;
+const int ROWS = 27;
+const int COLS = 27;
 
 class Board {
     public:
@@ -23,6 +23,7 @@ class Board {
     int getMovePoints(int placedRow, int placedCol);
     bool firstTurn();
     bool notMatchingTile(int row, int col, Tile* tile);
+    bool notTileInLine(int placedRow,int placedCol, Tile* tile);
 
 private:
     Tile* array[ROWS][COLS];
