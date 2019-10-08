@@ -461,6 +461,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
     //up left colour
     if (startRow >= 1 && startCol >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
+            std::cout << "up left colour loop" << std::endl;
             if (array[tempRow - 1][tempCol - 1]->getColour() == tile->getColour()){
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
@@ -473,14 +474,15 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
-
+    }
         tempRow = startRow;
         tempCol = startCol;
-    }
 
     //up left shape
     if (startRow >= 1 && startCol >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
+                        std::cout << "up left shape loop" << std::endl;
+
             if (array[tempRow - 1][tempCol - 1]->getShape() == tile->getShape()){
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
@@ -494,13 +496,15 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
         }
 
-        tempRow = startRow;
-        tempCol = startCol;
     }
+            tempRow = startRow;
+        tempCol = startCol;
 
     //up right colour 
     if (startRow >= 1 && startCol < COLS) {
         while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
+                                std::cout << "up right colour loop" << std::endl;
+
             if (array[tempRow - 1][tempCol + 1]->getColour() == tile->getColour()) {
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
@@ -513,13 +517,17 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
-        tempRow = startRow;
-        tempCol = startCol;
+
     }
+
+            tempRow = startRow;
+        tempCol = startCol;
 
     //up right shape
     if (startRow >= 1 && startCol < COLS) {
         while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
+                                std::cout << "up right shape loop" << std::endl;
+
             if (array[tempRow - 1][tempCol + 1]->getShape() == tile->getShape()) {
                 rowTilesMatching = true;
                 tempRow = tempRow - 1;
@@ -532,13 +540,17 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
-        tempRow = startRow;
-        tempCol = startCol;
+
     }
+
+            tempRow = startRow;
+        tempCol = startCol;
 
     //down left colour
     if (startRow < ROWS && startCol >= 1) {
         while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
+                                std::cout << "down left colour loop" << std::endl;
+
             if (array[tempRow + 1][tempCol - 1]->getColour() == tile->getColour()) {
               rowTilesMatching = true;
                 tempRow = tempRow + 1;
@@ -551,13 +563,17 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
-        tempRow = startRow;
-        tempCol = startCol;
+
     }
+
+            tempRow = startRow;
+        tempCol = startCol;
 
     //down left colour
     if (startRow < ROWS && startCol >= 1) {
         while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
+                                std::cout << "down left shape loop" << std::endl;
+
             if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape()) {
               rowTilesMatching = true;
                 tempRow = tempRow + 1;
@@ -570,13 +586,16 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
                 rowTilesMatching = false;
             }
         }
-        tempRow = startRow;
-        tempCol = startCol;
+
     }
+            tempRow = startRow;
+        tempCol = startCol;
 
     //down right colour
     if (startRow <= ROWS && startCol <= COLS) {
         while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
+                                std::cout << "down right colour loop" << std::endl;
+
             if (array[tempRow + 1][tempCol + 1]->getColour() == tile->getColour()) {
                 rowTilesMatching = true;
                 tempRow = tempRow + 1;
@@ -590,9 +609,13 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
         }
     }
+            tempRow = startRow;
+        tempCol = startCol;
     //down right shape
     if (startRow <= ROWS && startCol <= COLS) {
         while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
+                                std::cout << "down right shape loop" << std::endl;
+
             if (array[tempRow + 1][tempCol + 1]->getShape() == tile->getShape()) {
                 rowTilesMatching = true;
                 tempRow = tempRow + 1;
