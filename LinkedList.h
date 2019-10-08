@@ -4,6 +4,12 @@
 
 #include "Node.h"
 #include <string>
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <random>
+#include <vector>
+#include <map>
 
 class LinkedList {
 
@@ -12,21 +18,24 @@ public:
     ~LinkedList();
 
     int size();
-    std::string toString(bool);
-    int length();
     void addLast(Tile* tile);
     void addFirst(Tile* tile);
     Tile* removeFirst();
-    Tile* removeTile(Tile* tile);
+    void removeTile(Tile* tile);
     Tile* getTile(Colour c);
+    Tile* get(int i);
     bool find(Colour);
+    bool find(Shape);
+    bool find(Tile* t);
     bool isEmpty();
     void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();
+    std::string toString(bool is_console);
 
 private:
     Node* head;
+    int length;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

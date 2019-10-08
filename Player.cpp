@@ -45,3 +45,19 @@ void Player::setDeck(LinkedList* d)
 {
     this->deck = d;
 }
+
+void Player::replaceTile(Tile* oldTile, Tile* newTile) {
+    this->deck->replace(oldTile, newTile);
+}
+
+void Player::placeTile(Tile* tileToPlace, Tile* getNewTile) {
+    if (tileToPlace != nullptr)
+    {
+        this->deck->removeTile(tileToPlace);
+    }
+    
+    if (getNewTile != nullptr) {
+        this->deck->addLast(getNewTile);
+    }
+
+}
