@@ -592,6 +592,7 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
             }
         }
     }
+    std::cout << "rowTilesMatching: " << rowTilesMatching << std::endl;
     return rowTilesMatching;
 }
 
