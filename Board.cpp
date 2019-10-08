@@ -180,7 +180,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //up-left
                 if (row >= 1 && col >= 1) {
                     if (!array[row - 1][col - 1]->isEmpty()) {
-                        if ((array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) && rowTilesMatch(row-1,col-1,tile) ) {
+                        if ((array[row - 1][col - 1]->getColour() == tile->getColour() || array[row - 1][col - 1]->getShape() == tile->getShape()) && rowTilesMatch(row,col,tile)) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -190,7 +190,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //up-right
                 if (row >= 1 && col < COLS) {
                     if (!array[row - 1][col + 1]->isEmpty()) {
-                        if (array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) {
+                        if ((array[row - 1][col + 1]->getColour() == tile->getColour() || array[row - 1][col + 1]->getShape() == tile->getShape()) && rowTilesMatch(row,col,tile)) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -200,7 +200,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //down left
                 if (row < ROWS && col >= 1) {
                     if (!array[row + 1][col - 1]->isEmpty()) {
-                        if (array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) {
+                        if ((array[row + 1][col - 1]->getColour() == tile->getColour() || array[row + 1][col - 1]->getShape() == tile->getShape()) && rowTilesMatch(row,col,tile)) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -210,7 +210,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 //down right
                 if (row < ROWS && col < COLS) {
                     if (!array[row + 1][col + 1]->isEmpty()) {
-                        if (array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) {
+                        if ((array[row + 1][col + 1]->getColour() == tile->getColour() || array[row + 1][col + 1]->getShape() == tile->getShape()) && rowTilesMatch(row,col,tile)) {
                             this->setTile(row, col, tile->getColour(), tile->getShape());
                             success = true;
                         }
@@ -298,38 +298,6 @@ int Board::getMovePoints(int placedRow, int placedCol)
 
     std::cout << movePoints << std::endl;
     return movePoints;
-}
-
-Tile* Board::getTile(int row, int col)
-{
-    return array[row][col];
-}
-
-void Board::setTile(int row, int col, Colour colour, Shape shape)
-{
-    array[row][col] = new Tile(colour, shape);
-}
-
-bool Board::isEmpty()
-{
-    for (int i = 0; i < ROWS; i++)
-        for (int j = 0; j < COLS; j++) {
-            if (array[i][j]->isEmpty())
-                return true;
-        }
-    return false;
-}
-
-bool Board::firstTurn()
-{
-    for (int row = 0; row < ROWS; row++) {
-        for (int col = 0; col < COLS; col++) {
-            if (!array[row][col]->isEmpty()) {
-                return false;
-            }
-        }
-    }
-    return true;
 }
 
 bool Board::notMatchingTile(int row, int col, Tile* tile)
@@ -459,6 +427,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
     rowTilesMatching = false;
 
     //up left colour
+    std::cout << startRow << "," << startCol << std::endl;
     if (startRow >= 1 && startCol >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
             std::cout << "up left colour loop" << std::endl;
@@ -472,9 +441,9 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             }
             else if (array[tempRow - 1][tempCol - 1]->getColour() != tile->getColour() && !array[tempRow - 1][tempCol - 1]->isEmpty()){
                 rowTilesMatching = false;
+                break;
             }
         }
-      std::cout << "up left col is " << rowTilesMatching << std::endl;
     }
         tempRow = startRow;
         tempCol = startCol;
@@ -483,6 +452,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
     if (tempRow >= 1 && tempRow >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
             std::cout << "up left shape loop" << std::endl;
+                  std::cout << "up left col is " << rowTilesMatching << std::endl;
             if (array[tempRow - 1][tempCol - 1]->getShape() == tile->getShape()){
                 std::cout << "here" << std::endl;
                 rowTilesMatching = true;
@@ -575,12 +545,11 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
             tempRow = startRow;
         tempCol = startCol;
 
-    //down left colour
+    //down left shape
     if (startRow < ROWS && startCol >= 1) {
         while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-                                std::cout << "down left shape loop" << std::endl;
-
-            if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape()) {
+              std::cout << "down left shape loop" << std::endl;
+            if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape() || array[tempRow + 1][tempCol - 1]->getColour() == tile->getColour()) {
               rowTilesMatching = true;
                 tempRow = tempRow + 1;
                 tempCol = tempCol - 1;
@@ -620,7 +589,7 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
               std::cout << "down right col is " << rowTilesMatching << std::endl;
 
     }
-            tempRow = startRow;
+        tempRow = startRow;
         tempCol = startCol;
     //down right shape
     if (startRow <= ROWS && startCol <= COLS) {
@@ -645,4 +614,28 @@ bool Board::rowTilesMatch(int startRow,int startCol,Tile* tile){
     //WHY IS THIS RETURNING FALSE???? the last change is true
     std::cout << "rowTilesMatching is " << rowTilesMatching << std::endl;
     return rowTilesMatching;
+}
+
+
+
+Tile* Board::getTile(int row, int col)
+{
+    return array[row][col];
+}
+
+void Board::setTile(int row, int col, Colour colour, Shape shape)
+{
+    array[row][col] = new Tile(colour, shape);
+}
+
+bool Board::firstTurn()
+{
+    for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS; col++) {
+            if (!array[row][col]->isEmpty()) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
