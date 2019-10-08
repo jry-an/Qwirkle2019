@@ -489,7 +489,7 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 }
                 //upright shape
             }
-            else if (tempRow >= 1 && startCol < COLS) {
+            else if (startCol >= 1 && startCol < COLS) {
                 if (array[tempRow - 1][tempCol + 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
                         {
@@ -531,7 +531,7 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 }
                 //down-left shape
             }
-            else if (tempCol < ROWS && tempCol >= 1) {
+            else if (startCol < ROWS && startCol >= 1) {
                 if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
                         {
@@ -573,7 +573,7 @@ bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
                 }
                 //down-right shape
             }
-            else if (tempRow <= ROWS && tempCol <= COLS) {
+            else if (startCol <= ROWS && startCol <= COLS) {
                 if (array[tempRow + 1][tempCol + 1]->getShape() == tile->getShape()) {
                     while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
                         {
