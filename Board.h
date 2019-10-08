@@ -23,6 +23,7 @@ class Board {
     int getMovePoints(int placedRow, int placedCol);
     bool firstTurn();
     bool notMatchingTile(int row, int col, Tile* tile);
+    bool notTileInRow(int placedRow,int placedCol, Tile* tile);
 
 private:
     Tile* array[ROWS][COLS];
