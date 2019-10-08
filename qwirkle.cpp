@@ -348,7 +348,9 @@ void Qwirkle::takeTurn()
             std::cout << "Game Over"<< std::endl;
             displayPlayersScore();
             std::cout << "Player "<< getWinningPlayer()->getName() + " won! " << std::endl;
-            std::cout << "\nGoodbye " << std::endl;
+            std::cout << "\nGoodbye. " << std::endl;
+            exit(EXIT_SUCCESS);
+
             continue;
          }
 
@@ -358,7 +360,8 @@ void Qwirkle::takeTurn()
             std::cout << "Game Over"<< std::endl;
             displayPlayersScore();
             std::cout << "Player "<< getWinningPlayer()->getName() + " won! " << std::endl;
-            std::cout << "\nGoodbye " << std::endl;
+            std::cout << "\nGoodbye. " << std::endl;
+            exit(EXIT_SUCCESS);
             continue;
          }
          else if (prompt == "save")
@@ -852,8 +855,8 @@ bool Qwirkle::playersHandEmpty()
 Player *Qwirkle::getWinningPlayer()
 {
     int highestScore = 0;
-    Player *winningPlayer = nullptr;
-    for (int i = 0; i < 2; i++)
+    Player *winningPlayer;
+    for (int i = 0; i < maxPlayers; i++)
     {
         if (players[i]->getScore() > highestScore)
         {

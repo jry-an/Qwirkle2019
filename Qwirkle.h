@@ -60,7 +60,6 @@ private:
     std::vector<Player*> players;
     int maxPlayers;
     int currentPlayer;
-    int boardSize;
     bool playersHandEmpty();
 };
 
