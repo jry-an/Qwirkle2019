@@ -12,3 +12,10 @@ Link to Trello:
 
 Link to Report:
     https://docs.google.com/document/d/1-Kf7WfYmCYoCjM5YmsQqGhVV6KneK55dbKuP50MeP58/edit?usp=sharing 
+
+UnitTesting code:
+     ./qwirkle < TestCases/<testname>.input > TestCases/<testname>.gameout 
+     diff -w TestCases/testname.output TestCases/testname.gameout
+  
+  //IF THERE IS ANY OUTPUT, THE TEST WILL BE FAILED
+ 

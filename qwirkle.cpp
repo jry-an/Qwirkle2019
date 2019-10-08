@@ -26,13 +26,15 @@ void Qwirkle::start()
    // and get the input for
    while (input != QUIT)
    {
+      std::string line;
       //print menu
       printMenu();
 
-      //get input from user
-      cout << "> ";
-      std::cin >> input;
-      cout << endl;
+      while (input == 0) {
+         //get input from user
+         cout << "> ";
+         
+         std::getline(std::cin, line);
 
       if (std::cin.eof())
       {

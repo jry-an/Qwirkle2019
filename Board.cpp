@@ -22,7 +22,7 @@ void Board::printBoard()
 {
     std::map<Colour, std::string> color_map;
     color_map[RED] = "\033[31m";
-    color_map[ORANGE] = "\033[33m";
+    color_map[ORANGE] = "\033[91m";
     color_map[GREEN] = "\033[32m";
     color_map[BLUE] = "\033[34m";
     color_map[YELLOW] = "\033[33m";
