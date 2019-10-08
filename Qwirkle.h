@@ -37,9 +37,9 @@ class Qwirkle {
 public:
     //constructor and deconstructor (if needed)
     Qwirkle();
-    Qwirkle(int numPlayers);
     ~Qwirkle();
 
+    int inputNumPlayers();
     Player* getNewPlayer();
     void newGame();
     void loadGame();

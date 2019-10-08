@@ -6,15 +6,38 @@ Qwirkle::Qwirkle()
    tileBag = new LinkedList;
 }
 
-Qwirkle::Qwirkle(int numPlayers)
-{
-   maxPlayers = numPlayers;
-   tileBag = new LinkedList();
-}
-
 Qwirkle::~Qwirkle()
 {
    delete tileBag;
+}
+
+int Qwirkle::inputNumPlayers() {
+   //todo
+   std::string line;
+   int players = 0;
+
+   while (players<2 || players>4) {
+      cout << "How many players? (2-4)" << endl;
+      cout << "> ";
+      
+      std::getline(std::cin, line);
+
+      if (std::cin.eof()) {
+         cout << "Goodbye." << endl;
+         exit(EXIT_SUCCESS);
+      }
+      try {
+         players = stoi(line);
+
+         if (players<2 || players>4) {
+               cout << "Invalid input. There may only be 2-4 players." << endl << endl;
+         }
+      }
+      catch(...){
+         cout << "Invalid input. There may only be 2-4 players." << endl << endl;
+      }
+   }
+   return players;
 }
 
 void Qwirkle::start()
@@ -50,6 +73,7 @@ void Qwirkle::start()
 
       if (input == NEW_GAME)
       { //1
+         maxPlayers = inputNumPlayers();
          newGame();
       }
       else if (input == LOAD_GAME)
@@ -429,6 +453,7 @@ void Qwirkle::loadGame()
       }
    }
    players.clear();
+
    //for all the players get 3 related lines from load file and create player object for each 
    for (int i=0; i!=maxPlayers; i++){
       std::string name;
@@ -543,10 +568,10 @@ void Qwirkle::loadGame()
 
    //check whos turn
    std::getline(loadFile, line);
-
    for (int i=0; i<players.size(); i++) {
       std::string name;
-      loadFile >> name;
+      std::stringstream input_stream(line);
+      input_stream >> name;   
       if (players.at(i)->getName() == name) {
          currentPlayer = i;
       }
