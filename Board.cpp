@@ -265,9 +265,10 @@ int Board::getMovePoints(int placedRow, int placedCol)
     int emptyFound = false;
     int movePoints = 1;
     //up left
+    std::cout << placedRow << placedCol << std::endl;
     if (placedRow >= 1 && placedCol >= 1) {
-        for (int r = placedRow - 1; r > 0; r--) {
-            for (int c = placedCol - 1; c > 0; c--) {
+        for (int r = placedRow - 1; r >= 0; r--) {
+            for (int c = placedCol - 1; c >= 0; c--) {
                 if (!array[r][c]->isEmpty()) {
                     if (emptyFound == false) {
                         movePoints++;
@@ -280,9 +281,10 @@ int Board::getMovePoints(int placedRow, int placedCol)
         }
     }
 
+
     //up right
     if (placedRow >= 1 && placedCol <= COLS) {
-        for (int r = placedRow - 1; r > 0; r--) {
+        for (int r = placedRow - 1; r >= 0; r--) {
             for (int c = placedCol + 1; c < COLS; c++) {
                 if (!array[r][c]->isEmpty()) {
                     if (emptyFound == false) {
@@ -295,12 +297,12 @@ int Board::getMovePoints(int placedRow, int placedCol)
             }
         }
     }
-    emptyFound = false;
 
+    emptyFound = false;
     //down left
-    if (placedRow > 0 && placedCol <= COLS) {
-        for (int r = placedRow - 1; r > 0; r--) {
-            for (int c = placedCol + 1; c < ROWS; c++) {
+    if (placedRow <= ROWS && placedCol > 0) {
+        for (int r = placedRow + 1; r < ROWS; r++) {
+            for (int c = placedCol -1; c > 0; c--) {
                 if (!array[r][c]->isEmpty()) {
                     if (emptyFound == false) {
                         movePoints++;
@@ -312,6 +314,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
             }
         }
     }
+
     emptyFound = false;
 
     //down right
@@ -329,9 +332,15 @@ int Board::getMovePoints(int placedRow, int placedCol)
             }
         }
     }
+if (movePoints == 1)
+{
+        std::cout << "You got: " << movePoints << " point" << std::endl;
 
+}else {
     std::cout << "You got: " << movePoints << " points" << std::endl;
     return movePoints;
+}
+return movePoints;
 }
 
 bool Board::notMatchingTile(int row, int col, Tile* tile)
