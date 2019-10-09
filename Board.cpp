@@ -257,7 +257,6 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
             }
         }
     }
-    std::cout << "make move: " << success<< std::endl;
     return success;
 }
 
