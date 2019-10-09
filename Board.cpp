@@ -244,7 +244,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
                 }
                 if (success) {
                     score = getMovePoints(row, col);
-                    if (score == 6) {
+                    if (score >= 6) {
                         std::cout << "\nQwirkle!!!\n";
                         score = score + 6;
                     }
