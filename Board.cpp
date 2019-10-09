@@ -266,7 +266,6 @@ int Board::getMovePoints(int placedRow, int placedCol)
     int tempRow = placedRow;
     int tempCol = placedCol;
     //up left
-    std::cout << placedRow << placedCol << std::endl;
     if (placedRow >= 1 && placedCol >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
             movePoints++;
