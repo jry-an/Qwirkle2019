@@ -208,7 +208,7 @@ void LinkedList::shuffle()
         std::shuffle(nodes.begin(), nodes.end(), std::default_random_engine(seed));
     }
     
-    node = head->next;
+    node = head;
     for (size_t i = 0; i < nodes.size(); i++) {
         node->tile = new Tile(nodes[i]->getColour(), nodes[i]->getShape());
         node = node->next;
