@@ -431,7 +431,6 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 {
 
     rowTilesMatching = true;
-
     bool emptyFound = false;
 
     //upleft colour

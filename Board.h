@@ -14,15 +14,24 @@ const int COLS = 27;
 
 class Board {
 public:
+    //constructor
     Board();
+    //print board to console
     void printBoard();
+    //returns board size
     int getBoardSize();
+    //sets the board size
     void setBoardSize(int size);
+    //checks critera for move and calls other functions for criteria
     bool makeMove(Player& player, int row, int col, Tile* tile);
+    //checks if tile is on a valid location, not a line
     bool tileOnALocation(int row, int col);
-
+    //set a board tile 
     void setTile(int row, int col, Colour colour, Shape shape);
+    //get tile at position(row,col)
     Tile* getTile(int row, int col);
+
+    //returns the amount of points for a tile placed in (row,col)
     int getMovePoints(int placedRow, int placedCol);
 
     bool firstTurn();
@@ -35,14 +44,11 @@ public:
     bool rowTilesMatch(int placedRow, int placedCol,Tile* tile);
 
     bool rowTilesMatching;
-
-
+    
 private:
     Tile* array[ROWS][COLS];
     int boardSize;
     char alphabet[26];
-
-
 };
 
 #endif
