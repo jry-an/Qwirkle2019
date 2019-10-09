@@ -266,13 +266,14 @@ int Board::getMovePoints(int placedRow, int placedCol)
     int tempRow = placedRow;
     int tempCol = placedCol;
     //up left
+    std::cout << placedRow << placedCol << std::endl;
     if (placedRow >= 1 && placedCol >= 1) {
         while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-            if (tempRow > 0 && tempCol > 0)
-            {            
             movePoints++;
             tempRow = tempRow - 1;
             tempCol = tempCol - 1;
+            if (tempRow < 1 || tempCol < 1) {
+                break;
             }
         }
 
@@ -284,23 +285,26 @@ int Board::getMovePoints(int placedRow, int placedCol)
     //up right
     if (placedRow <= ROWS && placedCol >= 1) {
         while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-            if (tempRow < ROWS && tempCol > 0){
             movePoints++;
             tempRow = tempRow + 1;
             tempCol = tempCol - 1;
+            if (tempRow >= ROWS - 1 || tempCol < 1) {
+                break;
             }
         }
-    }
         tempRow = placedRow;
         tempCol = placedCol;
+    }
 
     //down left
     if (placedRow >= 1 && placedCol <= COLS) {
         while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-            if (tempRow > 0 && tempCol < COLS)
             movePoints++;
             tempRow = tempRow - 1;
             tempCol = tempCol + 1;
+            if (tempRow < 1 || tempCol >= COLS - 1) {
+                break;
+            }
         }
         tempRow = placedRow;
         tempCol = placedCol;
@@ -309,17 +313,19 @@ int Board::getMovePoints(int placedRow, int placedCol)
     //down right
     if (placedRow <= ROWS && placedCol <= COLS) {
         while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-            if (tempRow < ROWS && tempCol < COLS){
             movePoints++;
             tempRow = tempRow + 1;
             tempCol = tempCol + 1;
+            if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
+                break;
+            }
         }
-    }
     }
 
     std::cout << "You got: " << movePoints << " points" << std::endl;
     return movePoints;
 }
+
 //you want this to return false, check if surrounding tiles are exact match
 bool Board::notMatchingTile(int row, int col, Tile* tile)
 {
