@@ -202,8 +202,8 @@ void LinkedList::shuffle()
         nodes.push_back(node->next->tile);
         node = node->next;
     }
-    int random = rand() % nodes.size(); 
-    
+    srand(time(0));
+    int random = (rand() % nodes.size() + 1); 
     for (int i=0; i<random; i++) {
         std::random_shuffle(nodes.begin(), nodes.end());
     }
