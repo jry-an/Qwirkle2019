@@ -855,6 +855,7 @@ bool Qwirkle::playersHandEmpty()
 Player *Qwirkle::getWinningPlayer()
 {
     int highestScore = 0;
+
     for (int i = 0; i < maxPlayers; i++)
     {
         if (players[i]->getScore() > highestScore)
