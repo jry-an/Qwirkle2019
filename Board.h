@@ -19,6 +19,8 @@ public:
     int getBoardSize();
     void setBoardSize(int size);
     bool makeMove(Player& player, int row, int col, Tile* tile);
+    bool tileOnALocation(int row, int col);
+
     void setTile(int row, int col, Colour colour, Shape shape);
     Tile* getTile(int row, int col);
     int getMovePoints(int placedRow, int placedCol);
@@ -30,7 +32,7 @@ public:
     //checks if there is an identical tile in the same line
     bool notTileInLine(int placedRow,int placedCol, Tile* tile);
     //checks the row that the tile is in and that it either matches colour or shape
-    bool rowTilesMatch(int startRow, int startCol,Tile* tile);
+    bool rowTilesMatch(int placedRow, int placedCol,Tile* tile);
 
     bool rowTilesMatching;
 
