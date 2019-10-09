@@ -61,6 +61,7 @@ private:
     int maxPlayers;
     int currentPlayer;
     bool playersHandEmpty();
+    Player *winningPlayer;
 };
 
 #endif

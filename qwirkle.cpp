@@ -468,7 +468,7 @@ void Qwirkle::loadGame() {
 
    // delete old players
    if (players.size()!=0) {
-      for (int i=0; i<players.size(); i++) {
+      for (unsigned int i=0; i<players.size(); i++) {
          delete players.at(i);
       }
    }
@@ -503,7 +503,7 @@ void Qwirkle::loadGame() {
       hand = new LinkedList();
       for (unsigned int j = 0; j != 6; j++)
       {
-         int numTiles = (line.length() + 1) / 3;
+         unsigned int numTiles = (line.length() + 1) / 3;
          if (j<numTiles)
          {
             colour = line[3 * j];
@@ -539,7 +539,7 @@ void Qwirkle::loadGame() {
                // find tiles corresponding row and col and add to board
                int tileRow = line[0] - 'A';
                int tileCol = 0;
-               for (int j=1; j<i; j++) {
+               for (unsigned int j=1; j<i; j++) {
                   if (line[j]== '|') {
                      tileCol++;
                   }
@@ -577,7 +577,7 @@ void Qwirkle::loadGame() {
    char colour;
    int shape;
    this->tileBag = new LinkedList();
-   int numTiles = (line.length() + 1) / 3;
+   unsigned int numTiles = (line.length() + 1) / 3;
 
    for (unsigned int j = 0; j != numTiles; j++)
    {
@@ -588,7 +588,7 @@ void Qwirkle::loadGame() {
 
    //check whos turn
    std::getline(loadFile, line);
-   for (int i=0; i<players.size(); i++) {
+   for (unsigned int i=0; i<players.size(); i++) {
       std::string name;
       std::stringstream input_stream(line);
       input_stream >> name;   
@@ -855,7 +855,6 @@ bool Qwirkle::playersHandEmpty()
 Player *Qwirkle::getWinningPlayer()
 {
     int highestScore = 0;
-    Player *winningPlayer;
     for (int i = 0; i < maxPlayers; i++)
     {
         if (players[i]->getScore() > highestScore)
