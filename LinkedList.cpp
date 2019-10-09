@@ -202,13 +202,21 @@ void LinkedList::shuffle()
         nodes.push_back(node->next->tile);
         node = node->next;
     }
-    auto rng = std::default_random_engine{};
-    std::shuffle(std::begin(nodes), std::end(nodes), rng);
+    int random = rand() % nodes.size(); 
+    
+    for (int i=0; i<random; i++) {
+        std::random_shuffle(nodes.begin(), nodes.end());
+    }
+    
     node = head->next;
     for (size_t i = 0; i < nodes.size(); i++) {
         node->tile = new Tile(nodes[i]->getColour(), nodes[i]->getShape());
         node = node->next;
     }
+}
+
+int getRand(int i) {
+    return std::rand()%i;
 }
 
 std::string LinkedList::toString(bool is_console)

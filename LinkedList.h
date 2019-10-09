@@ -5,11 +5,14 @@
 #include "Node.h"
 #include <string>
 #include <algorithm>
+#include <ctime>
 #include <iostream>
 #include <sstream>
 #include <random>
 #include <vector>
 #include <map>
+#include <cstdlib>
+#include <time.h>
 
 class LinkedList {
 
