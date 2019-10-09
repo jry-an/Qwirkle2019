@@ -338,6 +338,7 @@ void Qwirkle::takeTurn()
             }
             player.replaceTile(oldTile, tileBag->removeFirst());
             tileBag->addLast(oldTile);
+            tileBag->shuffle();
             is_end = false;
             flag = true;
          }
@@ -805,8 +806,8 @@ void Qwirkle::showInfo()
              << endl;
 
    cout << "Name: Thien Nguyen" << endl;
-   cout << "Student ID: sXXXXXXX" << endl;
-   cout << "Email: sXXXXXXX@student.rmit.edu.au" << endl;
+   cout << "Student ID: s3714217" << endl;
+   cout << "Email: s3714217@student.rmit.edu.au" << endl;
    cout << "-------------------------------- \n"
         << endl;
 }
