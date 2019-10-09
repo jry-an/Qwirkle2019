@@ -13,6 +13,8 @@
 #include <map>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>   
+#include <chrono> 
 #include <time.h>
 
 class LinkedList {

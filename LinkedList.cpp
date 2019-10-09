@@ -202,10 +202,10 @@ void LinkedList::shuffle()
         nodes.push_back(node->next->tile);
         node = node->next;
     }
-    srand(time(0));
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     int random = rand() % nodes.size(); 
     for (int i=0; i<random; i++) {
-        std::random_shuffle(nodes.begin(), nodes.end());
+        std::shuffle(nodes.begin(), nodes.end(), std::default_random_engine(seed));
     }
     
     node = head->next;
