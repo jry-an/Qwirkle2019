@@ -1,0 +1,43 @@
+
+Welcome to Qwirkle.
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Show student information
+4. Help!
+5. Quit
+
+> 
+Help Menu - List of Commands:
+--------------------------
+'replace' eg: replace O6
+'place' eg: place O6 at A0
+'save' eg: save
+          'filename'
+'done' Finish Game
+'Ctrl+D' Exit Immediately
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Show student information
+4. Help!
+5. Quit
+
+> 
+Invalid Input. 
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Show student information
+4. Help!
+5. Quit
+
+> 
+
+Goodbye.
