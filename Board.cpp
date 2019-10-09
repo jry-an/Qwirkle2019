@@ -18,11 +18,13 @@ Board::Board()
     }
 }
 
-int Board::getBoardSize() {
+int Board::getBoardSize()
+{
     return this->boardSize;
 }
 
-void Board::setBoardSize(int size) {
+void Board::setBoardSize(int size)
+{
     this->boardSize = size;
 }
 
@@ -153,17 +155,18 @@ void Board::printBoard()
     cout << endl;
 }
 
-bool Board::tileOnALocation(int row, int col){
+bool Board::tileOnALocation(int row, int col)
+{
     bool placeableLocation = false;
-    if(row % 2 == 0 && col % 2 == 0){
-            placeableLocation = true;
-    }
-    else {
-    if (row % 2 != 0 && col % 2 != 0){
+    if (row % 2 == 0 && col % 2 == 0) {
         placeableLocation = true;
     }
-}
-return placeableLocation;
+    else {
+        if (row % 2 != 0 && col % 2 != 0) {
+            placeableLocation = true;
+        }
+    }
+    return placeableLocation;
 }
 
 bool Board::makeMove(Player& player, int row, int col, Tile* tile)
@@ -196,7 +199,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
     if (row >= 0 && col >= 0 && row < ROWS && col < COLS) {
         //check if tile spot if empty
         if (array[row][col]->isEmpty()) {
-            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile) && rowTilesMatch(row, col, tile) && tileOnALocation(row,col)) {
+            if (!notMatchingTile(row, col, tile) && notTileInLine(row, col, tile) && rowTilesMatch(row, col, tile) && tileOnALocation(row, col)) {
 
                 //up-left
                 if (row >= 1 && col >= 1) {
@@ -366,240 +369,221 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
 
 bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 {
-    // int tempRow = placedRow;
-    // int tempCol = placedCol;
-
     bool notInLine = true;
+
     //upleft
     if (placedRow >= 1 && placedCol >= 1) {
-    for (int r = placedRow - 1; r > 0; r--)
-    {
-        for (int c = placedCol -1 ; c > 0 ; c--)
-        {
-            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
-                notInLine = false;
+        for (int r = placedRow - 1; r > 0; r--) {
+            for (int c = placedCol - 1; c > 0; c--) {
+                if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
+                    notInLine = false;
                 }
+            }
         }
     }
-        }
-     //upright
-  if (placedRow <= ROWS && placedCol > 0) {
-    for (int r = placedRow + 1; r < ROWS; r++){
-        for (int c = placedCol -1 ; c > 0 ; c--)
-        {
-            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
-                notInLine = false;
+    //upright
+    if (placedRow <= ROWS && placedCol > 0) {
+        for (int r = placedRow + 1; r < ROWS; r++) {
+            for (int c = placedCol - 1; c > 0; c--) {
+                if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
+                    notInLine = false;
                 }
+            }
         }
     }
-         }
 
-            //downleft
-  if (placedRow > 0 && placedCol <= COLS) {
-    for (int r = placedRow - 1; r > 0; r--){
-        for (int c = placedCol + 1 ; c < ROWS ; c++)
-        {
-            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
-                notInLine = false;
+    //downleft
+    if (placedRow > 0 && placedCol <= COLS) {
+        for (int r = placedRow - 1; r > 0; r--) {
+            for (int c = placedCol + 1; c < ROWS; c++) {
+                if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
+                    notInLine = false;
                 }
+            }
         }
     }
-         }
 
     //down right
-  if (placedRow <= ROWS && placedCol <= COLS) {
-    for (int r = placedRow + 1; r < ROWS; r++){
-        for (int c = placedCol + 1 ; c < ROWS ; c++)
-        {
-            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
-                notInLine = false;
+    if (placedRow <= ROWS && placedCol <= COLS) {
+        for (int r = placedRow + 1; r < ROWS; r++) {
+            for (int c = placedCol + 1; c < ROWS; c++) {
+                if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
+                    notInLine = false;
                 }
+            }
         }
     }
-         }
-    
+
     return notInLine;
 }
 
-bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
+bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 {
     int tempRow = startRow;
     int tempCol = startCol;
     rowTilesMatching = true;
 
+    bool emptyFound = false;
+
     //upleft colour
-    if (tempRow >= 1 && tempCol >= 1) {
-        if (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-            if (array[tempRow - 1][tempCol - 1]->getColour() == tile->getColour()) {
-                while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-                    {
-                         if (array[tempRow - 1][tempCol - 1]->getColour() != tile->getColour()) {
-                            rowTilesMatching = false;
-                            break;
-                        }
-                        tempRow = tempRow - 1;
-                        tempCol = tempCol - 1;
-                        if (tempRow < 1 || tempCol < 1) {
-                            break;
-                        }
-                       
-                    }
-                }
-                //upleft shape
-            }
-            else if (tempRow >= 1 && tempCol >= 1) {
+    if (placedRow >= 1 && placedCol >= 1) {
+        if (array[placedRow - 1 [placedCol - 1]->getColour == tile->getColour()]) {
 
-                if (array[tempRow - 1][tempCol - 1]->getShape() == tile->getShape()) {
-                    while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-                        {
-                            if (array[tempRow - 1][tempCol - 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
-                            tempRow = tempRow - 1;
-                            tempCol = tempCol - 1;
-                            if (tempRow < 1 || tempCol < 1) {
-                                break;
-                            }
-                            
+            for (int r = placedRow - 1; r > 0; r--) {
+                for (int c = placedCol - 1; c > 0; c--) {
+                    if (emptyFound == false) {
+                        if (!array[r][c]->isEmpty() && array[r][c]->getColour() != tile->getColour()) {
+                            rowTilesMatching = false;
+                        }
+                        if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
                         }
                     }
                 }
             }
         }
     }
-
-    tempRow = startRow;
-    tempCol = startCol;
-
-    //up-right colour
-    if (tempRow >= 1 && tempRow < COLS) {
-        if (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-            if (array[tempRow - 1][tempCol + 1]->getColour() == tile->getColour()) {
-                while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-                    {
-                         if (array[tempRow - 1][tempCol + 1]->getColour() != tile->getColour()) {
+    emptyFound = false;
+    //upleft shape
+    if (placedRow >= 1 && placedCol >= 1) {
+        if (array[placedRow - 1 [placedCol - 1]->getColour == tile->getShape()]) {
+            for (int r = placedRow - 1; r > 0; r--) {
+                for (int c = placedCol - 1; c > 0; c--) {
+                    if (emptyFound == false) {
+                        if (!array[r][c]->isEmpty() && array[r][c]->getShape() != tile->getShape()) {
                             rowTilesMatching = false;
-                            break;
                         }
-                        tempRow = tempRow - 1;
-                        tempCol = tempCol + 1;
-                        if (tempRow < 1 || tempCol >= COLS - 1) {
-                            break;
-                        }
-                       
-                    }
-                }
-                //upright shape
-            }
-            else if (startCol >= 1 && startCol < COLS) {
-                if (array[tempRow - 1][tempCol + 1]->getShape() == tile->getShape()) {
-                    while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-                        {
-                             if (array[tempRow - 1][tempCol + 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
-                            tempRow = tempRow - 1;
-                            tempCol = tempCol + 1;
-                            if (tempRow < 1 || tempCol >= COLS - 1) {
-                                break;
-                            }
-                           
+                        if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
                         }
                     }
                 }
             }
         }
     }
+    emptyFound = false;
 
-    tempRow = startRow;
-    tempCol = startCol;
+    //upright colour
+    if (placedRow >= 1 && placedCol <= COLS) {
+        if (array[placedRow - 1 [placedCol + 1]->getColour() == tile->getColour()]) {
 
-    //down-left colour
-    if (tempRow < ROWS && tempCol >= 1) {
-        if (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-            if (array[tempRow + 1][tempCol - 1]->getColour() == tile->getColour()) {
-                while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-                    {
-                        if (array[tempRow + 1][tempCol - 1]->getColour() != tile->getColour()) {
+            for (int r = placedRow - 1; r > 0; r--) {
+        for (int c = placedCol +1 ; c < COLS ; c++
+        {
+                    if (emptyFound == false) {
+                        if (!array[r][c]->isEmpty() && array[r][c]->getColour() != tile->getColour()) {
                             rowTilesMatching = false;
-                            break;
                         }
-                        tempRow = tempRow + 1;
-                        tempCol = tempCol - 1;
-                        if (tempRow >= ROWS - 1 || tempCol < 1) {
-                            break;
+                        if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
                         }
-                        
-                    }
-                }
-                //down-left shape
-            }
-            else if (startCol < ROWS && startCol >= 1) {
-                if (array[tempRow + 1][tempCol - 1]->getShape() == tile->getShape()) {
-                    while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-                        {
-                             if (array[tempRow + 1][tempCol - 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
-                            tempRow = tempRow + 1;
-                            tempCol = tempCol - 1;
-                            if (tempRow >= ROWS - 1 || tempCol < 1) {
-                                break;
-                            }
-                           
-                        }
-                    }
-                }
+                    }   
+        }
             }
         }
     }
+    emptyFound = false;
 
-    tempRow = startRow;
-    tempCol = startCol;
+    //upright shape
+    if (placedRow >= 1 && placedCol <= COLS) {
+        if (array[placedRow-1][placedCol + 1]->getShape() == tile->getShape()()])
+        {
 
-    //down-right colour
-    if (tempRow <= ROWS && tempCol <= COLS) {
-        if (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-            if (array[tempRow + 1][tempCol + 1]->getColour() == tile->getColour()) {
-                while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-                    {
-                        if (array[tempRow + 1][tempCol + 1]->getColour() != tile->getColour()) {
+            for (int r = placedRow - 1; r > 0; r--) {
+        for (int c = placedCol +1 ; c < COLS ; c++
+        {
+                    if (emptyFound == false) {
+                        if (!array[r][c]->isEmpty() && array[r][c]->getShape() != tile->getShape()) {
                             rowTilesMatching = false;
-                            break;
                         }
-                        tempRow = tempRow + 1;
-                        tempCol = tempCol + 1;
-                        if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
-                            break;
+                        if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
                         }
-                        
-                    }
-                }
-                //down-right shape
-            }
-            else if (startCol <= ROWS && startCol <= COLS) {
-                if (array[tempRow + 1][tempCol + 1]->getShape() == tile->getShape()){
-                    while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-                        {
-                             if (array[tempRow + 1][tempCol + 1]->getShape() != tile->getShape()) {
-                                rowTilesMatching = false;
-                                break;
-                            }
-                            tempRow = tempRow + 1;
-                            tempCol = tempCol + 1;
-                            if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
-                                break;
-                            }
-                           
-                        }
-                    }
-                }
+                    }   
+        }
             }
         }
     }
+    emptyFound = false;
+
+    //downleft colour
+    if (placedRow > 0 && placedCol <= COLS) {
+            if (array[placedRow-1][placedCol+1]->getColour() == tile->getColour()])
+        {
+                for (int r = placedRow - 1; r > 0; r--) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+                        if (emptyFound == false) {
+                            if (!array[r][c]->isEmpty() && array[r][c]->getColour() != tile->getColour()) {
+                                rowTilesMatching = false;
+                            }
+                            if (array[r][c]->isEmpty()) {
+                                emptyFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    emptyFound = false;
+
+    //downleft shape
+    if (placedRow > 0 && placedCol <= COLS) {
+            if (array[placedRow-1][placedCol+1]->getShape() == tile->getShape()])
+        {
+                for (int r = placedRow - 1; r > 0; r--) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+                        if (emptyFound == false) {
+                            if (!array[r][c]->isEmpty() && array[r][c]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                            }
+                            if (array[r][c]->isEmpty()) {
+                                emptyFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    emptyFound = false;
+    //downright colour
+    if (placedRow <= ROWS && placedCol <= COLS) {
+            if (array[placedRow+1][placedCol+1]->getColour() == tile->getColour()])
+        {
+                for (int r = placedRow + 1; r < ROWS; r++) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+                        if (emptyFound == false) {
+                            if (!array[r][c]->isEmpty() && array[r][c]->getColour() != tile->getColour()) {
+                                rowTilesMatching = false;
+                            }
+                            if (array[r][c]->isEmpty()) {
+                                emptyFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    emptyFound = false;
+
+    if (placedRow <= ROWS && placedCol <= COLS) {
+            if (array[placedRow+1][placedCol+1]->getShape() == tile->getShape()])
+        {
+                for (int r = placedRow + 1; r < ROWS; r++) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+                        if (emptyFound == false) {
+                            if (!array[r][c]->isEmpty() && array[r][c]->getShape() != tile->getShape()) {
+                                rowTilesMatching = false;
+                            }
+                            if (array[r][c]->isEmpty()) {
+                                emptyFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
     return rowTilesMatching;
 }
 

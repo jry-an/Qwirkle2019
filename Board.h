@@ -32,7 +32,7 @@ public:
     //checks if there is an identical tile in the same line
     bool notTileInLine(int placedRow,int placedCol, Tile* tile);
     //checks the row that the tile is in and that it either matches colour or shape
-    bool rowTilesMatch(int startRow, int startCol,Tile* tile);
+    bool rowTilesMatch(int placedRow, int placedCol,Tile* tile);
 
     bool rowTilesMatching;
 
