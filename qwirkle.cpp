@@ -338,7 +338,6 @@ void Qwirkle::takeTurn()
             }
             player.replaceTile(oldTile, tileBag->removeFirst());
             tileBag->addLast(oldTile);
-           // tileBag->shuffle();
             is_end = false;
             flag = true;
          }
