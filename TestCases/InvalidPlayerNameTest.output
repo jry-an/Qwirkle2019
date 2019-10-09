@@ -10,5 +10,8 @@ How many players? (2-4)
 5. Quit
 
 > 
-Goodbye. 
+Enter a name for Player 1:
+> Invalid input for player name. Must contain letters only. 
 
+> 
+Goodbye.

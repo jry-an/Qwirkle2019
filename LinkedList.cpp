@@ -190,7 +190,7 @@ void LinkedList::clear()
     }    
 }
 
-bool LinkedList::isEmpty() {
+bool LinkedList::Empty() {
     return (head == nullptr);
 }
 

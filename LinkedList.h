@@ -27,7 +27,7 @@ public:
     bool find(Colour);
     bool find(Shape);
     bool find(Tile* t);
-    bool isEmpty();
+    bool Empty();
     void replace(Tile* oldTile, Tile* newTile);
     void shuffle();
     void clear();

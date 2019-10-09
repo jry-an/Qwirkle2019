@@ -301,7 +301,7 @@ void Qwirkle::takeTurn()
                cout << "Invalid move. Try again.\n\n> ";
                continue;
             }
-            if (!tileBag->isEmpty())
+            if (!tileBag->Empty())
             {
                Tile *newTile = tileBag->removeFirst();
                player.placeTile(oldTile, newTile);
@@ -331,14 +331,14 @@ void Qwirkle::takeTurn()
             }
 
             //GameOver
-            if (tileBag->isEmpty())
+            if (tileBag->Empty())
             {
                cout << "Bag is empty and you can't replace\n\n> ";
                continue;
             }
             player.replaceTile(oldTile, tileBag->removeFirst());
             tileBag->addLast(oldTile);
-            tileBag->shuffle();
+           // tileBag->shuffle();
             is_end = false;
             flag = true;
          }
@@ -355,7 +355,7 @@ void Qwirkle::takeTurn()
          }
 
          // Executes when Tilebag has no more tiles AND the players hand is empty
-         else if (tileBag->isEmpty() && playersHandEmpty() )
+         else if (tileBag->Empty() && playersHandEmpty() )
          {
             std::cout << "Game Over"<< std::endl;
             displayPlayersScore();
@@ -796,7 +796,7 @@ void Qwirkle::showInfo()
         << endl;
 
    cout << "Name: Aaron Chan" << endl;
-   cout << "Student ID: sXXXXXXX" << endl;
+   cout << "Student ID: s3666603" << endl;
    cout << "Email: s3666603@student.rmit.edu.au \n"
         << endl;
 
