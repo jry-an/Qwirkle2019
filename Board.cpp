@@ -330,7 +330,7 @@ int Board::getMovePoints(int placedRow, int placedCol)
         }
     }
 
-    std::cout << movePoints << std::endl;
+    std::cout << "You got: " << movePoints << " points" << std::endl;
     return movePoints;
 }
 
