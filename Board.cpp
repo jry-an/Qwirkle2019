@@ -262,62 +262,74 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
 
 int Board::getMovePoints(int placedRow, int placedCol)
 {
+    int emptyFound = false;
     int movePoints = 1;
-    int tempRow = placedRow;
-    int tempCol = placedCol;
     //up left
     if (placedRow >= 1 && placedCol >= 1) {
-        while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
+        for (int r = placedRow - 1; r > 0; r--) {
+            for (int c = placedCol - 1; c > 0; c--) {
+                  if (!array[r][c]->isEmpty()) {
+                      if (emptyFound == false) {
             movePoints++;
-            tempRow = tempRow - 1;
-            tempCol = tempCol - 1;
-            if (tempRow < 1 || tempCol < 1) {
-                break;
-            }
+            if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    }
         }
-
-        tempRow = placedRow;
-        tempCol = placedCol;
+    }
+        }
     }
 
     //up right
-    if (placedRow <= ROWS && placedCol >= 1) {
-        while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-            movePoints++;
-            tempRow = tempRow + 1;
-            tempCol = tempCol - 1;
-            if (tempRow >= ROWS - 1 || tempCol < 1) {
-                break;
-            }
+    if (placedRow >= 1 && placedCol <= COLS) {
+for (int r = placedRow - 1; r > 0; r--) {
+        for (int c = placedCol +1 ; c < COLS ; c++)
+        {
+            if (!array[r][c]->isEmpty()) {
+                    if (emptyFound == false) {            
+                        movePoints++;
+            if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    } 
         }
-        tempRow = placedRow;
-        tempCol = placedCol;
     }
+    }
+    }
+    emptyFound = false;
 
     //down left
-    if (placedRow >= 1 && placedCol <= COLS) {
-        while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-            movePoints++;
-            tempRow = tempRow - 1;
-            tempCol = tempCol + 1;
-            if (tempRow < 1 || tempCol >= COLS - 1) {
-                break;
-            }
+    if (placedRow > 0 && placedCol <= COLS) {
+        for (int r = placedRow - 1; r > 0; r--) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+            if (!array[r][c]->isEmpty()) {
+                    if (emptyFound == false) {            
+                        movePoints++;
+            if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    } 
         }
-        tempRow = placedRow;
-        tempCol = placedCol;
     }
+    }
+    }
+        emptyFound = false;
+
 
     //down right
-    if (placedRow <= ROWS && placedCol <= COLS) {
-        while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-            movePoints++;
-            tempRow = tempRow + 1;
-            tempCol = tempCol + 1;
-            if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
-                break;
-            }
+      if (placedRow <= ROWS && placedCol <= COLS) {
+    for (int r = placedRow + 1; r < ROWS; r++) {
+                    for (int c = placedCol + 1; c < ROWS; c++) {
+            if (!array[r][c]->isEmpty()) {
+                    if (emptyFound == false) {            
+                        movePoints++;
+            if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    } 
         }
+    }
+    }
     }
 
     std::cout << movePoints << std::endl;
@@ -419,15 +431,14 @@ bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 
 bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 {
-    int tempRow = startRow;
-    int tempCol = startCol;
+
     rowTilesMatching = true;
 
     bool emptyFound = false;
 
     //upleft colour
     if (placedRow >= 1 && placedCol >= 1) {
-        if (array[placedRow - 1 [placedCol - 1]->getColour == tile->getColour()]) {
+        if (array[placedRow - 1 ][placedCol - 1]->getColour() == tile->getColour()) {
 
             for (int r = placedRow - 1; r > 0; r--) {
                 for (int c = placedCol - 1; c > 0; c--) {
@@ -446,7 +457,7 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
     emptyFound = false;
     //upleft shape
     if (placedRow >= 1 && placedCol >= 1) {
-        if (array[placedRow - 1 [placedCol - 1]->getColour == tile->getShape()]) {
+        if (array[placedRow - 1 ][placedCol - 1]->getColour() == tile->getShape()) {
             for (int r = placedRow - 1; r > 0; r--) {
                 for (int c = placedCol - 1; c > 0; c--) {
                     if (emptyFound == false) {
@@ -465,10 +476,10 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 
     //upright colour
     if (placedRow >= 1 && placedCol <= COLS) {
-        if (array[placedRow - 1 [placedCol + 1]->getColour() == tile->getColour()]) {
+        if (array[placedRow - 1 ][placedCol + 1]->getColour() == tile->getColour()) {
 
             for (int r = placedRow - 1; r > 0; r--) {
-        for (int c = placedCol +1 ; c < COLS ; c++
+        for (int c = placedCol +1 ; c < COLS ; c++)
         {
                     if (emptyFound == false) {
                         if (!array[r][c]->isEmpty() && array[r][c]->getColour() != tile->getColour()) {
@@ -486,11 +497,11 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 
     //upright shape
     if (placedRow >= 1 && placedCol <= COLS) {
-        if (array[placedRow-1][placedCol + 1]->getShape() == tile->getShape()()])
+        if (array[placedRow-1][placedCol + 1]->getShape() == tile->getShape())
         {
 
             for (int r = placedRow - 1; r > 0; r--) {
-        for (int c = placedCol +1 ; c < COLS ; c++
+        for (int c = placedCol +1 ; c < COLS ; c++)
         {
                     if (emptyFound == false) {
                         if (!array[r][c]->isEmpty() && array[r][c]->getShape() != tile->getShape()) {
@@ -508,7 +519,7 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 
     //downleft colour
     if (placedRow > 0 && placedCol <= COLS) {
-            if (array[placedRow-1][placedCol+1]->getColour() == tile->getColour()])
+            if (array[placedRow-1][placedCol+1]->getColour() == tile->getColour())
         {
                 for (int r = placedRow - 1; r > 0; r--) {
                     for (int c = placedCol + 1; c < ROWS; c++) {
@@ -529,7 +540,7 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
 
     //downleft shape
     if (placedRow > 0 && placedCol <= COLS) {
-            if (array[placedRow-1][placedCol+1]->getShape() == tile->getShape()])
+            if (array[placedRow-1][placedCol+1]->getShape() == tile->getShape())
         {
                 for (int r = placedRow - 1; r > 0; r--) {
                     for (int c = placedCol + 1; c < ROWS; c++) {
@@ -548,7 +559,7 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
     emptyFound = false;
     //downright colour
     if (placedRow <= ROWS && placedCol <= COLS) {
-            if (array[placedRow+1][placedCol+1]->getColour() == tile->getColour()])
+            if (array[placedRow+1][placedCol+1]->getColour() == tile->getColour())
         {
                 for (int r = placedRow + 1; r < ROWS; r++) {
                     for (int c = placedCol + 1; c < ROWS; c++) {
@@ -567,7 +578,7 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
     emptyFound = false;
 
     if (placedRow <= ROWS && placedCol <= COLS) {
-            if (array[placedRow+1][placedCol+1]->getShape() == tile->getShape()])
+            if (array[placedRow+1][placedCol+1]->getShape() == tile->getShape())
         {
                 for (int r = placedRow + 1; r < ROWS; r++) {
                     for (int c = placedCol + 1; c < ROWS; c++) {
