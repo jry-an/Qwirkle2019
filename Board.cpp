@@ -257,6 +257,7 @@ bool Board::makeMove(Player& player, int row, int col, Tile* tile)
             }
         }
     }
+    std::cout << "make move: " << success<< std::endl;
     return success;
 }
 
@@ -343,6 +344,7 @@ if (movePoints == 1)
 return movePoints;
 }
 
+//you want this to return false, check if surrounding tiles are exact match
 bool Board::notMatchingTile(int row, int col, Tile* tile)
 {
     bool notMatchingTile = false;
@@ -376,6 +378,7 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
         }
         //down right
         if (row < ROWS && col < COLS) {
+            std::cout << array[row + 1][col + 1]->getTileCode() << endl;
             if (!array[row + 1][col + 1]->isEmpty()) {
                 if (array[row + 1][col + 1]->getColour() != tile->getColour() && array[row + 1][col + 1]->getShape() != tile->getShape()) {
                     notMatchingTile = true;
@@ -389,49 +392,80 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
 bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 {
     bool notInLine = true;
+    bool emptyFound = false;
 
     //upleft
     if (placedRow >= 1 && placedCol >= 1) {
         for (int r = placedRow - 1; r > 0; r--) {
             for (int c = placedCol - 1; c > 0; c--) {
+                  if (emptyFound == false) {
                 if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
                     notInLine = false;
                 }
+                if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    }
             }
         }
     }
+        emptyFound = false;
+
     //upright
     if (placedRow <= ROWS && placedCol > 0) {
         for (int r = placedRow + 1; r < ROWS; r++) {
             for (int c = placedCol - 1; c > 0; c--) {
+                                    if (emptyFound == false) {
+
                 if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
                     notInLine = false;
                 }
+                if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    }
             }
         }
     }
+        emptyFound = false;
+
 
     //downleft
     if (placedRow > 0 && placedCol <= COLS) {
         for (int r = placedRow - 1; r > 0; r--) {
             for (int c = placedCol + 1; c < ROWS; c++) {
+                                    if (emptyFound == false) {
                 if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
                     notInLine = false;
                 }
+                if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    }
             }
         }
     }
+        emptyFound = false;
+
 
     //down right
     if (placedRow <= ROWS && placedCol <= COLS) {
         for (int r = placedRow + 1; r < ROWS; r++) {
             for (int c = placedCol + 1; c < ROWS; c++) {
+                                    if (emptyFound == false) {
+
                 if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)) {
                     notInLine = false;
                 }
+                if (array[r][c]->isEmpty()) {
+                            emptyFound = true;
+                        }
+                    }
             }
         }
     }
+        emptyFound = false;
+
 
     return notInLine;
 }
@@ -593,7 +627,6 @@ bool Board::rowTilesMatch(int placedRow, int placedCol, Tile* tile)
             }
         }
     }
-
     return rowTilesMatching;
 }
 
