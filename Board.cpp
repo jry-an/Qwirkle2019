@@ -366,79 +366,59 @@ bool Board::notMatchingTile(int row, int col, Tile* tile)
 
 bool Board::notTileInLine(int placedRow, int placedCol, Tile* tile)
 {
-    int tempRow = placedRow;
-    int tempCol = placedCol;
-    //up left
+    // int tempRow = placedRow;
+    // int tempCol = placedCol;
+
+    bool notInLine = true;
+    //upleft
     if (placedRow >= 1 && placedCol >= 1) {
-        while (!array[tempRow - 1][tempCol - 1]->isEmpty()) {
-            if (array[tempRow - 1][tempCol - 1]->isEqual(tile)) {
-                return false;
-            }
-            else {
-                tempRow = tempRow - 1;
-                tempCol = tempCol - 1;
-                if (tempRow < 1 || tempCol < 1) {
-                    break;
+    for (int r = placedRow - 1; r > 0; r--)
+    {
+        for (int c = placedCol -1 ; c > 0 ; c--)
+        {
+            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
+                notInLine = false;
                 }
-            }
         }
-
-        tempRow = placedRow;
-        tempCol = placedCol;
     }
-
-    //up right
-    if (placedRow <= ROWS && placedCol >= 1) {
-        while (!array[tempRow + 1][tempCol - 1]->isEmpty()) {
-            if (array[tempRow + 1][tempCol - 1]->isEqual(tile)) {
-                return false;
-            }
-            else {
-                tempRow = tempRow + 1;
-                tempCol = tempCol - 1;
-                if (tempRow >= ROWS - 1 || tempCol < 1) {
-                    break;
+        }
+     //upright
+  if (placedRow <= ROWS && placedCol > 0) {
+    for (int r = placedRow + 1; r < ROWS; r++){
+        for (int c = placedCol -1 ; c > 0 ; c--)
+        {
+            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
+                notInLine = false;
                 }
-            }
         }
-        tempRow = placedRow;
-        tempCol = placedCol;
     }
+         }
 
-    //down left
-    if (placedRow >= 1 && placedCol <= COLS) {
-        while (!array[tempRow - 1][tempCol + 1]->isEmpty()) {
-            if (array[tempRow - 1][tempCol + 1]->isEqual(tile)) {
-                return false;
-            }
-            else {
-                tempRow = tempRow - 1;
-                tempCol = tempCol + 1;
-                if (tempRow < 1 || tempCol >= COLS - 1) {
-                    break;
+            //downleft
+  if (placedRow > 0 && placedCol <= COLS) {
+    for (int r = placedRow - 1; r > 0; r--){
+        for (int c = placedCol + 1 ; c < ROWS ; c++)
+        {
+            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
+                notInLine = false;
                 }
-            }
         }
-        tempRow = placedRow;
-        tempCol = placedCol;
     }
+         }
 
     //down right
-    if (placedRow <= ROWS && placedCol <= COLS) {
-        while (!array[tempRow + 1][tempCol + 1]->isEmpty()) {
-            if (array[tempRow + 1][tempCol + 1]->isEqual(tile)) {
-                return false;
-            }
-            else {
-                tempRow = tempRow + 1;
-                tempCol = tempCol + 1;
-                if (tempRow >= ROWS - 1 || tempCol >= COLS - 1) {
-                    break;
+  if (placedRow <= ROWS && placedCol <= COLS) {
+    for (int r = placedRow + 1; r < ROWS; r++){
+        for (int c = placedCol + 1 ; c < ROWS ; c++)
+        {
+            if (!array[r][c]->isEmpty() && array[r][c]->isEqual(tile)){
+                notInLine = false;
                 }
-            }
         }
     }
-    return true;
+         }
+    
+    return notInLine;
 }
 
 bool Board::rowTilesMatch(int startRow, int startCol, Tile* tile)
