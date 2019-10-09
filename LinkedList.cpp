@@ -203,7 +203,7 @@ void LinkedList::shuffle()
         node = node->next;
     }
     srand(time(0));
-    int random = (rand() % nodes.size() + 1); 
+    int random = rand() % nodes.size(); 
     for (int i=0; i<random; i++) {
         std::random_shuffle(nodes.begin(), nodes.end());
     }
